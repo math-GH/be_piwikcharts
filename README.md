@@ -1,9 +1,22 @@
 be_piwikcharts
 =============
+
+
+UPDATE-HINWEIS (Version <1.3.0)
+===============================
+Bitte kein Update über das Backend durchführen! Sondern wie folgt vorgehen:
+
+    * Ordner "bepiwikcharts" im Ordner system\modules\ löschen!
+    * Dann die Extension über den Erweiterungskatalog neu installieren
+
+Hintergrund: neuer Ordnername für die Extension. Contao schießt bei dem Update quer. Sorry für die Umstände 
+
+
+Beschreibung
+============
 Webseitenstatistiken aus einer Piwik-Installation im Backend unter System -> "Statistiken Besucher" anzeigen.
 
 Webseitenstatistiken aus einer Piwik-Installation im Backend unter System -> "Statistiken Besucher" anzeigen.
-
 
 
 Benötigt wird die URL zur Piwikinstallation, die SeitenID unter der in Piwik die Webseite getrackt wird und der Auth-Code. Diese Daten unter System -> Einstellungen im Abschnitt "Piwik-Statistiken" eintragen. Ohne Verbindungsdaten werden die Statistikdaten von demo.piwik.org angezeigt.
