@@ -1,0 +1,151 @@
+#be_piwikcharts div.piwikinfo p {
+  color:grey;
+  font-size:80%
+}
+
+#be_piwikcharts div.serverinfo {
+  background: #fafafa;
+  border: 1px dotted grey;
+  padding: 10px;
+  margin: 0px 0px 20px 0px;
+}
+
+#be_piwikcharts div.serverinfo div.piwikserver {
+  margin-top:20px;
+}
+
+#be_piwikcharts div.summary {
+  float:right;
+  margin-right: 10px;
+}
+
+#be_piwikcharts div.summary table td.col0,
+#be_piwikcharts div.summary table td.col1 {
+  text-align: right;
+}
+
+#be_piwikcharts div.serverinfo a.extern {
+  background: url('./linkarrow.gif') no-repeat right center;
+  padding-right: 8px;
+}
+
+#be_piwikcharts div.serverinfo a.goToSettings {
+  background: url('./gear.png') no-repeat right center;
+  padding-right: 16px;
+}
+
+#be_piwikcharts div.serverinfo a.optOut {
+  background: url('./optout.png') no-repeat right center;
+  padding-right: 15px;
+}
+
+#be_piwikcharts div.serverinfo a.update {
+  background: url('./update.png') no-repeat right center;
+  padding-right: 16px;
+  font-weight: bold;
+}
+
+#be_piwikcharts div.serverinfo a.print {
+  background: url('./print.gif') no-repeat right center;
+  padding-right: 17px;
+}
+
+#be_piwikcharts div.serverinfo span.settings {
+  text-align:right;
+  display:block;
+}
+
+#be_piwikcharts table{
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#be_piwikcharts table th, #be_piwikcharts table td{
+  text-align: center;
+}
+
+#be_piwikcharts table.graphes{
+  width: 100%;
+}
+
+#be_piwikcharts table.graphes th{
+  width: 50%;
+}
+
+#be_piwikcharts table.graphes td{
+  background: url('./laden.gif') no-repeat center center;
+  height: 100px;
+}
+
+
+#be_piwikcharts table.downloads td,
+#be_piwikcharts table.downloads th,
+#be_piwikcharts table.data td{
+  border: 1px solid grey;
+  padding: 3px 10px;
+}
+
+#be_piwikcharts table.data th.col0{
+  text-align: center;
+  width:40%;
+}
+
+#be_piwikcharts table.data td.col0{
+  border-right: 0px;
+  text-align: right;
+}
+
+#be_piwikcharts table.data td.col1{
+  background: #f0f0f0;
+  border-left: 0px;
+  width:10%;
+  text-align: center;
+}
+
+#be_piwikcharts table.downloads td.col1{
+  background: #f0f0f0;
+  text-align: right;
+}
+
+#be_piwikcharts table.downloads tr:hover,
+#be_piwikcharts table.data tr:hover{
+  background: #f0f0f0;
+}
+
+#be_piwikcharts table.downloads th,
+#be_piwikcharts table.data th{
+  border: 1px solid grey;
+  background: #f0f0f0;
+  padding: 3px 10px;
+}
+
+#be_piwikcharts table.data th.col0{
+  border-right: 0px;
+}
+
+#be_piwikcharts table.data th.col1{
+  border-left: 0px;
+}
+
+#be_piwikcharts img {
+  margin-right: 20px;
+}
+
+@media print{
+#left, #header, #main h1.main_headline,
+#be_piwikcharts div.serverinfo, #footer{
+  display: none;
+}
+h1, h2, h3 {
+  font-size: 18px;
+}
+
+hr {
+  color: grey;
+  background-color: grey;
+  border: 1px grey solid;
+  height: 1px;
+}
+
+
+}
