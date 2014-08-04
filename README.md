@@ -6,8 +6,8 @@ UPDATE-HINWEIS (Version <1.3.0)
 ===============================
 Bitte kein Update über das Backend durchführen! Sondern wie folgt vorgehen:
 
-    * Ordner "bepiwikcharts" im Ordner system\modules\ löschen!
-    * Dann die Extension über den Erweiterungskatalog neu installieren
+  * Ordner "bepiwikcharts" im Ordner system\modules\ löschen!
+  * Dann die Extension über den Erweiterungskatalog neu installieren
 
 Hintergrund: neuer Ordnername für die Extension. Contao schießt bei dem Update quer. Sorry für die Umstände 
 
