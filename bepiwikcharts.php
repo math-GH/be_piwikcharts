@@ -184,9 +184,7 @@ class bepiwikcharts extends BackendModule {
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout = 5);
-    if ($GLOBALS["TL_CONFIG"]['piwikchartsSSHconnection'] == true ) {
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    }
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     if ($GLOBALS["TL_CONFIG"]['piwikchartsRedirect'] == true ) {
       curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     } 
