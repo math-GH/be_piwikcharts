@@ -184,8 +184,12 @@ class bepiwikcharts extends BackendModule {
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout = 5);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    if ($GLOBALS["TL_CONFIG"]['piwikchartsSSHconnection'] == true ) {
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    }
+    if ($GLOBALS["TL_CONFIG"]['piwikchartsRedirect'] == true ) {
+      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    } 
     $file = curl_exec($ch);
     curl_close($ch);
     return $file;
@@ -405,12 +409,12 @@ class bepiwikcharts extends BackendModule {
 
         $objTemplate2->link_optOut = $this->url."index.php?module=CoreAdminHome&action=optOut";
         $objTemplate2->showOptOut = $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageOptout'] || $this->User->isAdmin;
-        $objTemplate2->optOutIcon = "system/modules/bepiwikcharts/assets/optout.png";
+        $objTemplate2->optOutIcon = "system/modules/be_piwikcharts/assets/optout.png";
 
         $objTemplate2->update = $this->checkUpdate();
 
         $objTemplate2->showUpdate = $this->User->isAdmin || $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageUpdate'];
-        $objTemplate2->updateIcon = "system/modules/bepiwikcharts/assets/update.png";
+        $objTemplate2->updateIcon = "system/modules/be_piwikcharts/assets/update.png";
         $objTemplate2->link_server = $this->url;
 
 

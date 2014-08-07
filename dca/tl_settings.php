@@ -31,7 +31,7 @@
 /**
  * Add to palette
  */
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{piwikcharts_legend:hide},piwikchartsURL,piwikchartsSiteID,piwikchartsAuthCode,piwikchartsUsername,piwikchartsPassword,piwikchartsWelcomePageAdmin,piwikchartsWelcomePage,piwikchartsWelcomePageUpdate,piwikchartsWelcomePageOptout;';
+$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{piwikcharts_legend:hide},piwikchartsURL,piwikchartsSiteID,piwikchartsAuthCode,piwikchartsUsername,piwikchartsPassword,piwikchartsWelcomePageAdmin,piwikchartsWelcomePage,piwikchartsWelcomePageUpdate,piwikchartsWelcomePageOptout,piwikchartsSSHconnection,piwikchartsRedirect;';
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsURL'] = array
 (
@@ -99,6 +99,18 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsWelcomePageOptout'] = ar
   'inputType' => 'checkbox',
 );
 
+$GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsSSHconnection'] = array
+(
+	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsSSHconnection'],
+  'inputType' => 'checkbox',
+);
+
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsRedirect'] = array
+(
+	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsRedirect'],
+  'inputType' => 'checkbox',
+);
 
 
 
