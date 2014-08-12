@@ -1,5 +1,11 @@
 ﻿<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!'); ?>
 
+<?php 
+  if ($this->errorMessage) { 
+    echo $this->errorMessage; 
+  }else{ 
+?>
+
 <div style='display:inline-block;height:155px;position:relative;top:0px;background:url("system/modules/be_piwikcharts/assets/laden.gif") no-repeat 150px 50px;width:335px;'>
   <?php echo $this->chart_evolutionVisitsSummaryDay; ?>
 </div>
@@ -40,4 +46,4 @@
   </div>
 
 
-
+<?php } ?>

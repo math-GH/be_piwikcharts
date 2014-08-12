@@ -1,5 +1,9 @@
 <?php if (!defined('TL_ROOT')) die('You cannot access this file directly!'); ?>
-
+<?php 
+  if ($this->errorMessage) { 
+    echo $this->errorMessage; 
+  }else{ 
+?>
 <div id="be_piwikcharts">
   <div class="serverinfo">
     <span class="settings">
@@ -102,3 +106,4 @@
 
   </div>
 </div>
+<?php } ?>

@@ -27,7 +27,8 @@
  * @license    GNU/LGPL 
  * @filesource
  *
- * // Piwik-API: http://piwik.org/docs/analytics-api/metadata/#toc-static-image-graphs
+ * // Piwik-API: http://developer.piwik.org/api-reference/reporting-api
+ * // Standard-API: http://developer.piwik.org/api-reference/reporting-api#standard-api-parameters
  */
 
 class bepiwikcharts extends BackendModule {
@@ -40,10 +41,12 @@ class bepiwikcharts extends BackendModule {
   public $piwik_TOKENauth = "anonymous";  
   
   
-  public $tableMaxRows = 10;
+  private $tableMaxRows = 10;
   public $modus = 0;      // 0 = Demo, 1 = normal
-  public $username = "";
-  public $password = "";
+  private $username = "";
+  private $password = "";
+  private $error = FALSE;
+  private $errorCode = 0;
   
   public function compile() {}
     
@@ -62,7 +65,7 @@ class bepiwikcharts extends BackendModule {
         $this->piwik_TOKENauth = $GLOBALS["TL_CONFIG"]['piwikchartsAuthCode'];
         $this->username = $GLOBALS["TL_CONFIG"]['piwikchartsUsername'];
         $this->password = $GLOBALS["TL_CONFIG"]['piwikchartsPassword'];
-        $this->modus = 1; //1 = Normalmodus
+        $this->modus = 1; //1 = Normalmodus;
     }
   }
   
@@ -77,6 +80,11 @@ class bepiwikcharts extends BackendModule {
       // Objekt vom Template "be_piwikcharts" erzeugen
       $objTemplate = new BackendTemplate('be_piwikcharts');
       
+      $objTemplate->update = $this->checkUpdate();
+      if ( $this->error ) {
+        $objTemplate->errorMessage = "be_piwikcharts: Error#".$this->errorCode." (Connection failed. Check your connection settings.)";
+        return $objTemplate->parse();
+      }
       
       // Userklasse laden. Wird zum Prüfen benötigt, ob der User ein Admin ist
       $this->import('BackendUser', 'User');
@@ -85,17 +93,17 @@ class bepiwikcharts extends BackendModule {
       // Steuerelemente
       $objTemplate->link_settings = $this->Environment->path."/contao/main.php?do=settings#pal_piwikcharts_legend";
 
-	  if(!empty($this->username) && !empty($this->password)){
-	      $hashed = hash('md5', @Encryption::decrypt($this->password));
-		  $objTemplate->link_server_login = $this->url.'index.php?module=Login&action=logme&login='.$this->username.'&password='.$hashed;
-	  }
+      if(!empty($this->username) && !empty($this->password)){
+          $hashed = hash('md5', @Encryption::decrypt($this->password));
+        $objTemplate->link_server_login = $this->url.'index.php?module=Login&action=logme&login='.$this->username.'&password='.$hashed;
+      }
 
-	  $objTemplate->link_server = $this->url;
+      $objTemplate->link_server = $this->url;
 
 
       $objTemplate->piwik_IDsite = $this->piwik_IDsite;
       $objTemplate->link_optOut = $this->url."index.php?module=CoreAdminHome&action=optOut";
-      $objTemplate->update = $this->checkUpdate();
+      
       $objTemplate->showUpdate = $this->User->isAdmin || $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageUpdate'];
       
       // 30 Tage Besuchergraf
@@ -348,18 +356,25 @@ class bepiwikcharts extends BackendModule {
   */
   function checkUpdate() {
     if ($this->modus == 1) {
-      // aktuelle Version vom Server lesen
-      $xml = new SimpleXMLElement($this->readfile($this->url."index.php?module=API&method=API.getPiwikVersion&format=xml&token_auth=".$this->piwik_TOKENauth));
-      $version_installed = trim($xml[0]);
-      
-      // neuste Version vom Piwik-Server lesen
-      $version_newest = trim($this->readfile("http://api.piwik.org/1.0/getLatestVersion/"));
+      try {
+        // aktuelle Version vom Server lesen
+        $xml = new SimpleXMLElement($this->readfile($this->url."index.php?module=API&method=API.getPiwikVersion&format=xml&token_auth=".$this->piwik_TOKENauth));
+        $version_installed = trim($xml[0]);
 
-      if ($version_newest == $version_installed) {
+        // neuste Version vom Piwik-Server lesen
+        $version_newest = trim($this->readfile("http://api.piwik.org/1.0/getLatestVersion/"));
+
+        if ($version_newest == $version_installed) {
+          return "";
+          } else {
+          return $version_newest;
+        }
+      } catch (Exception $e) {
+        $this->error = TRUE;
+        $this->errorCode = 1;
         return "";
-        } else {
-        return $version_newest;
       }
+      
       } else {
       return "";
     }
@@ -374,9 +389,10 @@ class bepiwikcharts extends BackendModule {
       $this->import('BackendUser', 'User');
      
       if ($GLOBALS["TL_CONFIG"]['piwikchartsWelcomePage'] || ($this->User->isAdmin && $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageAdmin']) ) {
+        $objTemplate = new BackendTemplate('ce_headline');
         $strBuffer = '<div id="welcomepagePiwikcharts" style="margin:18px;">';
 
-        $objTemplate = new BackendTemplate('ce_headline');
+        
         $objTemplate->hl = 'h2';
         $objTemplate->class = 'ce_headline';
         $objTemplate->style = 'background:none repeat scroll 0 0 #F6F6F6;border: solid #E9E9E9; border-width: 1px 0px 1px 0px; margin:18px 0px 6px; padding: 2px 6px 3px;';
@@ -390,6 +406,16 @@ class bepiwikcharts extends BackendModule {
         $objTemplate->style = 'position:relative;';
 
         $objTemplate2 = new BackendTemplate('be_piwikcharts_welcome');
+        $objTemplate2->update = $this->checkUpdate();
+        if ( $this->error ) {
+          $objTemplate2->errorMessage = "be_piwikcharts: Error#".$this->errorCode." (Connection failed. Check your connection settings.)";
+          $objTemplate->text = $objTemplate2->parse();
+          $strBuffer .= $objTemplate->parse();
+
+          $strBuffer .= '</div>';
+
+          return $strBuffer;
+        }
 
         $objTemplate2->chart_evolutionVisitsSummaryDay .= $this->printChart( "evolution", "VisitsSummary", "day", "previous30", 400,180, 80, "get", "", "margin-right:20px;" );
         $objTemplate2->chart_evolutionVisitsSummaryMonth .= $objTemplate->chart_evolutionVisitsSummaryMonth = $this->printChart( "evolution", "VisitsSummary", "month", "previous24", 400, 100, 80, "get", "&colors=,,ff0000", "margin-bottom: 10px;" );
@@ -409,7 +435,6 @@ class bepiwikcharts extends BackendModule {
         $objTemplate2->showOptOut = $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageOptout'] || $this->User->isAdmin;
         $objTemplate2->optOutIcon = "system/modules/be_piwikcharts/assets/optout.png";
 
-        $objTemplate2->update = $this->checkUpdate();
 
         $objTemplate2->showUpdate = $this->User->isAdmin || $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageUpdate'];
         $objTemplate2->updateIcon = "system/modules/be_piwikcharts/assets/update.png";
