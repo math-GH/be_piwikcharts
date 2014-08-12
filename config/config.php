@@ -21,8 +21,8 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  µaTh 2011 
- * @author     µaTh 
+ * @copyright  ï¿½aTh 2011 
+ * @author     ï¿½aTh 
  * @package    be_infopage 
  * @license    GNU/LGPL 
  * @filesource
@@ -59,6 +59,8 @@
 $GLOBALS['TL_CONFIG']['dashboardMode'] = 'automatic';
 $GLOBALS['TL_CONFIG']['dashboardAccess'] = 'public';
 $GLOBALS['TL_CONFIG']['dashboardLimit'] = '0';
+
+$GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_absoluteUrl');
 
 
 array_insert($GLOBALS['BE_MOD']['system'], 98, array(

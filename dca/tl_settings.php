@@ -35,74 +35,74 @@ $GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{piwikcharts_legen
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsURL'] = array
 (
-	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsURL'],
+	'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['URL'],
   'inputType' => 'text',
   'exclude' => true,
-  'eval' => array('mandatory' => false, 'rgxp' => 'piwikchartsURL', 'tl_class' => 'w50', 'trailingSlash' => true)
+  'eval' => array('mandatory' => false, 'rgxp' => 'absoluteUrl', 'tl_class' => 'w50', 'trailingSlash' => true)
   
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsSiteID'] = array
 (
-	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsSiteID'],
+	'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['siteID'],
   'inputType' => 'text',
   'exclude' => true,
-  'eval' => array('mandatory' => false, 'rgxp' => 'piwikchartsSiteID', 'tl_class' => 'w50')
+  'eval' => array('mandatory' => false, 'rgxp' => 'digit', 'tl_class' => 'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsAuthCode'] = array
 (
-	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsAuthCode'],
+	'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['authCode'],
   'inputType' => 'text',
   'exclude' => true,
-  'eval' => array('mandatory' => false, 'rgxp' => 'piwikchartsAuthCode', 'tl_class' => 'long')
+  'eval' => array('mandatory' => false, 'rgxp' => 'alnum', 'tl_class' => 'long clr')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsUsername'] = array
 (
-	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsUsername'],
+	'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['username'],
   'inputType' => 'text',
   'exclude' => true,
-  'eval' => array('mandatory' => false, 'rgxp' => 'piwikchartsUsername', 'tl_class' => 'w50')
+  'eval' => array('mandatory' => false, 'tl_class' => 'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsPassword'] = array
 (
-	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsPassword'],
+	'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['password'],
   'inputType' => 'text',
   'exclude' => true,
-  'eval' => array('mandatory' => false, 'rgxp' => 'piwikchartsPassword', 'hideInput' => true, 'encrypt' => true)
+  'eval' => array('mandatory' => false, 'hideInput' => true, 'encrypt' => true)
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsWelcomePageAdmin'] = array
 (
-	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsWelcomePageAdmin'],
+	'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['welcomePageAdmin'],
   'inputType' => 'checkbox',
 	'eval' => array('tl_class' => 'clr')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsWelcomePage'] = array
 (
-	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsWelcomePage'],
+	'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['welcomePage'],
   'inputType' => 'checkbox',
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsWelcomePageUpdate'] = array
 (
-	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsWelcomePageUpdate'],
+	'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['welcomePageUpdate'],
   'inputType' => 'checkbox',
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsWelcomePageOptout'] = array
 (
-	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsWelcomePageOptout'],
+	'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['welcomePageOptout'],
   'inputType' => 'checkbox',
 );
 
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsRedirect'] = array
 (
-	'label' => &$GLOBALS['TL_LANG']['piwikchartsURL']['piwikchartsRedirect'],
+	'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['redirect'],
   'inputType' => 'checkbox',
 );
 

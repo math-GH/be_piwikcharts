@@ -459,5 +459,31 @@ class bepiwikcharts extends BackendModule {
     }
   }
 
+  
+/**
+ * Regular Expression für die URL in den Einstellungen
+ * siehe Contao-Doku: https://contao.org/de/manual/3.3/customizing-contao.html#addcustomregexp
+ * 
+ * @param type $strRegexp
+ * @param type $varValue
+ * @param Widget $objWidget
+ * @return boolean
+ */
+public function myRegexp_absoluteUrl($strRegexp, $varValue, Widget $objWidget)
+{
+    if ($strRegexp == 'absoluteUrl')
+    {
+        if (!preg_match('%^(?:(?:https?)://)(?:\S+(?::\S*)?@|\d{1,3}(?:\.\d{1,3}){3}|(?:(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)(?:\.(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)*(?:\.[a-z\x{00a1}-\x{ffff}]{2,6}))(?::\d+)?(?:[^\s]*)?$%iu', $varValue))
+        {
+            $objWidget->addError($GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['URL']['absoluteUrl_regExp']);
+        }
+ 
+        return true;
+    }
+ 
+    return false;
+}
+  
+  
 }
 ?>
