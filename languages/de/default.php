@@ -1,4 +1,7 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
+
+if (!defined('TL_ROOT'))
+  die('You can not access this file directly!');
 
 /**
  * Contao Open Source CMS
@@ -32,9 +35,9 @@
  * Load on be_welcome
  */
 if (TL_MODE == 'BE') {
-	if (!strlen($_GET['do'])) {
-		$bepiwikcharts = new bepiwikcharts();
-		$GLOBALS['TL_LANG']['MSC']['welcomeTo'] .= '</h1>' . $bepiwikcharts->dashboardWelcomePage() . '<h1 style="display:none">&nbsp;';
-	}
+  if (!strlen($_GET['do'])) {
+    $bepiwikcharts = new bepiwikcharts();
+    $GLOBALS['TL_LANG']['MSC']['welcomeTo'] .= '</h1>' . $bepiwikcharts->dashboardWelcomePage() . '<h1 style="display:none">&nbsp;';
+  }
 }
 
