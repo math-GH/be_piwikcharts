@@ -35,9 +35,11 @@ if (!defined('TL_ROOT'))
 $GLOBALS['TL_LANG']['tl_settings']['piwikcharts_legend'] = 'Piwik: Statistiken Besucher (be_piwikcharts)';
 
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['URL'] = array("URL", "URL zu der Piwik-Installation: (http(s)://sub.domain.tld/subfolder/)");
-$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['URL']['absoluteUrl_regExp'] = 'Bitte geben Sie ein gültiges URL-Format ein und kodieren Sie Sonderzeichen! (http(s)://sub.domain.tld/subfolder/)';
+$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['URL']['rgxp_URL'] = 'Bitte geben Sie ein gültiges URL-Format ein und kodieren Sie Sonderzeichen! (http(s)://sub.domain.tld/subfolder/)';
+$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['URL']['rgxp_httpCode'] = 'Piwik-Installation konnte nicht gefunden werden. Server meldet HTTP-Code ';
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['siteID'] = array("SiteID", "Webseiten-ID: idSite-Variable aus der Piwik-Installation. Bei Piwik-Installationen, die nur eine Webseite erfassen ist 1 der Standard. DenWert der idSite-Variabe findet man in der URL, wenn man sich das Dashboards auf dem Piwik-Server anschaut.");
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['authCode'] = array("AuthCode", "AuthCode für die Verbindung mit Piwik um die Statistiken im Backendmodul anzeigen zu können.");
+$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['authCode']['rgxp'] = "Mit diesem AuthCode ist keine Verbindung mit der Piwik-Installation möglich.";
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['username'] = array("Benutzername", "Benutzername für den Auto-Login in Piwik (optional)");
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['password'] = array("Passwort", "Passwort für den Auto-Login mit Piwik (optional)");
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['welcomePageAdmin'] = array("BE-Startseite: Statistiken anzeigen (nur für Admins)", "Nur für Admin-User: Zeigt eine Auswahl von Statistiken auf der ersten Seite nach dem Login an. Zusätzlich wird geprüft ob ein Update von Piwik bereit steht.");

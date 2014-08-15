@@ -60,7 +60,8 @@ $GLOBALS['TL_CONFIG']['dashboardMode'] = 'automatic';
 $GLOBALS['TL_CONFIG']['dashboardAccess'] = 'public';
 $GLOBALS['TL_CONFIG']['dashboardLimit'] = '0';
 
-$GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_absoluteUrl');
+$GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_checkPiwikUrl');
+$GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_checkAuthCode');
 
 
 array_insert($GLOBALS['BE_MOD']['system'], 98, array(

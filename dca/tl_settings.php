@@ -40,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsURL'] = array
     'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['URL'],
     'inputType' => 'text',
     'exclude' => true,
-    'eval' => array('mandatory' => false, 'rgxp' => 'absoluteUrl', 'tl_class' => 'w50', 'trailingSlash' => true)
+    'eval' => array('mandatory' => false, 'rgxp' => 'checkPiwikUrl', 'tl_class' => 'w50', 'trailingSlash' => true)
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsSiteID'] = array
@@ -56,7 +56,7 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsAuthCode'] = array
     'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['authCode'],
     'inputType' => 'text',
     'exclude' => true,
-    'eval' => array('mandatory' => false, 'rgxp' => 'alnum', 'tl_class' => 'long clr')
+    'eval' => array('mandatory' => false, 'rgxp' => 'checkAuthCode', 'tl_class' => 'long clr')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsUsername'] = array
