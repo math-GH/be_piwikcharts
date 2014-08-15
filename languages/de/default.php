@@ -60,7 +60,7 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update'] = "
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update_title'] = "Ein neues Update der Piwik-Software ist verfügbar";
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last30days_headline'] = "letzte 30 Tage";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last24months_headline'] = "letzte 30 Tage";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last24months_headline'] = "letzte 24 Monate";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitsPerServerTime_headline'] = "Besuchszeiten (Serverzeit)";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitTimeByDayOfWeek_headline'] = "Besuchertage";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_userBrowser_headline'] = "Browser";

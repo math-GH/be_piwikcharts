@@ -142,7 +142,7 @@ class bepiwikcharts extends BackendModule {
    */
   function printTable_downloads($inhalte, $cssklasse = "") {
     $tabelle = "<table class=\"" . $cssklasse . "\">";
-    $tabelle .= "<tr><th class=\"col0\">Domain</th><th class=\"col1\">Datei</th><th class=\"col2\">Downloads</th></tr>";
+    $tabelle .= "<tr><th class=\"col0\">".$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_domain']."</th><th class=\"col1\">".$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_file']."</th><th class=\"col2\">".$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_count']."</th></tr>";
     for ($i = 0; $i <= count($inhalte) / 2; $i = $i + 2) {
       $maxZeilen = $this->tableMaxRows;
       if ($maxZeilen > count($inhalte[$i + 1])) {
