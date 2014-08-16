@@ -41,6 +41,7 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['live']['last30mi
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['live']['last24hours'] = "letzte 24 Stunden";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['optOut'] = "Optout: Eigene Besuche auf der Webseite nicht mehr erfassen";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['newVersionHint'] = "Ein neues Update der Piwik-Software ist verfügbar";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['zoomIt'] = "Mehr Statistiken...";
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['headline'] = "Statistiken Besucher mit Piwik";
 
@@ -94,7 +95,8 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['piwikinfo'] = "<p>Pi
  * Load on be_welcome
  */
 if (TL_MODE == 'BE') {
-  if (!strlen($_GET['do'])) {
+  $this->import('BackendUser', 'User');
+  if (!strlen($_GET['do']) && ($this->User->language == "de") ) {
     $bepiwikcharts = new bepiwikcharts();
     $GLOBALS['TL_LANG']['MSC']['welcomeTo'] .= '</h1>' . $bepiwikcharts->dashboardWelcomePage() . '<h1 style="display:none">&nbsp;';
   }

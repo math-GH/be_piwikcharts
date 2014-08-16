@@ -13,7 +13,7 @@ if ($this->errorMessage) {
 <div style='display:inline-block;height:155px;position:absolute;top:0px;background:url("system/modules/be_piwikcharts/assets/laden.gif") no-repeat 80px 20px;width:335px;'>
   <?php echo $this->chart_evolutionVisitsSummaryMonth; ?>
   <br />
-
+  
 
 
   <table style="position:absolute;right:0px;">
@@ -32,7 +32,6 @@ if ($this->errorMessage) {
   </table>
 
 
-
 </div>
 
 <div style="position:absolute;right:0px;top:0px;width:20px;text-align:center;">
@@ -43,6 +42,9 @@ if ($this->errorMessage) {
   <?php if($this->update && $this->showUpdate): ?>
   <a class="update" href="<?php echo $this->link_server ?>" onclick="window.open(this.href);
       return false;" title="<?php echo $this->lang->newVersionHint; ?>: <?php echo $this->update ?>"><img src="<?php echo $this->updateIcon ?>" style="margin-bottom:10px;" /></a>
+  <?php endif; ?>
+  <?php if($this->moreLinkAccess): ?>
+  <a href="./contao/main.php?do=be_piwikcharts"><img src="<?php echo $this->zoomIcon ?>" title="<?php echo $this->lang->zoomIt; ?>" /></a>
   <?php endif; ?>
 
 </div>
