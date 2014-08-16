@@ -70,7 +70,53 @@ class bepiwikcharts extends BackendModule {
     }
   }
 
-  
+  /**
+   * checkUpdate - prüft auf Updates
+   * @return wenn neue Version vorliegt: neue Versionsnummer. Wenn keine neue Version vorliegt: Leerstring
+   */
+  function checkUpdate() {
+    if ($this->modus == 1) {
+      try {
+        // aktuelle Version vom Server lesen
+        $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getPiwikVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
+        $version_installed = trim($xml[0]);
+
+        // neuste Version vom Piwik-Server lesen
+        $version_newest = trim($this->readfile("http://api.piwik.org/1.0/getLatestVersion/"));
+
+        if ($version_newest == $version_installed) {
+          return "";
+        } else {
+          return $version_newest;
+        }
+      } catch (Exception $e) {
+        $this->error = TRUE;
+        $this->errorCode = 1;
+        return "";
+      }
+    } else {
+      return "";
+    }
+  }
+
+  /**
+   * Abfrage des PIWIK- Servers
+   * @param $url string  Url- Fragment mit Abfrage zum PIWIK- Server
+   * @return Array mit den abgefragten Werten
+   * */
+  function readfile($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout = 5);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    if ($GLOBALS["TL_CONFIG"]['piwikchartsRedirect'] == true) {
+      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    }
+    $file = curl_exec($ch);
+    curl_close($ch);
+    return $file;
+  }
 
   /**
    * XMLload() - lädt XML-Datei
@@ -94,25 +140,6 @@ class bepiwikcharts extends BackendModule {
       }
     }
     return $ausgabe;
-  }
-
-  /**
-   * Abfrage des PIWIK- Servers
-   * @param $url string  Url- Fragment mit Abfrage zum PIWIK- Server
-   * @return Array mit den abgefragten Werten
-   * */
-  function readfile($url) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout = 5);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    if ($GLOBALS["TL_CONFIG"]['piwikchartsRedirect'] == true) {
-      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    }
-    $file = curl_exec($ch);
-    curl_close($ch);
-    return $file;
   }
 
   /**
@@ -142,12 +169,15 @@ class bepiwikcharts extends BackendModule {
    */
   function printTable_downloads($inhalte, $cssklasse = "") {
     $tabelle = "<table class=\"" . $cssklasse . "\">";
-    $tabelle .= "<tr><th class=\"col0\">".$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_domain']."</th><th class=\"col1\">".$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_file']."</th><th class=\"col2\">".$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_count']."</th></tr>";
+    $tabelle .= "<tr><th class=\"col0\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_domain'] . "</th><th class=\"col1\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_file'] . "</th><th class=\"col2\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_count'] . "</th></tr>";
+
     for ($i = 0; $i <= count($inhalte) / 2; $i = $i + 2) {
       $maxZeilen = $this->tableMaxRows;
+
       if ($maxZeilen > count($inhalte[$i + 1])) {
         $maxZeilen = count($inhalte[$i + 1]);
       }
+
       for ($j = 0; $j < $maxZeilen; $j++) {
         $tabelle .= "<tr>";
         $tabelle .= "<td class=\"col0\">" . $inhalte[$i] . "</td>";
@@ -157,6 +187,7 @@ class bepiwikcharts extends BackendModule {
         $tabelle .= "</tr>";
       }
     }
+
     $tabelle .= "</table>";
 
     return $tabelle;
@@ -260,44 +291,10 @@ class bepiwikcharts extends BackendModule {
     return '<img src="' . $this->buildURL("ImageGraph.get", $period, $date, '&apiModule=' . $apiModule . '&apiAction=' . $apiAction . '&graphType=' . $graphType . '&width=' . $width . '&height=' . $height . $additional) . '" alt="" width="' . ($width * $scale / 100) . '" style="' . $cssStyle . '" />';
   }
 
-  /**
-   * checkUpdate - prüft auf Updates
-   * @return wenn neue Version vorliegt: neue Versionsnummer. Wenn keine neue Version vorliegt: Leerstring
-   */
-  function checkUpdate() {
-    if ($this->modus == 1) {
-      try {
-        // aktuelle Version vom Server lesen
-        $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getPiwikVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
-        $version_installed = trim($xml[0]);
-
-        // neuste Version vom Piwik-Server lesen
-        $version_newest = trim($this->readfile("http://api.piwik.org/1.0/getLatestVersion/"));
-
-        if ($version_newest == $version_installed) {
-          return "";
-        } else {
-          return $version_newest;
-        }
-      } catch (Exception $e) {
-        $this->error = TRUE;
-        $this->errorCode = 1;
-        return "";
-      }
-    } else {
-      return "";
-    }
-  }
-
-  
-  
-  
-  
-  /*******************************************
+  /*   * *****************************************
    * Templates mit Inhalten füllen
-   ******************************************/
-  
-  
+   * **************************************** */
+
   /**
    * dashboardWelcomePage - Statistiken auf der Welcomepage nach dem Login anzeigen
    */
@@ -308,7 +305,7 @@ class bepiwikcharts extends BackendModule {
       $this->import('BackendUser', 'User');
 
       if ($GLOBALS["TL_CONFIG"]['piwikchartsWelcomePage'] || ($this->User->isAdmin && $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageAdmin'])) {
-        
+
         $strBuffer = '<div id="welcomepagePiwikcharts" style="margin:18px;">';
 
         $objTemplate_head = new BackendTemplate('ce_headline');
@@ -322,7 +319,7 @@ class bepiwikcharts extends BackendModule {
         $objTemplate_text = new BackendTemplate('ce_text');
         $objTemplate_text->class = 'ce_text';
         $objTemplate_text->style = 'position:relative;';
-        
+
 
         $objTemplate_content = new BackendTemplate('be_piwikcharts_welcome');
         $objTemplate_content->update = $this->checkUpdate();
@@ -335,12 +332,12 @@ class bepiwikcharts extends BackendModule {
 
           return $strBuffer;
         }
-        
+
         // Text-Labels im Template bequem zur Verfügung stellen
-        $objTemplate_content->lang = (object)$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard'];
+        $objTemplate_content->lang = (object) $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard'];
 
         // Diagramme
-        $objTemplate_content->chart_evolutionVisitsSummaryDay   .= $this->printChart("evolution", "VisitsSummary", "day", "previous30", 400, 180, 80, "get", "", "margin-right:20px;");
+        $objTemplate_content->chart_evolutionVisitsSummaryDay .= $this->printChart("evolution", "VisitsSummary", "day", "previous30", 400, 180, 80, "get", "", "margin-right:20px;");
         $objTemplate_content->chart_evolutionVisitsSummaryMonth .= $this->printChart("evolution", "VisitsSummary", "month", "previous24", 400, 100, 80, "get", "&colors=,,ff0000", "margin-bottom: 10px;");
 
         //im Demo-Modus (0) ist die Anzeige letzte 30Min/24h deaktivert
@@ -364,7 +361,7 @@ class bepiwikcharts extends BackendModule {
         $objTemplate_content->link_server = $this->url;
 
 
-        
+
         $objTemplate_text->text = $objTemplate_content->parse();
         $strBuffer .= $objTemplate_text->parse();
 
@@ -379,9 +376,7 @@ class bepiwikcharts extends BackendModule {
       return "";
     }
   }
-  
-  
-  
+
   /**
    * generate() - wird von Contao automatisch geladen
    *
@@ -392,8 +387,8 @@ class bepiwikcharts extends BackendModule {
     if (TL_MODE == 'BE') {
       // Objekt vom Template "be_piwikcharts" erzeugen
       $objTemplate = new BackendTemplate('be_piwikcharts');
-      
-      $objTemplate->lang = (object)$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet'];
+
+      $objTemplate->lang = (object) $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet'];
 
       $objTemplate->update = $this->checkUpdate();
       if ($this->error) {
@@ -443,69 +438,46 @@ class bepiwikcharts extends BackendModule {
       $objTemplate->table_keywords = $this->printTable(
               $this->PHPload(
                       $this->buildURL(
-                              "Referers.getKeywords", 
-                              "range", 
-                              "previous30", 
-                              "&format=php&filter_limit=20"
-                      ), 
-                      array("label", "nb_visits")
-              ), 
-              array(
-                      $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_keyword'],
-                      $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_count']
-              ), 
-              "data"
+                              "Referers.getKeywords", "range", "previous30", "&format=php&filter_limit=20"
+                      ), array("label", "nb_visits")
+              ), array(
+          $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_keyword'],
+          $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_count']
+              ), "data"
       );
 
       //Tabelle: Besucher von Webseite
       $objTemplate->table_fromWebsite = $this->printTable(
               $this->PHPload(
                       $this->buildURL(
-                              "Referers.getWebsites", 
-                              "range", 
-                              "previous30", 
-                              "&format=php&filter_limit=20"
-                       ), 
-                      array("label", "nb_visits")
-               ), 
-              array(
-                      $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_website'],
-                      $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_count']
-              ), 
-              "data"
-       );
+                              "Referers.getWebsites", "range", "previous30", "&format=php&filter_limit=20"
+                      ), array("label", "nb_visits")
+              ), array(
+          $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_website'],
+          $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_count']
+              ), "data"
+      );
 
       // Tabelle: angeschaute Seiten
       $objTemplate->table_visitedPages = $this->printTable(
               $this->PHPload(
                       $this->buildURL(
-                              "Actions.getPageUrls", 
-                              "range", 
-                              "previous30", 
-                              "&format=php&filter_limit=20"
-                      ), 
-                      array("label", "nb_visits")
-              ), 
-              array(
-                  $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_page'],
-                  $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_count']
-              ), 
-              "data"
+                              "Actions.getPageUrls", "range", "previous30", "&format=php&filter_limit=20"
+                      ), array("label", "nb_visits")
+              ), array(
+          $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_page'],
+          $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_count']
+              ), "data"
       );
 
       // Tabelle: Downloads
       $objTemplate->table_downloads = $this->printTable_downloads(
               $this->PHPload(
                       $this->buildURL(
-                              "Actions.getDownloads", 
-                              "range", 
-                              "previous30", 
-                              "&format=php&filter_limit=20&expanded=1&filter_limit=10"
-                      ), 
-                      array("label", "subtable")
-              ), 
-              "downloads"
-       );
+                              "Actions.getDownloads", "range", "previous30", "&format=php&filter_limit=20&expanded=1&filter_limit=10"
+                      ), array("label", "subtable")
+              ), "downloads"
+      );
 
       // Zusammenfassung (letzte 30 Minuten/letzte 24 Stunden)
       //im Demo-Modus ist die Anzeige letzte 30Min/24h deaktivert
@@ -525,17 +497,12 @@ class bepiwikcharts extends BackendModule {
     // generate() von der Oberklasse (BackendModule) aufrufen
     return parent::generate();
   }
-  
-  
-  
-  
 
-  
-  /****************************************************************************
+  /*   * **************************************************************************
    * individuelle rgxp:
    * siehe Contao-Doku: https://contao.org/de/manual/3.3/customizing-contao.html#addcustomregexp
-   ****************************************************************************/
-  
+   * ************************************************************************** */
+
   /**
    * checkPiwikUrl: URL-Format prüfen + prüfen ob Piwik-Installation gefunden werden kann.
    * 
@@ -546,10 +513,10 @@ class bepiwikcharts extends BackendModule {
    */
   public function myRegexp_checkPiwikUrl($strRegexp, $varValue, Widget $objWidget) {
     if ($strRegexp == 'checkPiwikUrl') {
-      if ( substr(trim($varValue), -1, 1) != "/") {
+      if (substr(trim($varValue), -1, 1) != "/") {
         $varValue .= "/";
       }
-      
+
       if (!preg_match('%^(?:(?:https?)://)(?:\S+(?::\S*)?@|\d{1,3}(?:\.\d{1,3}){3}|(?:(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)(?:\.(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)*(?:\.[a-z\x{00a1}-\x{ffff}]{2,6}))(?::\d+)?(?:[^\s]*)?$%iu', $varValue)) {
         $objWidget->addError($GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['URL']['rgxp_URL']);
       } else {
@@ -561,11 +528,10 @@ class bepiwikcharts extends BackendModule {
 
       return true;
     }
-    
+
     return false;
   }
-  
-  
+
   /**
    * getHttpCode - ermittelt den HTTP-Code von $url
    * 
@@ -587,10 +553,6 @@ class bepiwikcharts extends BackendModule {
     return $info['http_code'];
   }
 
-  
-  
-  
-  
   /**
    * checkAuthCode - prüft, ob mit dem AuthCode auf die Piwik-Installation zugegriffen werden kann.
    * 
