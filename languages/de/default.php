@@ -95,8 +95,7 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['piwikinfo'] = "<p>Pi
  * Load on be_welcome
  */
 if (TL_MODE == 'BE') {
-  $objUser = BackendUser::getInstance();
-  if (!strlen($_GET['do']) && ($objUser->language == "de") ) {
+  if (!strlen($_GET['do']) && ($GLOBALS['TL_LANGUAGE'] == "de") ) {
     $bepiwikcharts = new bepiwikcharts();
     $GLOBALS['TL_LANG']['MSC']['welcomeTo'] .= '</h1>' . $bepiwikcharts->dashboardWelcomePage() . '<h1 style="display:none">&nbsp;';
   }
