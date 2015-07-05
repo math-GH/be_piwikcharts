@@ -1,3 +1,22 @@
+#be_piwikcharts .graphes {
+        width:49%;
+        text-align: center;
+        display:inline-block;
+        max-width: 500px;
+        background: url('./laden.gif') no-repeat center center;
+        min-height: 100px;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+@media (max-width: 600px) {
+    #be_piwikcharts .graphes {
+        width:100%;
+    }
+}
+
+
+
 #be_piwikcharts div.piwikinfo p {
   color:grey;
   font-size:80%
@@ -64,18 +83,7 @@
   text-align: center;
 }
 
-#be_piwikcharts table.graphes{
-  width: 100%;
-}
 
-#be_piwikcharts table.graphes th{
-  width: 50%;
-}
-
-#be_piwikcharts table.graphes td{
-  background: url('./laden.gif') no-repeat center center;
-  height: 100px;
-}
 
 
 #be_piwikcharts table.downloads td,
