@@ -60,15 +60,21 @@ $GLOBALS['TL_CONFIG']['dashboardMode'] = 'automatic';
 $GLOBALS['TL_CONFIG']['dashboardAccess'] = 'public';
 $GLOBALS['TL_CONFIG']['dashboardLimit'] = '0';
 
+/**
+ * Hooks
+ */
+$GLOBALS['TL_HOOKS']['getSystemMessages'][] = array('bepiwikcharts', 'dashboardWelcomePage');
 $GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_checkPiwikUrl');
 $GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_checkAuthCode');
+
+
 
 
 array_insert($GLOBALS['BE_MOD']['system'], 98, array(
     'be_piwikcharts' => array(
         'callback' => 'bepiwikcharts',
         'stylesheet' => 'system/modules/be_piwikcharts/assets/bepiwikcharts.css',
-        'icon' => 'system/modules/be_piwikcharts/assets/piwikicon.gif'
+        'icon' => 'system/modules/be_piwikcharts/assets/piwikicon.png'
     )
 ));
 

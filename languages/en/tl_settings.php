@@ -40,6 +40,7 @@ $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['URL']['rgxp_httpCode'] = '
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['siteID'] = array("SiteID", "Website-ID: idSite-variable from Piwik installation. Piwik installationen, that only track one website siteID is usualy 1. idSite value can found in URL of Piwik dashboard.");
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['authCode'] = array("AuthCode", "AuthCode for authenticated connection to Piwik to show stats at the Contao backend.");
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['authCode']['rgxp'] = "No Connection to Piwik installation possible with this AuthCode.";
+$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['period'] = array("Period", "Period in days, that the stats are shown. (optional, default: 30 days)");
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['username'] = array("Username", "Username for Auto-Login to Piwik (optional)");
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['password'] = array("Password", "Password for Auto-Login to Piwik (optional)");
 $GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['welcomePageAdmin'] = array("Backend welcome page: Stats shown (only for admins)", "Only for admin users: Shows any stats on first page after backend login. Additionally it checks for new available updates.");

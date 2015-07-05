@@ -33,7 +33,7 @@ if (!defined('TL_ROOT'))
 /**
  * Add to palette
  */
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{piwikcharts_legend:hide},piwikchartsURL,piwikchartsSiteID,piwikchartsAuthCode,piwikchartsUsername,piwikchartsPassword,piwikchartsWelcomePageAdmin,piwikchartsWelcomePage,piwikchartsWelcomePageUpdate,piwikchartsWelcomePageOptout,piwikchartsRedirect;';
+$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{piwikcharts_legend:hide},piwikchartsURL,piwikchartsSiteID,piwikchartsAuthCode,piwikchartsPeriod,piwikchartsUsername,piwikchartsPassword,piwikchartsWelcomePageAdmin,piwikchartsWelcomePage,piwikchartsWelcomePageUpdate,piwikchartsWelcomePageOptout,piwikchartsRedirect;';
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsURL'] = array
     (
@@ -56,7 +56,15 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsAuthCode'] = array
     'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['authCode'],
     'inputType' => 'text',
     'exclude' => true,
-    'eval' => array('mandatory' => false, 'rgxp' => 'checkAuthCode', 'tl_class' => 'long clr')
+    'eval' => array('mandatory' => false, 'rgxp' => 'checkAuthCode', 'tl_class' => 'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsPeriod'] = array
+    (
+    'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['period'],
+    'inputType' => 'text',
+    'exclude' => true,
+    'eval' => array('mandatory' => false, 'rgxp' => 'natural', 'tl_class' => 'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsUsername'] = array
@@ -72,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsPassword'] = array
     'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['password'],
     'inputType' => 'text',
     'exclude' => true,
-    'eval' => array('mandatory' => false, 'hideInput' => true, 'encrypt' => true)
+    'eval' => array('mandatory' => false, 'hideInput' => true, 'encrypt' => true, 'tl_class' => 'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsWelcomePageAdmin'] = array

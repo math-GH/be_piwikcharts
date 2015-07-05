@@ -7,7 +7,7 @@
  */
 
 
-$GLOBALS['TL_LANG']['MOD']['be_piwikcharts'] = array('Stats Visitors', 'Shows visitor stats');
+$GLOBALS['TL_LANG']['MOD']['be_piwikcharts'] = array('Stats Visitors', '[Piwik] Shows visitor stats');
 
 
 ?>

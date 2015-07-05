@@ -41,12 +41,14 @@ class bepiwikcharts extends BackendModule {
   public $url = "http://demo.piwik.org/"; // inkl. http(s), mit / am Ende
   public $piwik_IDsite = 3;
   public $piwik_TOKENauth = "anonymous";
+  public $piwik_period = 30;
   private $tableMaxRows = 10;
   public $modus = 0;      // 0 = Demo, 1 = normal
   private $username = "";
   private $password = "";
   private $error = FALSE;
   private $errorCode = 0;
+  private $version_installed = "";
 
   public function compile() {
     
@@ -64,6 +66,9 @@ class bepiwikcharts extends BackendModule {
       $this->url = $GLOBALS["TL_CONFIG"]['piwikchartsURL'];
       $this->piwik_IDsite = $GLOBALS["TL_CONFIG"]['piwikchartsSiteID'];
       $this->piwik_TOKENauth = $GLOBALS["TL_CONFIG"]['piwikchartsAuthCode'];
+      if ($GLOBALS["TL_CONFIG"]['piwikchartsPeriod'] != "") {
+        $this->piwik_period = intval($GLOBALS["TL_CONFIG"]['piwikchartsPeriod']);
+      }
       $this->username = $GLOBALS["TL_CONFIG"]['piwikchartsUsername'];
       $this->password = $GLOBALS["TL_CONFIG"]['piwikchartsPassword'];
       $this->modus = 1; //1 = Normalmodus;
@@ -72,19 +77,20 @@ class bepiwikcharts extends BackendModule {
 
   /**
    * checkUpdate - prüft auf Updates
-   * @return wenn neue Version vorliegt: neue Versionsnummer. Wenn keine neue Version vorliegt: Leerstring
+   * @return String - wenn neue Version vorliegt: neue Versionsnummer. Wenn keine neue Version vorliegt: Leerstring
    */
   function checkUpdate() {
     if ($this->modus == 1) {
+      // nur im Produktivmodus nutzen. nicht im Demo-Modus
       try {
         // aktuelle Version vom Server lesen
         $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getPiwikVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
-        $version_installed = trim($xml[0]);
+        $this->version_installed = trim($xml[0]);
 
         // neuste Version vom Piwik-Server lesen
         $version_newest = trim($this->readfile("http://api.piwik.org/1.0/getLatestVersion/"));
 
-        if ($version_newest == $version_installed) {
+        if ($version_newest == $this->version_installed) {
           return "";
         } else {
           return $version_newest;
@@ -310,12 +316,13 @@ class bepiwikcharts extends BackendModule {
       return "";
     }
 
-    $strBuffer = '<div id="welcomepagePiwikcharts" style="margin:18px;">';
+    //$strBuffer = '<div id="welcomepagePiwikcharts" style="margin:18px;">';
+    $strBuffer = '<div id="welcomepagePiwikcharts">';
 
     $objTemplate_head = new BackendTemplate('ce_headline');
     $objTemplate_head->hl = 'h2';
     $objTemplate_head->class = 'ce_headline';
-    $objTemplate_head->style = 'background:none repeat scroll 0 0 #F6F6F6;border: solid #E9E9E9; border-width: 1px 0px 1px 0px; margin:18px 0px 6px; padding: 2px 6px 3px;';
+    //$objTemplate_head->style = 'background:none repeat scroll 0 0 #F6F6F6;border: solid #E9E9E9; border-width: 1px 0px 1px 0px; margin:18px 0px 6px; padding: 2px 6px 3px;';
     $objTemplate_head->headline = $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['headline'];
 
     $strBuffer .= $objTemplate_head->parse();
@@ -341,8 +348,8 @@ class bepiwikcharts extends BackendModule {
     $objTemplate_content->lang = (object) $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard'];
 
     // Diagramme
-    $objTemplate_content->chart_evolutionVisitsSummaryDay .= $this->printChart("evolution", "VisitsSummary", "day", "previous30", 400, 180, 80, "get", "", "margin-right:20px;");
-    $objTemplate_content->chart_evolutionVisitsSummaryMonth .= $this->printChart("evolution", "VisitsSummary", "month", "previous24", 400, 100, 80, "get", "&colors=,,ff0000", "margin-bottom: 10px;");
+    $objTemplate_content->chart_evolutionVisitsSummaryDay .= $this->printChart("evolution", "VisitsSummary", "day", "previous".$this->piwik_period, 400, 180, 80, "get", "", "");
+    $objTemplate_content->chart_evolutionVisitsSummaryMonth .= $this->printChart("evolution", "VisitsSummary", "month", "previous24", 400, 100, 80, "get", "&colors=,,ff0000", "");
 
     //im Demo-Modus (0) ist die Anzeige letzte 30Min/24h deaktivert
     if ($this->modus > 0) {
@@ -416,6 +423,8 @@ class bepiwikcharts extends BackendModule {
     }
 
     $objTemplate->link_server = $this->url;
+    
+    $objTemplate->piwik_period = $this->piwik_period;
 
 
     $objTemplate->piwik_IDsite = $this->piwik_IDsite;
@@ -424,28 +433,35 @@ class bepiwikcharts extends BackendModule {
     $objTemplate->showUpdate = $this->User->isAdmin || $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageUpdate'];
 
     // 30 Tage Besuchergraf
-    $objTemplate->chart_evolutionVisitsSummaryDay = $this->printChart("evolution", "VisitsSummary", "day", "previous30", 400, 200, 80, "get");
+    $objTemplate->chart_evolutionVisitsSummaryDay = $this->printChart("evolution", "VisitsSummary", "day", "previous".$this->piwik_period, 400, 200, 80, "get");
 
     // 24 Monate Besuchergraf
     $objTemplate->chart_evolutionVisitsSummaryMonth = $this->printChart("evolution", "VisitsSummary", "month", "previous24", 400, 200, 80, "get", "&colors=,,ff0000");
 
     // Diagramm Besuchszeiten
-    $objTemplate->chart_verticalBarVisitsPerServerTime = $this->printChart("verticalBar", "VisitTime", "range", "previous30", 400, 200, 80, "getVisitInformationPerServerTime");
+    $objTemplate->chart_verticalBarVisitsPerServerTime = $this->printChart("verticalBar", "VisitTime", "range", "previous".$this->piwik_period, 400, 200, 80, "getVisitInformationPerServerTime");
 
     // Diagramm Besuchertage
-    $objTemplate->chart_verticalBarVisitTimeByDayOfWeek = $this->printChart("verticalBar", "VisitTime", "range", "previous30", 400, 200, 80, "getByDayOfWeek");
+    $objTemplate->chart_verticalBarVisitTimeByDayOfWeek = $this->printChart("verticalBar", "VisitTime", "range", "previous".$this->piwik_period, 400, 200, 80, "getByDayOfWeek");
 
     // Diagramm Browser
-    $objTemplate->chart_horizontalBarUserBrowser = $this->printChart("horizontalBar", "UserSettings", "range", "previous30", 400, 200, 80, "getBrowser");
-
+    $objTemplate->chart_horizontalBarUserBrowser = $this->printChart("horizontalBar", "DevicesDetection", "range", "previous".$this->piwik_period, 400, 200, 80, "getBrowsers");
+    
+    $version = explode(".", $this->version_installed);
+ 
+    if (intval($version[0])<2 || (intval($version[0])<2 &&  intval($version[1])<10) ) {
+        // in der Piwik Version 2.10 wurde die API angepasst. Ab Version 2.14 wurde "UserSettings" abgeschaltet. Fuer die Rueckwaertskompatibilitaet
+        $objTemplate->chart_horizontalBarUserBrowser = $this->printChart("horizontalBar", "UserSettings", "range", "previous".$this->piwik_period, 400, 200, 80, "getBrowser");
+    }
+    
     // Diagramm Länder
-    $objTemplate->chart_horizontalBarUserCountry = $this->printChart("horizontalBar", "UserCountry", "range", "previous30", 400, 200, 80, "getCountry");
+    $objTemplate->chart_horizontalBarUserCountry = $this->printChart("horizontalBar", "UserCountry", "range", "previous".$this->piwik_period, 400, 200, 80, "getCountry");
 
     //Tabelle: Suchworte von Suchmaschinen
     $objTemplate->table_keywords = $this->printTable(
             $this->PHPload(
                     $this->buildURL(
-                            "Referers.getKeywords", "range", "previous30", "&format=php&filter_limit=20"
+                            "Referers.getKeywords", "range", "previous".$this->piwik_period, "&format=php&filter_limit=20"
                     ), array("label", "nb_visits")
             ), array(
         $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_keyword'],
@@ -457,7 +473,7 @@ class bepiwikcharts extends BackendModule {
     $objTemplate->table_fromWebsite = $this->printTable(
             $this->PHPload(
                     $this->buildURL(
-                            "Referers.getWebsites", "range", "previous30", "&format=php&filter_limit=20"
+                            "Referers.getWebsites", "range", "previous".$this->piwik_period, "&format=php&filter_limit=20"
                     ), array("label", "nb_visits")
             ), array(
         $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_website'],
@@ -469,7 +485,7 @@ class bepiwikcharts extends BackendModule {
     $objTemplate->table_visitedPages = $this->printTable(
             $this->PHPload(
                     $this->buildURL(
-                            "Actions.getPageUrls", "range", "previous30", "&format=php&filter_limit=20"
+                            "Actions.getPageUrls", "range", "previous".$this->piwik_period, "&format=php&filter_limit=20"
                     ), array("label", "nb_visits")
             ), array(
         $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_page'],
@@ -481,7 +497,7 @@ class bepiwikcharts extends BackendModule {
     $objTemplate->table_downloads = $this->printTable_downloads(
             $this->PHPload(
                     $this->buildURL(
-                            "Actions.getDownloads", "range", "previous30", "&format=php&filter_limit=20&expanded=1&filter_limit=10"
+                            "Actions.getDownloads", "range", "previous".$this->piwik_period, "&format=php&filter_limit=20&expanded=1&filter_limit=10"
                     ), array("label", "subtable")
             ), "downloads"
     );

@@ -51,42 +51,45 @@
 
 
   <div style="padding:20px;">
-    <table class="graphes">
-      <tr>
-        <th><?php echo $this->lang->graph['visitors_last30days_headline']; ?>:</th>
-        <th><?php echo $this->lang->graph['visitors_last24months_headline']; ?>:</th>
-      </tr>
-      <tr>
-        <td><?php echo $this->chart_evolutionVisitsSummaryDay; ?></td>
-        <td><?php echo $this->chart_evolutionVisitsSummaryMonth; ?></td>
-      </tr>
-    </table>
+
+      
+    <div class="graphes">
+        <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>:<br />
+        <?php echo $this->chart_evolutionVisitsSummaryDay; ?>
+    </div>
+
+    <div class="graphes">
+        <?php echo $this->lang->graph['visitors_last24months_headline']; ?>:<br />
+        <?php echo $this->chart_evolutionVisitsSummaryMonth; ?>
+    </div>
 
     <hr />
 
-    <table class="graphes">
-      <tr>
-        <th><?php echo $this->lang->graph['visitors_visitsPerServerTime_headline']; ?>:</th>
-        <th><?php echo $this->lang->graph['visitors_visitTimeByDayOfWeek_headline']; ?>:</th>
-      </tr>
-      <tr>
-        <td><?php echo $this->chart_verticalBarVisitsPerServerTime; ?></td>
-        <td><?php echo $this->chart_verticalBarVisitTimeByDayOfWeek; ?></td>
-      </tr>
-    </table>
+    <div class="graphes">
+        <?php echo $this->lang->graph['visitors_visitsPerServerTime_headline']; ?>:<br />
+        <?php echo $this->chart_verticalBarVisitsPerServerTime; ?>
+    </div>
+        
+    <div class="graphes">
+        <?php echo $this->lang->graph['visitors_visitTimeByDayOfWeek_headline']; ?>:<br />
+        <?php echo $this->chart_verticalBarVisitTimeByDayOfWeek; ?>
+    </div>
+    
+    
+
 
     <hr />
+    
+    <div class="graphes">
+        <?php echo $this->lang->graph['visitors_userBrowser_headline']; ?>:<br />
+        <?php echo $this->chart_horizontalBarUserBrowser; ?>
+    </div>
+    
+    <div class="graphes">
+        <?php echo $this->lang->graph['visitors_userCountry_headline']; ?>:<br />
+        <?php echo $this->chart_horizontalBarUserCountry; ?>
+    </div>
 
-    <table class="graphes">
-      <tr>
-        <th><?php echo $this->lang->graph['visitors_userBrowser_headline']; ?>:</th>
-        <th><?php echo $this->lang->graph['visitors_userCountry_headline']; ?>:</th>
-      </tr>
-      <tr>
-        <td><?php echo $this->chart_horizontalBarUserBrowser; ?></td>
-        <td><?php echo $this->chart_horizontalBarUserCountry; ?></td>
-      </tr>
-    </table>
 
     <hr />
 

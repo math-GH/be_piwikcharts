@@ -60,26 +60,26 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['login_title'
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update'] = "Update verfügbar";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update_title'] = "Ein neues Update der Piwik-Software ist verfügbar";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last30days_headline'] = "letzte 30 Tage";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last30days_headline'] = "Zeitraum: letzte %d Tage";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last24months_headline'] = "letzte 24 Monate";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitsPerServerTime_headline'] = "Besuchszeiten (Serverzeit)";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitTimeByDayOfWeek_headline'] = "Besuchertage";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_userBrowser_headline'] = "Browser";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_userCountry_headline'] = "Besucher aus";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_headline'] = "Top-Suchwörter, die auf die Webseite geführten hatten (Zeitraum: letzte 30 Tage)";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_headline'] = "Top-Suchwörter, die auf die Webseite geführten hatten";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_keyword'] = "Suchwort";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_count'] = "Aufrufe";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_headline'] = "Von diesen Webseiten kamen Ihre Besucher auf Ihre Webseite (Zeitraum: letzte 30 Tage)";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_headline'] = "Von diesen Webseiten kamen Ihre Besucher auf Ihre Webseite";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_website'] = "Von Webseite";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_count'] = "Aufrufe";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_headline'] = "Die am häufigsten besuchten Seiten (Zeitraum: letzte 30 Tage)";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_headline'] = "Die am häufigsten besuchten Seiten";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_page'] = "Seite";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_count'] = "Aufrufe";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_headline'] = "Die häufigsten Downloads (Zeitraum: letzte 30 Tage)";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_headline'] = "Die häufigsten Downloads";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_domain'] = "Domain";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_file'] = "Datei";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_count'] = "Downloads";
@@ -94,11 +94,11 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['piwikinfo'] = "<p>Pi
 /**
  * Load on be_welcome
  */
-if (TL_MODE == 'BE') {
-  if (!strlen($_GET['do']) && ($GLOBALS['TL_LANGUAGE'] == "de") ) {
-    $bepiwikcharts = new bepiwikcharts();
-    $GLOBALS['TL_LANG']['MSC']['welcomeTo'] .= '</h1>' . $bepiwikcharts->dashboardWelcomePage() . '<h1 style="display:none">&nbsp;';
-  }
-}
+//if (TL_MODE == 'BE') {
+//  if (!strlen($_GET['do']) && ($GLOBALS['TL_LANGUAGE'] == "de") ) {
+//    $bepiwikcharts = new bepiwikcharts();
+//    $GLOBALS['TL_LANG']['MSC']['welcomeTo'] .= '</h1>' . $bepiwikcharts->dashboardWelcomePage() . '<h1 style="display:none">&nbsp;';
+//  }
+//}
 
 
