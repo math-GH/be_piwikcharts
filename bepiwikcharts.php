@@ -73,6 +73,9 @@ class bepiwikcharts extends BackendModule {
       $this->password = $GLOBALS["TL_CONFIG"]['piwikchartsPassword'];
       $this->modus = 1; //1 = Normalmodus;
     }
+    // aktuelle Version vom Server lesen
+    $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getPiwikVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
+    $this->version_installed = trim($xml[0]);
   }
 
   /**
@@ -83,9 +86,7 @@ class bepiwikcharts extends BackendModule {
     if ($this->modus == 1) {
       // nur im Produktivmodus nutzen. nicht im Demo-Modus
       try {
-        // aktuelle Version vom Server lesen
-        $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getPiwikVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
-        $this->version_installed = trim($xml[0]);
+        
 
         // neuste Version vom Piwik-Server lesen
         $version_newest = trim($this->readfile("http://api.piwik.org/1.0/getLatestVersion/"));
