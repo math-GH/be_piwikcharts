@@ -21,9 +21,9 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  �aTh 2011 
- * @author     �aTh 
- * @package    be_infopage 
+ * @copyright  µaTh 2015
+ * @author     µaTh 
+ * @package    be_piwikcharts
  * @license    GNU/LGPL 
  * @filesource
  */
@@ -56,9 +56,7 @@
  * 
  * Use function array_insert() to modify an existing modules array.
  */
-$GLOBALS['TL_CONFIG']['dashboardMode'] = 'automatic';
-$GLOBALS['TL_CONFIG']['dashboardAccess'] = 'public';
-$GLOBALS['TL_CONFIG']['dashboardLimit'] = '0';
+
 
 /**
  * Hooks
