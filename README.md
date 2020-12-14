@@ -1,19 +1,5 @@
-be_piwikcharts
+be_piwikcharts für Contao CMS
 =============
-
-
-UPDATE-HINWEIS (Version <1.3.0)
-===============================
-Bitte kein Update über das Backend durchführen! Sondern wie folgt vorgehen:
-
-  * Extension in der Erweiterungsverwaltung deinstallieren!
-  * Dann die Extension über den Erweiterungskatalog neu installieren
-
-Hintergrund: neuer Ordnername für die Extension. Contao schießt bei dem Update quer. Sorry für die Umstände 
-
-
-Beschreibung
-============
 Webseitenstatistiken aus einer Piwik-Installation im Backend unter System -> "Statistiken Besucher" anzeigen.
 
 Webseitenstatistiken aus einer Piwik-Installation im Backend unter System -> "Statistiken Besucher" anzeigen.
@@ -50,11 +36,14 @@ Piwik (http://piwik.org) muss seperat auf einem Server installiert sein.
 
 Links
 =====
-* Link zum Contao-Repository: https://contao.org/de/extension-list/view/be_piwikcharts.de.html
+* Link zum Contao-Repository: https://contao.org/de/erweiterungsliste/view/be_piwikcharts.10050009.de.html
+* Link zum Forum: https://community.contao.org/de/showthread.php?34266-be_piwikcharts-Besucherstatistiken-aus-Piwik-im-Backend-anzeigen/page3
+* Link zum Wiki/Doku: https://github.com/mathContao/be_piwikcharts/wiki/Documentation-(German)
+* Roadmap: https://github.com/mathContao/be_piwikcharts/wiki/Roadmap
 
-* Link zum Forum: https://community.contao.org/de/showthread.php?34266-be_piwikcharts-Besucherstatistiken-aus-Piwik-im-Backend-anzeigen&p=231152&viewfull=1#post231152
-
-* Link zum Wiki/Doku: http://de.contaowiki.org/PiwikCharts_im_Backend
+Piwik/Matomo
+============
+Unterstützt Piwik/Matomo seit Version 1.0. Die aktuelle Matomo Versionen 3.13 und 4.0 (Stand Dezember 2020) werden problemlos unterstützt.
 
 Credits
 =======
