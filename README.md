@@ -43,7 +43,7 @@ Links
 
 Piwik/Matomo
 ============
-Unterstützt Piwik/Matomo seit Version 1.0. Die aktuelle Matomo Versionen 3.13 und 4.0 (Stand Dezember 2020) werden problemlos unterstützt.
+Unterstützt Piwik/Matomo seit Version 1.0. Bis Matomo Versionen 3.13 kompatibel. In Version 4.0 gab es eine Änderung an der API (siehe Issues).
 
 Credits
 =======
