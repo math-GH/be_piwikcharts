@@ -4,46 +4,26 @@ if (!defined('TL_ROOT'))
   die('You can not access this file directly!');
 
 /**
- * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
- *
- * Formerly known as TYPOlight Open Source CMS.
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation, either
- * version 3 of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program. If not, please visit the Free
- * Software Foundation website at <http://www.gnu.org/licenses/>.
- *
- * PHP version 5
- * @copyright  µaTh 2014 
+ * @copyright  µaTh 2014 -2020
  * @author     µaTh
  * @package    be_piwikcharts
  * @license    GNU/LGPL 
  */
 
 /*
- * Fehlemeldungen
+ * Fehlermeldungen
  */
-$GLOBALS['TL_LANG']['be_piwikcharts']['errormsg'][1] = "be_piwikcharts: Fehler#1: Verbindung zum Piwik-Server konnte nicht hergestellt werden. Bitte Verbindungseinstellungen prüfen.";
+$GLOBALS['TL_LANG']['be_piwikcharts']['errormsg'][1] = "be_piwikcharts: Fehler#1: Verbindung zum Matomo-Server konnte nicht hergestellt werden. Bitte Verbindungseinstellungen prüfen.";
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['headline'] = "Besucherstatistiken";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['live']['headline'] = "Anzahl Besucher";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['live']['last30minutes'] = "letzte 30 Minuten";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['live']['last24hours'] = "letzte 24 Stunden";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['optOut'] = "Optout: Eigene Besuche auf der Webseite nicht mehr erfassen";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['newVersionHint'] = "Ein neues Update der Piwik-Software ist verfügbar";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['newVersionHint'] = "Ein neues Update der Matomo-Software ist verfügbar";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['zoomIt'] = "Mehr Statistiken...";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['headline'] = "Statistiken Besucher mit Piwik";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['headline'] = "Statistiken Besucher mit Matomo";
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['headline'] = "Anzahl Besucher";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['last30minutes'] = "letzte 30 Minuten";
@@ -55,10 +35,10 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['print'] = "S
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['print_title'] = "Statistiken ausdrucken";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['optout'] = "OptOut";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['optout_title'] = "Einstellungen: Eigene Besuche nicht mehr erfassen";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['login'] = "Login Piwik";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['login_title'] = "Login Piwik-Server";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['login'] = "Login Matomo";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['login_title'] = "Login Matomo-Server";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update'] = "Update verfügbar";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update_title'] = "Ein neues Update der Piwik-Software ist verfügbar";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update_title'] = "Ein neues Update der Matomo-Software ist verfügbar";
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last30days_headline'] = "Zeitraum: letzte %d Tage";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last24months_headline'] = "letzte 24 Monate";
@@ -84,21 +64,5 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_h
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_file'] = "Datei";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_count'] = "Downloads";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['piwikinfo'] = "<p>Piwik ist eine Open-Source (GPL lizenzierte) Webanalyse-Software, die heruntergeladen werden kann. Piwik bietet Ihnen detaillierte Echtzeit-Berichte über die Besucher Ihrer Homepage, die genutzten Suchmaschinen und Suchbegriffe, die Sprache, Ihre beliebten Seiten… und vieles mehr.</p><p>Das Ziel von Piwik ist es, eine Open-Source Alternative zu Google Analytics zu bieten. Piwik wird bereits auf mehr als 320.000 Webseiten eingesetzt.</p><p>Weitere Informationen auf <a href='http://de.piwik.org/' onclick='window.open(this.href); return false;'>www.piwik.org</a></p>";
-
-
-/* 
- * <?php echo $this->lang->menu['optout_title']; ?>
-*/
-
-/**
- * Load on be_welcome
- */
-//if (TL_MODE == 'BE') {
-//  if (!strlen($_GET['do']) && ($GLOBALS['TL_LANGUAGE'] == "de") ) {
-//    $bepiwikcharts = new bepiwikcharts();
-//    $GLOBALS['TL_LANG']['MSC']['welcomeTo'] .= '</h1>' . $bepiwikcharts->dashboardWelcomePage() . '<h1 style="display:none">&nbsp;';
-//  }
-//}
-
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['piwikinfo'] = "<p>Matomo ist eine Open-Source (GPL lizenzierte) Webanalyse-Software, die heruntergeladen werden kann. Matomo bietet Ihnen detaillierte Echtzeit-Berichte über die Besucher Ihrer Homepage, die genutzten Suchmaschinen und Suchbegriffe, die Sprache, Ihre beliebten Seiten… und vieles mehr.</p><p>Das Ziel von Matomo ist es, eine Open-Source Alternative zu Google Analytics zu bieten.</p><p>Weitere Informationen auf <a href='https://matomo.org' onclick='window.open(this.href); return false;'>https://matomo.org</a></p>";
 

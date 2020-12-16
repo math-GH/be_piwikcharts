@@ -1,29 +1,9 @@
 <?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
- * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
- *
- * Formerly known as TYPOlight Open Source CMS.
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation, either
- * version 3 of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program. If not, please visit the Free
- * Software Foundation website at <http://www.gnu.org/licenses/>.
- *
- * PHP version 5
- * @copyright  µaTh 2015
+ * @copyright  µaTh 2011 - 2020
  * @author     µaTh 
- * @package    be_piwikcharts
+ * @package    be_infopage 
  * @license    GNU/LGPL 
  * @filesource
  */
@@ -56,7 +36,9 @@
  * 
  * Use function array_insert() to modify an existing modules array.
  */
-
+$GLOBALS['TL_CONFIG']['dashboardMode'] = 'automatic';
+$GLOBALS['TL_CONFIG']['dashboardAccess'] = 'public';
+$GLOBALS['TL_CONFIG']['dashboardLimit'] = '0';
 
 /**
  * Hooks
@@ -72,7 +54,7 @@ array_insert($GLOBALS['BE_MOD']['system'], 98, array(
     'be_piwikcharts' => array(
         'callback' => 'bepiwikcharts',
         'stylesheet' => 'system/modules/be_piwikcharts/assets/bepiwikcharts.css',
-        'icon' => 'system/modules/be_piwikcharts/assets/piwikicon.png'
+        'icon' => 'system/modules/be_piwikcharts/assets/matomoicon.png'
     )
 ));
 

@@ -30,7 +30,7 @@
     </span>
     <?php if($this->isAdmin): ?>
       <div class="piwikserver">
-        Piwik-Server: <a class="extern" target="_blank" href="<?php echo $this->link_server ?>"><?php echo $this->link_server ?></a> (SiteID: <?php echo $this->piwik_IDsite ?>)
+        Matomo-Server: <a class="extern" target="_blank" href="<?php echo $this->link_server ?>"><?php echo $this->link_server ?></a> (SiteID: <?php echo $this->piwik_IDsite ?>)
       </div>
     <?php endif; ?>
 
