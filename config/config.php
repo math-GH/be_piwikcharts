@@ -44,7 +44,7 @@ $GLOBALS['TL_CONFIG']['dashboardLimit'] = '0';
  * Hooks
  */
 $GLOBALS['TL_HOOKS']['getSystemMessages'][] = array('bepiwikcharts', 'dashboardWelcomePage');
-$GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_checkPiwikUrl');
+$GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_checkMatomoUrl');
 $GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_checkAuthCode');
 
 

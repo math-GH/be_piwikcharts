@@ -519,8 +519,8 @@ class bepiwikcharts extends BackendModule {
     
     
     /****************************************************************************
-        * individuelle rgxp:
-        * siehe Contao-Doku: https://contao.org/de/manual/3.3/customizing-contao.html#addcustomregexp
+    * individuelle rgxp:
+    * siehe Contao-Doku: https://contao.org/de/manual/3.3/customizing-contao.html#addcustomregexp
     * ************************************************************************** */
     
     /**
@@ -531,8 +531,8 @@ class bepiwikcharts extends BackendModule {
         * @param Widget $objWidget
         * @return boolean
     */
-    public function myRegexp_checkPiwikUrl($strRegexp, $varValue, Widget $objWidget) {
-        if ($strRegexp == 'checkPiwikUrl') {
+    public function myRegexp_checkMatomoUrl($strRegexp, $varValue, Widget $objWidget) {
+        if ($strRegexp == 'checkMatomoUrl') {
             if (substr(trim($varValue), -1, 1) != "/") {
                 $varValue .= "/";
             }
