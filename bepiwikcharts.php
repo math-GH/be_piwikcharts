@@ -492,10 +492,6 @@ class bepiwikcharts extends BackendModule {
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_count']
             ), "data"
         );
-
-        dump($this->buildURL(
-            "Actions.getDownloads", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20&expanded=1&filter_limit=10"
-        ));
         
         // Tabelle: Downloads
         $objTemplate->table_downloads = $this->printTable_downloads(
