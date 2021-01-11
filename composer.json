@@ -1,0 +1,21 @@
+{
+    "name": "mathcontao/be_piwikcharts",
+    "description": "Extension for the Contao Open Source Content Management System in order to show Matomo statistics directly in the back end.",
+    "type": "contao-module",
+    "license": "LGPL-3.0-or-later",
+    "require": {
+        "php": ">=5.6",
+        "contao/core-bundle": "^2.11 || ^3.0 || ^4.4",
+        "contao-community-alliance/composer-plugin": "~2.4 || ~3.0"
+    },
+    "replace": {
+        "contao-legacy/be_piwikcharts": "self.version"
+    },
+    "extra":{
+        "contao":{
+            "sources":{
+                "": "system/modules/be_piwikcharts"
+            }
+        }
+    }
+}

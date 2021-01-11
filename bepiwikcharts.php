@@ -152,6 +152,7 @@ class bepiwikcharts extends BackendModule {
     * */
     function JSONload($url, $parameter) {
         $unserializedArray = json_decode($this->readfile($url));
+        $foundContent = [];
         
         for ($i = 0; $i < count($unserializedArray); $i++) {
             foreach ($unserializedArray[$i] as $item => $titel) {
@@ -173,21 +174,23 @@ class bepiwikcharts extends BackendModule {
     function printTable_downloads($inhalte, $cssklasse = "") {
         $tabelle = "<table class=\"" . $cssklasse . "\">";
         $tabelle .= "<tr><th class=\"col0\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_domain'] . "</th><th class=\"col1\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_file'] . "</th><th class=\"col2\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_count'] . "</th></tr>";
-        
-        for ($i = 0; $i <= count($inhalte) / 2; $i = $i + 2) {
-            $maxZeilen = $this->tableMaxRows;
-            
-           if ($maxZeilen > count($inhalte[$i + 1])) {
-                $maxZeilen = count($inhalte[$i + 1]);
-            }
-            
-             for ($j = 0; $j < $maxZeilen; $j++) {
-                $tabelle .= "<tr>";
-                $tabelle .= "<td class=\"col0\">" . $inhalte[$i] . "</td>";
-                $path_parts = pathinfo($inhalte[$i + 1][$j]->label);
-                $tabelle .= "<td class=\"col1\"><a href=\"" . $inhalte[$i + 1][$j]->url . "\" target=\"_blank\" title=\"" . $inhalte[$i + 1][$j]->label . "\">" . $path_parts['basename'] . "</a></td>";
-                $tabelle .= "<td class=\"col2\">" . ($inhalte[$i + 1][$j]->nb_visits) . "</td>";
-                $tabelle .= "</tr>";
+
+        if (!empty($inhalte)) {
+            for ($i = 0; $i <= count($inhalte) / 2; $i = $i + 2) {
+                $maxZeilen = $this->tableMaxRows;
+
+                if ($maxZeilen > count($inhalte[$i + 1])) {
+                    $maxZeilen = count($inhalte[$i + 1]);
+                }
+
+                for ($j = 0; $j < $maxZeilen; $j++) {
+                    $tabelle .= "<tr>";
+                    $tabelle .= "<td class=\"col0\">" . $inhalte[$i] . "</td>";
+                    $path_parts = pathinfo($inhalte[$i + 1][$j]->label);
+                    $tabelle .= "<td class=\"col1\"><a href=\"" . $inhalte[$i + 1][$j]->url . "\" target=\"_blank\" title=\"" . $inhalte[$i + 1][$j]->label . "\">" . $path_parts['basename'] . "</a></td>";
+                    $tabelle .= "<td class=\"col2\">" . ($inhalte[$i + 1][$j]->nb_visits) . "</td>";
+                    $tabelle .= "</tr>";
+                }
             }
         }
 
