@@ -1,11 +1,12 @@
 be_piwikcharts für Contao CMS
 =============
-Webseitenstatistiken aus einer Piwik-Installation im Backend unter System -> "Statistiken Besucher" anzeigen.
+Webseitenstatistiken aus einer Matomo-Installation im Backend unter System -> "Statistiken Besucher" anzeigen.
 
-Webseitenstatistiken aus einer Piwik-Installation im Backend unter System -> "Statistiken Besucher" anzeigen.
+Webseitenstatistiken aus einer Matomo-Installation im Backend unter System -> "Statistiken Besucher" anzeigen.
 
+(Hinweis zum Namen: Matomo heiß bis 2018 "Piwik". Es handelt sich dabei um das gleiche Softwareprodukt)
 
-Benötigt wird die URL zur Piwikinstallation, die SeitenID unter der in Piwik die Webseite getrackt wird und der Auth-Code. Diese Daten unter System -> Einstellungen im Abschnitt "Piwik-Statistiken" eintragen. Ohne Verbindungsdaten werden die Statistikdaten von demo.piwik.org angezeigt.
+Benötigt wird die URL zur Matomoinstallation, die SeitenID unter der in Matomo die Webseite getrackt wird und der Auth-Code. Diese Daten unter System -> Einstellungen im Abschnitt "Matomo-Statistiken" eintragen. Ohne Verbindungsdaten werden die Statistikdaten von demo.matomo.org angezeigt.
 
  
 
@@ -32,11 +33,10 @@ Die angezeigten Statistiken können ausgedruckt werden.
 
  
 
-Piwik (http://piwik.org) muss seperat auf einem Server installiert sein.
+Matomo (http://matomo.org) muss seperat auf einem Server installiert sein.
 
 Links
 =====
-* Link zum Contao-Repository: https://contao.org/de/erweiterungsliste/view/be_piwikcharts.10050009.de.html
 * Link zum Forum: https://community.contao.org/de/showthread.php?34266-be_piwikcharts-Besucherstatistiken-aus-Piwik-im-Backend-anzeigen/page3
 * Link zum Wiki/Doku: https://github.com/mathContao/be_piwikcharts/wiki/Documentation-(German)
 * Roadmap: https://github.com/mathContao/be_piwikcharts/wiki/Roadmap
@@ -49,3 +49,5 @@ Credits
 =======
   *  µaTh (Hauptentwickler)
   *  Caro (User: ct9)
+  *  Fritz Michael Gschwantner (user: fritzmg)
+  
