@@ -1,3 +1,7 @@
+[![Latest Version on Packagist](http://img.shields.io/packagist/v/mathcontao/be_piwikcharts.svg?style=flat)](https://packagist.org/packages/mathcontao/be_piwikcharts)
+[![Installations via composer per month](http://img.shields.io/packagist/dm/mathcontao/be_piwikcharts.svg?style=flat)](https://packagist.org/packages/mathcontao/be_piwikcharts)
+[![Installations via composer total](http://img.shields.io/packagist/dt/mathcontao/be_piwikcharts.svg?style=flat)](https://packagist.org/packages/mathcontao/be_piwikcharts)
+
 be_piwikcharts für Contao CMS
 =============
 Webseitenstatistiken aus einer Matomo-Installation im Backend unter System -> "Statistiken Besucher" anzeigen.
