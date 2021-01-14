@@ -296,7 +296,7 @@ class bepiwikcharts extends BackendModule {
     function printChart($graphType, $apiModule, $period, $date, $width, $height, $scale, $apiAction, $additional = "", $cssStyle = "") {
         $url = $this->buildURL("ImageGraph.get", $period, $date, '&apiModule=' . $apiModule . '&apiAction=' . $apiAction . '&graphType=' . $graphType . '&width=' . $width . '&height=' . $height . $additional);
         $urlx2 = $this->buildURL("ImageGraph.get", $period, $date, '&apiModule=' . $apiModule . '&apiAction=' . $apiAction . '&graphType=' . $graphType . '&width=' . $width*2 . '&height=' . $height*2 . $additional);
-        return '<a href="'.$urlx2.'" onclick="Backend.openModalIframe({\'width\':'.($width*2+20).',\'height\':'.($height*2+55).',\'title\':\'180922_Görlitz.jpg\',\'url\':this.href});return false"><img src="' . $url . '" alt="" width="' . ($width * $scale / 100) . '" style="' . $cssStyle . '" />';
+        return '<a href="'.$urlx2.'" onclick="Backend.openModalIframe({\'width\':'.($width*2+20).',\'height\':'.($height*2+55).',\'title\':\'180922_Görlitz.jpg\',\'url\':this.href});return false"><img src="' . $url . '" alt="" width="' . ($width * $scale / 100) . '" style="' . $cssStyle . '" /></a>';
     }
     
     /*   * *****************************************
