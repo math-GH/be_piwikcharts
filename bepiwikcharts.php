@@ -299,6 +299,24 @@ class bepiwikcharts extends BackendModule {
         return '<a href="'.$urlx2.'" onclick="Backend.openModalIframe({\'width\':'.($width*2+20).',\'height\':'.($height*2+55).',\'title\':\'180922_Görlitz.jpg\',\'url\':this.href});return false"><img src="' . $url . '" alt="" width="' . ($width * $scale / 100) . '" style="' . $cssStyle . '" /></a>';
     }
     
+    /**
+        * urlChart - URL von Grafiken anzeigen
+        *
+        * @param $graphType   Grafentyp: 'evolution' (Liniendiagramm), 'horizontalBar' (horizontales Balkendiagramm), 'verticalBar' (Balkendiagramm) and 'pie' (2D Kreisdiagramm)
+        * @param $apiModule   Bezeichnung Matomomodul (z.B. Besucherverlauf: 'VisitsSummary')
+        * @param $period      kleinstes Intervall ('day', 'week', 'month', 'year', 'range')
+        * @param $date        untersuchtes Datum/Zeitintervall ('today', 'yesterday','previous30','YYYY-MM-DD%2CYYYY-MM-DD')
+        * @param $width, $height  Breite, Höhe der zu generierenden Grafik
+        * @param $apiAction   abhängig von $apiModule
+        * @param $multiplier Zoom-Faktor (default: 1)
+        * @param $additional  (optionaler Parameter) für weitere API-Parameter. Muss mit & beginnen. Schema: '&parameter=wert'
+        * @param $cssStyle    (optionaler Parameter) CSS-Style Attribut
+    */
+    function urlChart($graphType, $apiModule, $period, $date, $width, $height, $apiAction, $multiplier = 1, $additional = "", $cssStyle = "") {
+        return $this->buildURL("ImageGraph.get", $period, $date, '&apiModule=' . $apiModule . '&apiAction=' . $apiAction . '&graphType=' . $graphType . '&width=' . $width*$multiplier . '&height=' . $height*$multiplier . $additional);
+    }
+    
+    
     /*   * *****************************************
         * Templates mit Inhalten füllen
     * **************************************** */
@@ -436,28 +454,42 @@ class bepiwikcharts extends BackendModule {
         
         // 30 Tage Besuchergraf
         $objTemplate->chart_evolutionVisitsSummaryDay = $this->printChart("evolution", "VisitsSummary", "day", "previous".$this->piwik_period, 400, 200, 100, "get");
+        $objTemplate->url_chart_evolutionVisitsSummaryDay = $this->urlChart("evolution", "VisitsSummary", "day", "previous".$this->piwik_period, 400, 200, "get");
+        $objTemplate->urlx2_chart_evolutionVisitsSummaryDay = $this->urlChart("evolution", "VisitsSummary", "day", "previous".$this->piwik_period, 400, 200, "get", 2);
         
         // 24 Monate Besuchergraf
         $objTemplate->chart_evolutionVisitsSummaryMonth = $this->printChart("evolution", "VisitsSummary", "month", "previous24", 400, 200, 100, "get", "&colors=,,ff0000");
+        $objTemplate->url_chart_evolutionVisitsSummaryMonth = $this->urlChart("evolution", "VisitsSummary", "month", "previous24", 400, 200, "get", 1, "&colors=,,ff0000");
+        $objTemplate->urlx2_chart_evolutionVisitsSummaryMonth = $this->urlChart("evolution", "VisitsSummary", "month", "previous24", 400, 200, "get", 2, "&colors=,,ff0000");
         
         // Diagramm Besuchszeiten
         $objTemplate->chart_verticalBarVisitsPerServerTime = $this->printChart("verticalBar", "VisitTime", "range", "previous".$this->piwik_period, 400, 200, 100, "getVisitInformationPerServerTime");
+        $objTemplate->url_chart_verticalBarVisitsPerServerTime = $this->urlChart("verticalBar", "VisitTime", "range", "previous".$this->piwik_period, 400, 200,  "getVisitInformationPerServerTime");
+        $objTemplate->urlx2_chart_verticalBarVisitsPerServerTime = $this->urlChart("verticalBar", "VisitTime", "range", "previous".$this->piwik_period, 400, 200,  "getVisitInformationPerServerTime", 2);
         
         // Diagramm Besuchertage
         $objTemplate->chart_verticalBarVisitTimeByDayOfWeek = $this->printChart("verticalBar", "VisitTime", "range", "previous".$this->piwik_period, 400, 200, 100, "getByDayOfWeek");
+        $objTemplate->url_chart_verticalBarVisitTimeByDayOfWeek = $this->urlChart("verticalBar", "VisitTime", "range", "previous".$this->piwik_period, 400, 200, "getByDayOfWeek");
+        $objTemplate->urlx2_chart_verticalBarVisitTimeByDayOfWeek = $this->urlChart("verticalBar", "VisitTime", "range", "previous".$this->piwik_period, 400, 200, "getByDayOfWeek", 2);
         
         // Diagramm Browser
         $objTemplate->chart_horizontalBarUserBrowser = $this->printChart("horizontalBar", "DevicesDetection", "range", "previous".$this->piwik_period, 400, 200, 100, "getBrowsers");
+        $objTemplate->url_chart_horizontalBarUserBrowser = $this->urlChart("horizontalBar", "DevicesDetection", "range", "previous".$this->piwik_period, 400, 200, "getBrowsers");
+        $objTemplate->urlx2_chart_horizontalBarUserBrowser = $this->urlChart("horizontalBar", "DevicesDetection", "range", "previous".$this->piwik_period, 400, 200, "getBrowsers", 2);
         
         $version = explode(".", $this->version_installed);
         
         if (intval($version[0])<2 || (intval($version[0])<2 &&  intval($version[1])<10) ) {
             // in der Piwik Version 2.10 wurde die API angepasst. Ab Version 2.14 wurde "UserSettings" abgeschaltet. Fuer die Rueckwaertskompatibilitaet
             $objTemplate->chart_horizontalBarUserBrowser = $this->printChart("horizontalBar", "UserSettings", "range", "previous".$this->piwik_period, 400, 200, 100, "getBrowser");
+            $objTemplate->url_chart_horizontalBarUserBrowser = $this->urlChart("horizontalBar", "UserSettings", "range", "previous".$this->piwik_period, 400, 200, "getBrowser");
+            $objTemplate->urlx2_chart_horizontalBarUserBrowser = $this->urlChart("horizontalBar", "UserSettings", "range", "previous".$this->piwik_period, 400, 200, "getBrowser", 2);
         }
         
         // Diagramm Länder
         $objTemplate->chart_horizontalBarUserCountry = $this->printChart("horizontalBar", "UserCountry", "range", "previous".$this->piwik_period, 400, 200, 100, "getCountry");
+        $objTemplate->url_chart_horizontalBarUserCountry = $this->urlChart("horizontalBar", "UserCountry", "range", "previous".$this->piwik_period, 400, 200, "getCountry");
+        $objTemplate->urlx2_chart_horizontalBarUserCountry = $this->urlChart("horizontalBar", "UserCountry", "range", "previous".$this->piwik_period, 400, 200, "getCountry", 2);
         
         //Tabelle: Suchworte von Suchmaschinen
         $objTemplate->table_keywords = $this->printTable(
