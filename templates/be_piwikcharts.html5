@@ -57,7 +57,7 @@
         margin: 2rem 3rem;
     }
 </style>
-  <div class="tl_box" style="flex-wrap: wrap;">
+  <div class="tl_box" style="display: flex; flex-wrap: wrap;">
     <div class="graphes">
         <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>:<br />
         <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryDay; ?>" onclick="Backend.openModalIframe({'width':820,'height':'455','title':'<?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>','url':this.href});return false">
@@ -121,8 +121,10 @@
 
     <div class="tl_box">
       <h2 class="sub_headline"><?php echo $this->lang->table['visitedPages_headline']; ?>:</h2>
-      <div class="tl_listing_container list_view">
-        <?php echo $this->table_visitedPages; ?>
+      <div style="display: flex; flex-wrap: wrap;justify-content:space-between;">
+          <div class="tl_listing_container list_view" style="display:inline-block; flex-grow:1">
+            <?php echo $this->table_visitedPages; ?>
+          </div>
       </div>
     </div>
 
