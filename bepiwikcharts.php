@@ -496,8 +496,10 @@ class bepiwikcharts extends BackendModule {
             $this->JSONload(
                 $this->buildURL(
                     "Referrers.getKeywords", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20"
-                ), array("label", "nb_visits")
-            ), array(
+                ), 
+                array("label", "nb_visits")
+            ), 
+            array(
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_keyword'],
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_count']
             ), "tl_listing data"
@@ -505,11 +507,13 @@ class bepiwikcharts extends BackendModule {
         
         //Tabelle: Besucher von Webseite
         $objTemplate->table_fromWebsite = $this->printTable(
-        $this->JSONload(
-            $this->buildURL(
-                "Referrers.getWebsites", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20"
-                ), array("label", "nb_visits")
-            ), array(
+            $this->JSONload(
+                $this->buildURL(
+                    "Referrers.getWebsites", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20"
+                ), 
+                array("label", "nb_visits")
+            ), 
+            array(
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_website'],
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_count']
             ), "tl_listing data"
@@ -520,8 +524,10 @@ class bepiwikcharts extends BackendModule {
             $this->JSONload(
                 $this->buildURL(
                     "Actions.getPageUrls", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20"
-                ), array("label", "nb_visits")
-            ), array(
+                ), 
+                array("label", "nb_visits")
+            ), 
+            array(
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_page'],
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_count']
             ), "tl_listing data"
@@ -532,7 +538,8 @@ class bepiwikcharts extends BackendModule {
             $this->JSONload(
                 $this->buildURL(
                     "Actions.getDownloads", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20&expanded=1&filter_limit=10"
-                ), array("label", "subtable")
+                ), 
+                array("label", "subtable")
             ), "tl_listing downloads"
         );
         
