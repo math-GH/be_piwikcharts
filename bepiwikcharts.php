@@ -173,7 +173,7 @@ class bepiwikcharts extends BackendModule {
     */
     function printTable_downloads($inhalte, $cssklasse = "") {
         $tabelle = "<table class=\"" . $cssklasse . "\">";
-        $tabelle .= "<tr><th class=\"col0\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_domain'] . "</th><th class=\"col1\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_file'] . "</th><th class=\"col2\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_count'] . "</th></tr>";
+        $tabelle .= "<tr><th class=\"tl_folder_tlist col0\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_domain'] . "</th><th class=\"tl_folder_tlist col1\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_file'] . "</th><th class=\"tl_folder_tlist col2\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_count'] . "</th></tr>";
 
         if (!empty($inhalte)) {
             for ($i = 0; $i <= count($inhalte) / 2; $i = $i + 2) {
@@ -184,11 +184,11 @@ class bepiwikcharts extends BackendModule {
                 }
 
                 for ($j = 0; $j < $maxZeilen; $j++) {
-                    $tabelle .= "<tr>";
-                    $tabelle .= "<td class=\"col0\">" . $inhalte[$i] . "</td>";
+                    $tabelle .= "<tr class=\"hover-row\">";
+                    $tabelle .= "<td class=\"tl_file_list col0\">" . $inhalte[$i] . "</td>";
                     $path_parts = pathinfo($inhalte[$i + 1][$j]->label);
-                    $tabelle .= "<td class=\"col1\"><a href=\"" . $inhalte[$i + 1][$j]->url . "\" target=\"_blank\" title=\"" . $inhalte[$i + 1][$j]->label . "\">" . $path_parts['basename'] . "</a></td>";
-                    $tabelle .= "<td class=\"col2\">" . ($inhalte[$i + 1][$j]->nb_visits) . "</td>";
+                    $tabelle .= "<td class=\"tl_file_list col1\"><a href=\"" . $inhalte[$i + 1][$j]->url . "\" target=\"_blank\" title=\"" . $inhalte[$i + 1][$j]->label . "\">" . $path_parts['basename'] . "</a></td>";
+                    $tabelle .= "<td class=\"tl_file_list col2\">" . ($inhalte[$i + 1][$j]->nb_visits) . "</td>";
                     $tabelle .= "</tr>";
                 }
             }
@@ -215,7 +215,7 @@ class bepiwikcharts extends BackendModule {
         
         // falls keine Daten gefunden werden, hier abbrechen
         if ($rowsPerTable < 1) {
-            return "<table><tr><td>".$inhalte."Found no Data</td></table>";
+            return "<table><tr class=\"hover-row\"><td class=\"tl_file_list\">".$inhalte."Found no Data</td></table>";
         }
         
         // Anzahl der Tabellen nebeneinader ist abhängig von der Größe des Arrays $inhalte und der Zeilenanzahl der Tabelle ($rowsPerTable)
@@ -227,14 +227,14 @@ class bepiwikcharts extends BackendModule {
         // Tabellenkopf
         $resultTable .= "<tr>";
         for ($i = 0; $i < count($spalten) * $tabellen; $i++) {
-            $resultTable .= "<th class=\"col" . ($i % count($spalten)) . "\">" . $spalten[$i % count($spalten)] . "</th>";
+            $resultTable .= "<th class=\"tl_folder_tlist col" . ($i % count($spalten)) . "\">" . $spalten[$i % count($spalten)] . "</th>";
         }
         $resultTable .= "</tr>";
         
         // Tabelleninhalt
         for ($row = 0; $row < $rowsPerTable; $row++) {
             
-            $resultTable .= "<tr>";
+            $resultTable .= "<tr class=\"hover-row\">";;
             
             // $tabellenspalte = Index der Tabelle, die nebeneinander angezeit wird
             for ($tabellenspalte = 0; $tabellenspalte < $tabellen; $tabellenspalte++) {
@@ -243,12 +243,12 @@ class bepiwikcharts extends BackendModule {
                     
                     // Prüfen, ob das Array groß genug ist um den Inhalt auszugeben oder nur eine leere Zelle zu erzeugen
                     if ((( $row * count($spalten) + $spalte ) + $tabellenspalte * $rowsPerTable * count($spalten)) < count($inhalte)) {
-                        $resultTable .= "<td class=\"col" . $spalte . "\">";
+                        $resultTable .= "<td class=\"tl_file_list col" . $spalte . "\">";
                         $resultTable .= $inhalte[($row * count($spalten) + $spalte) + $tabellenspalte * $rowsPerTable * count($spalten)];
                         $resultTable .= "</td>";
                         } else {
                         // leere Zelle
-                        $resultTable .= "<td class=\"col" . $spalte . "\"></td>";
+                        $resultTable .= "<td class=\"tl_file_list col" . $spalte . "\"></td>";
                     }
                 }
             }
@@ -294,7 +294,9 @@ class bepiwikcharts extends BackendModule {
         * @param $cssStyle    (optionaler Parameter) CSS-Style Attribut
     */
     function printChart($graphType, $apiModule, $period, $date, $width, $height, $scale, $apiAction, $additional = "", $cssStyle = "") {
-        return '<img src="' . $this->buildURL("ImageGraph.get", $period, $date, '&apiModule=' . $apiModule . '&apiAction=' . $apiAction . '&graphType=' . $graphType . '&width=' . $width . '&height=' . $height . $additional) . '" alt="" width="' . ($width * $scale / 100) . '" style="' . $cssStyle . '" />';
+        $url = $this->buildURL("ImageGraph.get", $period, $date, '&apiModule=' . $apiModule . '&apiAction=' . $apiAction . '&graphType=' . $graphType . '&width=' . $width . '&height=' . $height . $additional);
+        $urlx2 = $this->buildURL("ImageGraph.get", $period, $date, '&apiModule=' . $apiModule . '&apiAction=' . $apiAction . '&graphType=' . $graphType . '&width=' . $width*2 . '&height=' . $height*2 . $additional);
+        return '<a href="'.$urlx2.'" onclick="Backend.openModalIframe({\'width\':'.($width*2+20).',\'height\':'.($height*2+55).',\'title\':\'180922_Görlitz.jpg\',\'url\':this.href});return false"><img src="' . $url . '" alt="" width="' . ($width * $scale / 100) . '" style="' . $cssStyle . '" />';
     }
     
     /*   * *****************************************
@@ -466,7 +468,7 @@ class bepiwikcharts extends BackendModule {
             ), array(
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_keyword'],
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_count']
-            ), "data"
+            ), "tl_listing data"
         );
         
         //Tabelle: Besucher von Webseite
@@ -478,7 +480,7 @@ class bepiwikcharts extends BackendModule {
             ), array(
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_website'],
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_count']
-            ), "data"
+            ), "tl_listing data"
         );
         
         // Tabelle: angeschaute Seiten
@@ -490,7 +492,7 @@ class bepiwikcharts extends BackendModule {
             ), array(
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_page'],
                 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['visitedPages_header_count']
-            ), "data"
+            ), "tl_listing data"
         );
         
         // Tabelle: Downloads
@@ -499,7 +501,7 @@ class bepiwikcharts extends BackendModule {
                 $this->buildURL(
                     "Actions.getDownloads", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20&expanded=1&filter_limit=10"
                 ), array("label", "subtable")
-            ), "downloads"
+            ), "tl_listing downloads"
         );
         
         // Zusammenfassung (letzte 30 Minuten/letzte 24 Stunden)
