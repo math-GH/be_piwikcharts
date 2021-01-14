@@ -21,10 +21,6 @@
           » <?php echo $this->lang->menu['settings']; ?>
         </a>
       <?php endif; ?>
-      
-      <a class="header_icon print" href="javascript:window.print()" title="<?php echo $this->lang->menu['print_title']; ?>">
-          <?php echo $this->lang->menu['print']; ?>
-      </a>
       <a class="header_theme_import optOut" href="<?php echo $this->link_optOut ?>" onclick="window.open(this.href); return false;" title="<?php echo $this->lang->menu['optout_title']; ?>">
           <?php echo $this->lang->menu['optout']; ?>
       </a>
