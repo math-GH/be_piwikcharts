@@ -20,17 +20,20 @@ class bepiwikcharts extends BackendModule {
     
     protected $strTemplate = 'be_piwikcharts';
     // Default-Werte (Demo-Modus)
-    public $url = "http://demo.matomo.org/"; // inkl. http(s), mit / am Ende
+    public $url = "https://demo.matomo.org/"; // inkl. http(s), mit / am Ende
     public $piwik_IDsite = 3;
     public $piwik_TOKENauth = "anonymous";
     public $piwik_period = 30;
     private $tableMaxRows = 10;
-    public $modus = 0;      // 0 = Demo, 1 = normal
+    const DEMO = 0;
+    const CONNECTED = 1;
+    private $modus = DEMO;      // 0 = Demo, 1 = normal
     private $username = "";
     private $password = "";
     private $error = FALSE;
     private $errorCode = 0;
     private $version_installed = "";
+    private $apiLatestVersionURL = "https://api.matomo.org/1.0/getLatestVersion/";
     
     public function compile() {
         
@@ -55,7 +58,7 @@ class bepiwikcharts extends BackendModule {
             
             $this->username = $GLOBALS["TL_CONFIG"]['piwikchartsUsername'];
             $this->password = $GLOBALS["TL_CONFIG"]['piwikchartsPassword'];
-            $this->modus = 1; //1 = Normalmodus;
+            $this->modus = bepiwikcharts::CONNECTED;
         }
     }
     
@@ -64,25 +67,56 @@ class bepiwikcharts extends BackendModule {
      * @return String - wenn neue Version vorliegt: neue Versionsnummer. Wenn keine neue Version vorliegt: Leerstring
      **/
     function checkUpdate() {
-        if ($this->modus != 1) {
-            // nur im Produktivmodus nutzen. nicht im Demo-Modus
-            return "";
-        }
+        
         
         try {
-            // aktuelle Version vom Server lesen
-            $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getMatomoVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
-            $this->version_installed = trim($xml[0]);
+            $this->version_installed = $this->getVersionInstalled();
 
+            if ($this->modus != bepiwikcharts::CONNECTED) {
+                // nur im Produktivmodus nutzen. nicht im Demo-Modus
+                return "";
+            }
             // neuste Version vom Matomo-Server lesen
-            $version_newest = trim($this->readfile("https://api.matomo.org/1.0/getLatestVersion/"));
-
+            $version_newest = $this->getVersionAvailable();
+            
             if ($version_newest == $this->version_installed) {
                 return "";
             } 
             else {
                 return $version_newest;
             }
+        }
+        catch (Exception $e) {
+            $this->error = true;
+            $this->errorCode = 1;
+            return "";
+        }
+    }
+    
+    /*
+     * getVersionInstalled() - Installierte Version von Matomo ermitteln
+     * return String Versionsnummer
+     */
+    function getVersionInstalled() {
+        try {
+            // aktuelle Version vom Server lesen
+            $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getMatomoVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
+            return trim($xml[0]);
+        }
+        catch (Exception $e) {
+            $this->error = true;
+            $this->errorCode = 1;
+            return "";
+        }
+    }
+    
+    /*
+     * getVersionAvailable() - Verfügbare Version von Matomo ermitteln
+     * return String Versionsnummer
+     */
+    function getVersionAvailable() {
+        try {
+            return trim($this->readfile($this->apiLatestVersionURL));
         }
         catch (Exception $e) {
             $this->error = true;
@@ -358,15 +392,17 @@ class bepiwikcharts extends BackendModule {
         //$objTemplate_content->chart_evolutionVisitsSummaryMonth .= $this->printChart("evolution", "VisitsSummary", "month", "previous24", 400, 100, 100, "get", "&colors=,,ff0000", "");
         
         //im Demo-Modus (0) ist die Anzeige letzte 30Min/24h deaktivert
-        if ($this->modus > 0) {
-            $temp30m = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=30"), array("visitors"));
-            $objTemplate_content->visitsLast30Minutes = $temp30m[0];
-            $temp24h = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=".(60*24)), array("visitors"));
-            $objTemplate_content->visitsLast24Hours = $temp24h[0];
-        } 
-        else {
-            $objTemplate_content->visitsLast30Minutes = "(disabled)";
-            $objTemplate_content->visitsLast24Hours = "(disabled)";
+        switch ($this->modus) {
+            case bepiwikcharts::CONNECTED:
+                $temp30m = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=30"), array("visitors"));
+                $objTemplate_content->visitsLast30Minutes = $temp30m[0];
+                $temp24h = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=".(60*24)), array("visitors"));
+                $objTemplate_content->visitsLast24Hours = $temp24h[0];
+                break;
+            case bepiwikcharts::DEMO:
+            default:
+                $objTemplate_content->visitsLast30Minutes = "(DEMO mode)";
+                $objTemplate_content->visitsLast24Hours = "(DEMO mode)";
         }
         
         $objTemplate_content->link_optOut = $this->url . "index.php?module=CoreAdminHome&action=optOut";
@@ -461,7 +497,7 @@ class bepiwikcharts extends BackendModule {
         
         $version = explode(".", $this->version_installed);
         
-        if (intval($version[0])<2 || (intval($version[0])<2 &&  intval($version[1])<10) ) {
+        if (intval($version[0])<2 || (intval($version[0])<=2 &&  intval($version[1])<10) ) {
             // in der Piwik Version 2.10 wurde die API angepasst. Ab Version 2.14 wurde "UserSettings" abgeschaltet. Fuer die Rueckwaertskompatibilitaet
             $objTemplate->url_chart_horizontalBarUserBrowser = $this->urlChart("horizontalBar", "UserSettings", "range", "previous".$this->piwik_period, 400, 200, "getBrowser");
             $objTemplate->urlx2_chart_horizontalBarUserBrowser = $this->urlChart("horizontalBar", "UserSettings", "range", "previous".$this->piwik_period, 400, 200, "getBrowser", 2);
@@ -525,15 +561,17 @@ class bepiwikcharts extends BackendModule {
         
         // Zusammenfassung (letzte 30 Minuten/letzte 24 Stunden)
         //im Demo-Modus ist die Anzeige letzte 30Min/24h deaktivert
-        if ($this->modus > 0) {
-            $temp30m = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=30"), array("visitors"));
-            $objTemplate->visitsLast30Minutes = $temp30m[0];
-            $temp24h = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=" . (60 * 24)), array("visitors"));
-            $objTemplate->visitsLast24Hours = $temp24h[0];
-        } 
-        else {
-            $objTemplate->visitsLast30Minutes = "(disabled)";
-            $objTemplate->visitsLast24Hours = "(disabled)";
+        switch ($this->modus) {
+            case bepiwikcharts::CONNECTED:
+                $temp30m = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=30"), array("visitors"));
+                $objTemplate->visitsLast30Minutes = $temp30m[0];
+                $temp24h = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=" . (60 * 24)), array("visitors"));
+                $objTemplate->visitsLast24Hours = $temp24h[0];
+                break;
+            case bepiwikcharts::DEMO:
+            default:
+                $objTemplate->visitsLast30Minutes = "(DEMO)";
+                $objTemplate->visitsLast24Hours = "(DEMO)";
         }
         
         return $objTemplate->parse();

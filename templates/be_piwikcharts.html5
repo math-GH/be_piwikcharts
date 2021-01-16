@@ -38,11 +38,11 @@
   <div class="tl_box summary">
     <table>
       <tr>
-        <td><?php echo $this->lang->live['last30minutes']; ?>:</td>
+        <td><?php echo $this->lang->live['last30minutes']; ?>: </td>
         <td><?php echo $this->visitsLast30Minutes; ?></td>
       </tr>
       <tr>
-        <td><?php echo $this->lang->live['last24hours']; ?>:</td>
+        <td><?php echo $this->lang->live['last24hours']; ?>: </td>
         <td><?php echo $this->visitsLast24Hours; ?></td>
       </tr>
     </table>
