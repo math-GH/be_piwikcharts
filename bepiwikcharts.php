@@ -71,11 +71,11 @@ class bepiwikcharts extends BackendModule {
         
         try {
             // aktuelle Version vom Server lesen
-            $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getPiwikVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
+            $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getMatomoVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
             $this->version_installed = trim($xml[0]);
 
-            // neuste Version vom Piwik-Server lesen
-            $version_newest = trim($this->readfile("http://api.piwik.org/1.0/getLatestVersion/"));
+            // neuste Version vom Matomo-Server lesen
+            $version_newest = trim($this->readfile("https://api.matomo.org/1.0/getLatestVersion/"));
 
             if ($version_newest == $this->version_installed) {
                 return "";
