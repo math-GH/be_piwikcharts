@@ -1,10 +1,12 @@
 <?php
 
-if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+if (!defined('TL_ROOT')){
+    die('You cannot access this file directly!');
+}
 
 /* * *
 * @copyright  µaTh 2014-2020
-* @author     µaTh (+ Caro (ct9))
+* @author     µaTh (+ others. See GitHub)
 * @package    be_piwikcharts
 * @license    GNU/LGPL 
 * @filesource
@@ -35,8 +37,8 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-        * Konstruktor
-    * */
+     * Konstruktor
+     **/
     function __construct() {
         // Super-Konstruktor (von BackendModule) aufrufen
         parent::__construct();
@@ -46,9 +48,11 @@ class bepiwikcharts extends BackendModule {
             $this->url = $GLOBALS["TL_CONFIG"]['piwikchartsURL'];
             $this->piwik_IDsite = $GLOBALS["TL_CONFIG"]['piwikchartsSiteID'];
             $this->piwik_TOKENauth = $GLOBALS["TL_CONFIG"]['piwikchartsAuthCode'];
+            
             if ($GLOBALS["TL_CONFIG"]['piwikchartsPeriod'] != "") {
                 $this->piwik_period = intval($GLOBALS["TL_CONFIG"]['piwikchartsPeriod']);
             }
+            
             $this->username = $GLOBALS["TL_CONFIG"]['piwikchartsUsername'];
             $this->password = $GLOBALS["TL_CONFIG"]['piwikchartsPassword'];
             $this->modus = 1; //1 = Normalmodus;
@@ -56,40 +60,42 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-        * checkUpdate - prüft auf Updates
-        * @return String - wenn neue Version vorliegt: neue Versionsnummer. Wenn keine neue Version vorliegt: Leerstring
-    */
+     * checkUpdate - prüft auf Updates
+     * @return String - wenn neue Version vorliegt: neue Versionsnummer. Wenn keine neue Version vorliegt: Leerstring
+     **/
     function checkUpdate() {
-        if ($this->modus == 1) {
+        if ($this->modus != 1) {
             // nur im Produktivmodus nutzen. nicht im Demo-Modus
-            try {
-                // aktuelle Version vom Server lesen
-                $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getPiwikVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
-                $this->version_installed = trim($xml[0]);
-                
-                // neuste Version vom Piwik-Server lesen
-                $version_newest = trim($this->readfile("http://api.piwik.org/1.0/getLatestVersion/"));
-                
-                if ($version_newest == $this->version_installed) {
-                    return "";
-                    } else {
-                    return $version_newest;
-                }
-                } catch (Exception $e) {
-                $this->error = TRUE;
-                $this->errorCode = 1;
+            return "";
+        }
+        
+        try {
+            // aktuelle Version vom Server lesen
+            $xml = new SimpleXMLElement($this->readfile($this->url . "index.php?module=API&method=API.getPiwikVersion&format=xml&token_auth=" . $this->piwik_TOKENauth));
+            $this->version_installed = trim($xml[0]);
+
+            // neuste Version vom Piwik-Server lesen
+            $version_newest = trim($this->readfile("http://api.piwik.org/1.0/getLatestVersion/"));
+
+            if ($version_newest == $this->version_installed) {
                 return "";
+            } 
+            else {
+                return $version_newest;
             }
-            } else {
+        }
+        catch (Exception $e) {
+            $this->error = true;
+            $this->errorCode = 1;
             return "";
         }
     }
     
     /**
-        * Abfrage des Matomo-Servers
-        * @param $url string  Url- Fragment mit Abfrage zum Matomo-Server
-        * @return Array mit den abgefragten Werten
-    * */
+     * Abfrage des Matomo-Servers
+     * @param $url string  Url- Fragment mit Abfrage zum Matomo-Server
+     * @return Array mit den abgefragten Werten
+     **/
     function readfile($url) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -105,11 +111,11 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-        * XMLload() - lädt XML-Datei
-        *
-        * @param $request_url   URL zu der XML-Datei, inkl. http://
-        * @param $parameter     Array mit den Knotennamen, die ausgelesen werden
-    */
+     * XMLload() - lädt XML-Datei
+     *
+     * @param $request_url   URL zu der XML-Datei, inkl. http://
+     * @param $parameter     Array mit den Knotennamen, die ausgelesen werden
+     */
     function XMLload($request_url, $parameter) {
         
         $data = readfile($request_url);
@@ -129,9 +135,9 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-    * PHPload - Liest das unserialisierte PHP-Array ein und erstellt ein neues Array mit den Werten aus $parameter
-    * DEPRECATED - wird ersetzt durch JSONload
-    * */
+     * PHPload - Liest das unserialisierte PHP-Array ein und erstellt ein neues Array mit den Werten aus $parameter
+     * DEPRECATED - wird ersetzt durch JSONload
+     **/
     function PHPload($url, $parameter) {
         $unserializedArray = unserialize($this->readfile($url));
         
@@ -147,9 +153,9 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-    * JSONload - Liest das JSON ein und erstellt ein neues Array mit den Werten aus $parameter
-    * 
-    * */
+     * JSONload - Liest das JSON ein und erstellt ein neues Array mit den Werten aus $parameter
+     * 
+     **/
     function JSONload($url, $parameter) {
         $unserializedArray = json_decode($this->readfile($url));
         $foundContent = [];
@@ -166,11 +172,11 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-        * printTable_downloads() - gibt eine Tabelle speziell für Downloads aus
-        *
-        * @param  $inhalte  Array
-        * @param  $cssklasse  (optional) CSS-Klasse für die Tabelle
-    */
+     * printTable_downloads() - gibt eine Tabelle speziell für Downloads aus
+     *
+     * @param  $inhalte  Array
+     * @param  $cssklasse  (optional) CSS-Klasse für die Tabelle
+     **/
     function printTable_downloads($inhalte, $cssklasse = "") {
         $tabelle = "<table class=\"" . $cssklasse . "\">";
         $tabelle .= "<tr><th class=\"tl_folder_tlist col0\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_domain'] . "</th><th class=\"tl_folder_tlist col1\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_file'] . "</th><th class=\"tl_folder_tlist col2\">" . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_count'] . "</th></tr>";
@@ -200,12 +206,12 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-        * printTable() - gibt eine HTML-Tabelle aus
-        *
-        * @param  $inhalte  Array
-        * @param  $spalten  Array Tabellenkopfbezeichnungen
-        * @param  $cssklasse  (optional) CSS-Klasse für die Tabelle
-    */
+     * printTable() - gibt eine HTML-Tabelle aus
+     *
+     * @param  $inhalte  Array
+     * @param  $spalten  Array Tabellenkopfbezeichnungen
+     * @param  $cssklasse  (optional) CSS-Klasse für die Tabelle
+     **/
     function printTable($inhalte, $spalten, $cssklasse = "") {
         // Anzahl Inhaltszeilen der Tabelle festlegen
         $rowsPerTable = $this->tableMaxRows;
@@ -234,7 +240,7 @@ class bepiwikcharts extends BackendModule {
         // Tabelleninhalt
         for ($row = 0; $row < $rowsPerTable; $row++) {
             
-            $resultTable .= "<tr class=\"hover-row\">";;
+            $resultTable .= "<tr class=\"hover-row\">";
             
             // $tabellenspalte = Index der Tabelle, die nebeneinander angezeit wird
             for ($tabellenspalte = 0; $tabellenspalte < $tabellen; $tabellenspalte++) {
@@ -260,13 +266,13 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-        * buildURL - baut die Aufruf-URL für Matomo auf
-        *
-        * @param $method      Methode der Abfrage
-        * @param $period      kleinstes Intervall ('day', 'week', 'month', 'year', 'range')
-        * @param $date        untersuchtes Datum/Zeitintervall ('today', 'yesterday','previous30','YYYY-MM-DD%2CYYYY-MM-DD')
-        * @param $additional  (optionaler Parameter) für weitere API-Parameter. Muss mit & beginnen. Schema: '&parameter=wert'
-    */
+     * buildURL - baut die Aufruf-URL für Matomo auf
+     *
+     * @param $method      Methode der Abfrage
+     * @param $period      kleinstes Intervall ('day', 'week', 'month', 'year', 'range')
+     * @param $date        untersuchtes Datum/Zeitintervall ('today', 'yesterday','previous30','YYYY-MM-DD%2CYYYY-MM-DD')
+     * @param $additional  (optionaler Parameter) für weitere API-Parameter. Muss mit & beginnen. Schema: '&parameter=wert'
+     **/
     function buildURL($method, $period, $date, $additional) {
         $url = $this->url;
         $url.= 'index.php?module=API';
@@ -281,30 +287,29 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-        * urlChart - URL von Grafiken anzeigen
-        *
-        * @param $graphType   Grafentyp: 'evolution' (Liniendiagramm), 'horizontalBar' (horizontales Balkendiagramm), 'verticalBar' (Balkendiagramm) and 'pie' (2D Kreisdiagramm)
-        * @param $apiModule   Bezeichnung Matomomodul (z.B. Besucherverlauf: 'VisitsSummary')
-        * @param $period      kleinstes Intervall ('day', 'week', 'month', 'year', 'range')
-        * @param $date        untersuchtes Datum/Zeitintervall ('today', 'yesterday','previous30','YYYY-MM-DD%2CYYYY-MM-DD')
-        * @param $width, $height  Breite, Höhe der zu generierenden Grafik
-        * @param $apiAction   abhängig von $apiModule
-        * @param $multiplier Zoom-Faktor (default: 1)
-        * @param $additional  (optionaler Parameter) für weitere API-Parameter. Muss mit & beginnen. Schema: '&parameter=wert'
-        * @param $cssStyle    (optionaler Parameter) CSS-Style Attribut
-    */
-    function urlChart($graphType, $apiModule, $period, $date, $width, $height, $apiAction, $multiplier = 1, $additional = "", $cssStyle = "") {
+     * urlChart - URL von Grafiken anzeigen
+     *
+     * @param $graphType   Grafentyp: 'evolution' (Liniendiagramm), 'horizontalBar' (horizontales Balkendiagramm), 'verticalBar' (Balkendiagramm) and 'pie' (2D Kreisdiagramm)
+     * @param $apiModule   Bezeichnung Matomomodul (z.B. Besucherverlauf: 'VisitsSummary')
+     * @param $period      kleinstes Intervall ('day', 'week', 'month', 'year', 'range')
+     * @param $date        untersuchtes Datum/Zeitintervall ('today', 'yesterday','previous30','YYYY-MM-DD%2CYYYY-MM-DD')
+     * @param $width, $height  Breite, Höhe der zu generierenden Grafik
+     * @param $apiAction   abhängig von $apiModule
+     * @param $multiplier Zoom-Faktor (default: 1)
+     * @param $additional  (optionaler Parameter) für weitere API-Parameter. Muss mit & beginnen. Schema: '&parameter=wert'
+     **/
+    function urlChart($graphType, $apiModule, $period, $date, $width, $height, $apiAction, $multiplier = 1, $additional = "") {
         return $this->buildURL("ImageGraph.get", $period, $date, '&apiModule=' . $apiModule . '&apiAction=' . $apiAction . '&graphType=' . $graphType . '&width=' . $width*$multiplier . '&height=' . $height*$multiplier . $additional);
     }
     
     
-    /*   * *****************************************
-        * Templates mit Inhalten füllen
-    * **************************************** */
+    /*******************************************
+     * Templates mit Inhalten füllen
+     ***************************************** */
     
     /**
-        * dashboardWelcomePage - Statistiken auf der Welcomepage nach dem Login anzeigen
-    */
+     * dashboardWelcomePage - Statistiken auf der Welcomepage nach dem Login anzeigen
+     */
     function dashboardWelcomePage() {
         
         // wenn nicht Backend, dann abbrechen
@@ -354,11 +359,12 @@ class bepiwikcharts extends BackendModule {
         
         //im Demo-Modus (0) ist die Anzeige letzte 30Min/24h deaktivert
         if ($this->modus > 0) {
-            $temp = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=30"), array("visitors"));
-            $objTemplate_content->visitsLast30Minutes = $temp[0];
-            $temp = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=".(60*24)), array("visitors"));
-            $objTemplate_content->visitsLast24Hours = $temp[0];
-            } else {
+            $temp30m = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=30"), array("visitors"));
+            $objTemplate_content->visitsLast30Minutes = $temp30m[0];
+            $temp24h = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=".(60*24)), array("visitors"));
+            $objTemplate_content->visitsLast24Hours = $temp24h[0];
+        } 
+        else {
             $objTemplate_content->visitsLast30Minutes = "(disabled)";
             $objTemplate_content->visitsLast24Hours = "(disabled)";
         }
@@ -389,10 +395,10 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-        * generate() - wird von Contao automatisch geladen
-        *
-        * Templatevariablen belegen
-    */
+     * generate() - wird von Contao automatisch geladen
+     *
+     * Templatevariablen belegen
+     **/
     public function generate() {
         // wenn nicht Backend, dann abbrechen
         if (TL_MODE != 'BE') {
@@ -520,11 +526,12 @@ class bepiwikcharts extends BackendModule {
         // Zusammenfassung (letzte 30 Minuten/letzte 24 Stunden)
         //im Demo-Modus ist die Anzeige letzte 30Min/24h deaktivert
         if ($this->modus > 0) {
-            $temp = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=30"), array("visitors"));
-            $objTemplate->visitsLast30Minutes = $temp[0];
-            $temp = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=" . (60 * 24)), array("visitors"));
-            $objTemplate->visitsLast24Hours = $temp[0];
-            } else {
+            $temp30m = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=30"), array("visitors"));
+            $objTemplate->visitsLast30Minutes = $temp30m[0];
+            $temp24h = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=" . (60 * 24)), array("visitors"));
+            $objTemplate->visitsLast24Hours = $temp24h[0];
+        } 
+        else {
             $objTemplate->visitsLast30Minutes = "(disabled)";
             $objTemplate->visitsLast24Hours = "(disabled)";
         }
@@ -542,13 +549,13 @@ class bepiwikcharts extends BackendModule {
     * ************************************************************************** */
     
     /**
-        * checkPiwikUrl: URL-Format prüfen + prüfen ob Piwik-Installation gefunden werden kann.
-        * 
-        * @param type $strRegexp
-        * @param type $varValue
-        * @param Widget $objWidget
-        * @return boolean
-    */
+     * checkPiwikUrl: URL-Format prüfen + prüfen ob Piwik-Installation gefunden werden kann.
+     * 
+     * @param type $strRegexp
+     * @param type $varValue
+     * @param Widget $objWidget
+     * @return boolean
+     **/
     public function myRegexp_checkMatomoUrl($strRegexp, $varValue, Widget $objWidget) {
         if ($strRegexp == 'checkMatomoUrl') {
             if (substr(trim($varValue), -1, 1) != "/") {
@@ -571,11 +578,11 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-        * getHttpCode - ermittelt den HTTP-Code von $url
-        * 
-        * @param String $url
-        * @return integer
-    */
+     * getHttpCode - ermittelt den HTTP-Code von $url
+     * 
+     * @param String $url
+     * @return integer
+     **/
     public function getHttpCode($url) {
         $ch = curl_init();
         
@@ -592,13 +599,13 @@ class bepiwikcharts extends BackendModule {
     }
     
     /**
-    * checkAuthCode - prüft, ob mit dem AuthCode auf die Matomo-Installation zugegriffen werden kann.
-    * 
-    * @param type $strRegexp
-    * @param type $varValue
-    * @param Widget $objWidget
-    * @return boolean
-    */
+     * checkAuthCode - prüft, ob mit dem AuthCode auf die Matomo-Installation zugegriffen werden kann.
+     * 
+     * @param type $strRegexp
+     * @param type $varValue
+     * @param Widget $objWidget
+     * @return boolean
+     **/
     public function myRegexp_checkAuthCode($strRegexp, $varValue, Widget $objWidget) {
         if ($strRegexp == 'checkAuthCode') {
             try {
@@ -607,7 +614,8 @@ class bepiwikcharts extends BackendModule {
                 if (strlen($version_installed) < 1) {
                     $objWidget->addError($GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['authCode']['rgxp']);
                 }
-                } catch (Exception $e) {
+            } 
+            catch (Exception $e) {
                 return true;
             }
             return true;
@@ -617,5 +625,3 @@ class bepiwikcharts extends BackendModule {
     }
     
 }
-
-?>
