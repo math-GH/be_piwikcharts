@@ -1,154 +1,144 @@
 <?php if (!defined('TL_ROOT')) die('You cannot access this file directly!'); ?>
 <?php 
-  if ($this->errorMessage) { 
-    echo $this->errorMessage; 
-    }
-  else{ 
-?>
-<div id="be_piwikcharts">
-  
-  
-  <?php if($this->isAdmin): ?>
-   <!--
-   <div class="tl_panel">
-      <div class="piwikserver">
-        Matomo-Server: <a class="extern" target="_blank" href="<?php echo $this->link_server ?>"><?php echo $this->link_server ?></a> (SiteID: <?php echo $this->piwik_IDsite ?>)
-      </div>
-    </div>
-   
-   -->
-  <?php endif; ?>
-  <div class="serverinfo" id="tl_buttons">
-      <?php if($this->isAdmin): ?>
-        <a class="header_icon goToSettings" href="<?php echo $this->link_settings ?>" title="<?php echo $this->lang->menu['settings_title']; ?>">
-          » <?php echo $this->lang->menu['settings']; ?>
-        </a>
-      <?php endif; ?>
-      <a class="header_theme_import optOut" href="<?php echo $this->link_optOut ?>" onclick="window.open(this.href); return false;" title="<?php echo $this->lang->menu['optout_title']; ?>">
-          <?php echo $this->lang->menu['optout']; ?>
-      </a>
-      <a class="header_store extern" onclick="window.open(this.href); return false;" href="<?php echo (isset($this->link_server_login) ? ($this->link_server_login) : ($this->link_server)) ?>" title="<?php echo $this->lang->menu['login_title']; ?>">
-        <?php echo $this->lang->menu['login']; ?>
-      </a>
-      <?php if($this->update && $this->showUpdate): ?>
-      <a class="header_sync update" href="<?php echo $this->link_server ?>" onclick="window.open(this.href); return false;" title="<?php echo $this->lang->menu['update']; ?>: <?php echo $this->update ?>">
-          <?php echo $this->lang->menu['update']; ?>
-        </a>
-      <?php endif; ?>
-  </div>
-<div class="tl_listing_container">
-  <div class="tl_header">
-    <table class="tl_header_table">
-      <tbody>
-          <tr>
-        <td><span class="tl_label">Matomo-Server:</span> </td>
-        <td><a class="extern" target="_blank" href="<?php echo $this->link_server ?>"><?php echo $this->link_server ?></a></td>
-      </tr>
-            <tr>
-        <td><span class="tl_label">SiteID:</span> </td>
-        <td><?php echo $this->piwik_IDsite ?></td>
-      </tr>
-          <tr>
-        <td><span class="tl_label"><?php echo $this->lang->live['last30minutes']; ?>:</span> </td>
-        <td><?php echo $this->visitsLast30Minutes; ?></td>
-      </tr>
-      <tr>
-        <td><span class="tl_label"><?php echo $this->lang->live['last24hours']; ?>:</span> </td>
-        <td><?php echo $this->visitsLast24Hours; ?></td>
-      </tr>
-    </tbody>
-    </table>
-    </div>
-</div>
-<style>
-    .graphes {
-        margin: 2rem 3rem;
-    }
-</style>
-  <div class="tl_box" style="display: flex; flex-wrap: wrap;">
-    <div class="graphes">
-        <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>:<br />
-        <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryDay; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>','url':this.href});return false">
-            <img src="<?php echo $this->url_chart_evolutionVisitsSummaryDay; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
-        </a>
-    </div>
+if ($this->errorMessage) { 
+     echo $this->errorMessage; 
+}
+else{
+    ?>
+    <div id="be_piwikcharts">
+        <div class="serverinfo" id="tl_buttons">
+            <?php if($this->isAdmin): ?>
+                <a class="header_icon goToSettings" href="<?php echo $this->link_settings ?>" title="<?php echo $this->lang->menu['settings_title']; ?>">
+                    » <?php echo $this->lang->menu['settings']; ?>
+                </a>
+            <?php endif; ?>
+            <a class="header_theme_import optOut" href="<?php echo $this->link_optOut ?>" onclick="window.open(this.href); return false;" title="<?php echo $this->lang->menu['optout_title']; ?>">
+                <?php echo $this->lang->menu['optout']; ?>
+            </a>
+            <a class="header_store extern" onclick="window.open(this.href); return false;" href="<?php echo (isset($this->link_server_login) ? ($this->link_server_login) : ($this->link_server)) ?>" title="<?php echo $this->lang->menu['login_title']; ?>">
+                <?php echo $this->lang->menu['login']; ?>
+            </a>
+            <?php if($this->update && $this->showUpdate): ?>
+                <a class="header_sync update" href="<?php echo $this->link_server ?>" onclick="window.open(this.href); return false;" title="<?php echo $this->lang->menu['update']; ?>: <?php echo $this->update ?>">
+                    <?php echo $this->lang->menu['update']; ?>
+                </a>
+            <?php endif; ?>
+        </div>
+        <div class="tl_listing_container">
+            <div class="tl_header">
+                <table class="tl_header_table">
+                    <tbody>
+                        <?php if($this->isAdmin): ?>
+                            <tr>
+                                <td><span class="tl_label">Matomo-Server:</span> </td>
+                                <td><a class="extern" target="_blank" href="<?php echo $this->link_server ?>"><?php echo $this->link_server ?></a></td>
+                            </tr>
+                            <tr>
+                                <td><span class="tl_label">SiteID:</span></td>
+                                <td><?php echo $this->piwik_IDsite ?></td>
+                            </tr>
+                        <?php endif; ?>
+                        <tr>
+                            <td><span class="tl_label"><?php echo $this->lang->live['last30minutes']; ?>:</span> </td>
+                            <td><?php echo $this->visitsLast30Minutes; ?></td>
+                        </tr>
+                        <tr>
+                            <td><span class="tl_label"><?php echo $this->lang->live['last24hours']; ?>:</span> </td>
+                            <td><?php echo $this->visitsLast24Hours; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <style>
+            .graphes {
+                margin: 2rem 3rem;
+            }
+        </style>
+        <div class="tl_box" style="display: flex; flex-wrap: wrap;">
+            <div class="graphes">
+                <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>:<br />
+                <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryDay; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>','url':this.href});return false">
+                    <img src="<?php echo $this->url_chart_evolutionVisitsSummaryDay; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                </a>
+            </div>
 
-    <div class="graphes">
-        <?php echo $this->lang->graph['visitors_last24months_headline']; ?>:<br />
-        <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryMonth; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_last24months_headline']; ?>','url':this.href});return false">
-            <img src="<?php echo $this->url_chart_evolutionVisitsSummaryMonth; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
-        </a>
-    </div>
-
-    
-    <div class="graphes">
-        <?php echo $this->lang->graph['visitors_visitTimeByDayOfWeek_headline']; ?>:<br />
-        <a href="<?php echo $this->urlx2_chart_verticalBarVisitTimeByDayOfWeek; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_visitTimeByDayOfWeek_headline']; ?>','url':this.href});return false">
-            <img src="<?php echo $this->url_chart_verticalBarVisitTimeByDayOfWeek; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
-        </a>
-    </div>
-    
-    
-    <div class="graphes">
-        <?php echo $this->lang->graph['visitors_visitsPerServerTime_headline']; ?>:<br />
-        <a href="<?php echo $this->urlx2_chart_verticalBarVisitsPerServerTime; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_visitsPerServerTime_headline']; ?>','url':this.href});return false">
-            <img src="<?php echo $this->url_chart_verticalBarVisitsPerServerTime; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
-        </a>
-    </div>
-    
-    
-    <div class="graphes">
-        <?php echo $this->lang->graph['visitors_userBrowser_headline']; ?>:<br />
-        <a href="<?php echo $this->urlx2_chart_horizontalBarUserBrowser; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_userBrowser_headline']; ?>','url':this.href});return false">
-            <img src="<?php echo $this->url_chart_horizontalBarUserBrowser; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
-        </a>
-    </div>
-    
-    <div class="graphes">
-        <?php echo $this->lang->graph['visitors_userCountry_headline']; ?>:<br />
-        <a href="<?php echo $this->urlx2_chart_horizontalBarUserCountry; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_userCountry_headline']; ?>','url':this.href});return false">
-            <img src="<?php echo $this->url_chart_horizontalBarUserCountry; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
-        </a>
-    </div>
-  </div>
+            <div class="graphes">
+                <?php echo $this->lang->graph['visitors_last24months_headline']; ?>:<br />
+                <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryMonth; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_last24months_headline']; ?>','url':this.href});return false">
+                    <img src="<?php echo $this->url_chart_evolutionVisitsSummaryMonth; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                </a>
+            </div>
 
 
-    <div class="tl_box">
-      <h2 class="sub_headline"><?php echo $this->lang->table['keywords_headline']; ?>:</h2>
-      <div class="tl_listing_container list_view">
-        <?php echo $this->table_keywords; ?>
-      </div>
+            <div class="graphes">
+                <?php echo $this->lang->graph['visitors_visitTimeByDayOfWeek_headline']; ?>:<br />
+                <a href="<?php echo $this->urlx2_chart_verticalBarVisitTimeByDayOfWeek; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_visitTimeByDayOfWeek_headline']; ?>','url':this.href});return false">
+                    <img src="<?php echo $this->url_chart_verticalBarVisitTimeByDayOfWeek; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                </a>
+            </div>
+
+
+            <div class="graphes">
+                <?php echo $this->lang->graph['visitors_visitsPerServerTime_headline']; ?>:<br />
+                <a href="<?php echo $this->urlx2_chart_verticalBarVisitsPerServerTime; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_visitsPerServerTime_headline']; ?>','url':this.href});return false">
+                    <img src="<?php echo $this->url_chart_verticalBarVisitsPerServerTime; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                </a>
+            </div>
+
+
+            <div class="graphes">
+                <?php echo $this->lang->graph['visitors_userBrowser_headline']; ?>:<br />
+                <a href="<?php echo $this->urlx2_chart_horizontalBarUserBrowser; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_userBrowser_headline']; ?>','url':this.href});return false">
+                    <img src="<?php echo $this->url_chart_horizontalBarUserBrowser; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                </a>
+            </div>
+
+            <div class="graphes">
+                <?php echo $this->lang->graph['visitors_userCountry_headline']; ?>:<br />
+                <a href="<?php echo $this->urlx2_chart_horizontalBarUserCountry; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_userCountry_headline']; ?>','url':this.href});return false">
+                    <img src="<?php echo $this->url_chart_horizontalBarUserCountry; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                </a>
+            </div>
+        </div>
+
+
+        <div class="tl_box">
+            <h2 class="sub_headline"><?php echo $this->lang->table['keywords_headline']; ?>:</h2>
+            <div class="tl_listing_container list_view">
+                <?php echo $this->table_keywords; ?>
+            </div>
+        </div>
+
+        <div class="tl_box">
+            <h2 class="sub_headline"><?php echo $this->lang->table['fromWebsite_headline']; ?>:</h2>
+            <div class="tl_listing_container list_view">
+                <?php echo $this->table_fromWebsite; ?>
+            </div>
+        </div>
+
+        <div class="tl_box">
+            <h2 class="sub_headline"><?php echo $this->lang->table['visitedPages_headline']; ?>:</h2>
+            <div style="display: flex; flex-wrap: wrap;justify-content:space-between;">
+                <div class="tl_listing_container list_view" style="display:inline-block; flex-grow:1">
+                    <?php echo $this->table_visitedPages; ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="tl_box">
+            <h2 class="sub_headline"><?php echo $this->lang->table['downloads_headline']; ?>:</h2>
+            <div class="tl_listing_container list_view">
+                <?php echo $this->table_downloads; ?>
+            </div>
+        </div>
+
+        <div class="tl_panel">
+            <div class="piwikinfo">
+                <?php echo $this->lang->piwikinfo; ?>
+            </div>
+        </div> 
+
     </div>
-
-    <div class="tl_box">
-      <h2 class="sub_headline"><?php echo $this->lang->table['fromWebsite_headline']; ?>:</h2>
-      <div class="tl_listing_container list_view">
-          <?php echo $this->table_fromWebsite; ?>
-      </div>
-    </div>
-
-    <div class="tl_box">
-      <h2 class="sub_headline"><?php echo $this->lang->table['visitedPages_headline']; ?>:</h2>
-      <div style="display: flex; flex-wrap: wrap;justify-content:space-between;">
-          <div class="tl_listing_container list_view" style="display:inline-block; flex-grow:1">
-            <?php echo $this->table_visitedPages; ?>
-          </div>
-      </div>
-    </div>
-
-    <div class="tl_box">
-      <h2 class="sub_headline"><?php echo $this->lang->table['downloads_headline']; ?>:</h2>
-      <div class="tl_listing_container list_view">
-        <?php echo $this->table_downloads; ?>
-      </div>
-    </div>
-
-    <div class="tl_panel">
-      <div class="piwikinfo">
-        <?php echo $this->lang->piwikinfo; ?>
-     </div>
-    </div> 
-
-</div>
-<?php 
-    }
+    <?php 
+}
