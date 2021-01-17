@@ -53,6 +53,9 @@ else{
         <style>
             .graphes {
                 margin: 2rem 3rem;
+                background-image: url("./system/modules/be_piwikcharts/assets/laden.gif");
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
             }
             .graphes_headline {
                 margin-bottom: 1rem;
