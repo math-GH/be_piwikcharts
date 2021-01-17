@@ -9,11 +9,14 @@
   
   
   <?php if($this->isAdmin): ?>
-    <div class="tl_panel">
+   <!--
+   <div class="tl_panel">
       <div class="piwikserver">
         Matomo-Server: <a class="extern" target="_blank" href="<?php echo $this->link_server ?>"><?php echo $this->link_server ?></a> (SiteID: <?php echo $this->piwik_IDsite ?>)
       </div>
     </div>
+   
+   -->
   <?php endif; ?>
   <div class="serverinfo" id="tl_buttons">
       <?php if($this->isAdmin): ?>
@@ -33,23 +36,32 @@
         </a>
       <?php endif; ?>
   </div>
-
-  
-  <div class="tl_box summary">
-    <table>
-      <tr>
-        <td><?php echo $this->lang->live['last30minutes']; ?>: </td>
+<div class="tl_listing_container">
+  <div class="tl_header">
+    <table class="tl_header_table">
+      <tbody>
+          <tr>
+        <td><span class="tl_label">Matomo-Server:</span> </td>
+        <td><a class="extern" target="_blank" href="<?php echo $this->link_server ?>"><?php echo $this->link_server ?></a></td>
+      </tr>
+            <tr>
+        <td><span class="tl_label">SiteID:</span> </td>
+        <td><?php echo $this->piwik_IDsite ?></td>
+      </tr>
+          <tr>
+        <td><span class="tl_label"><?php echo $this->lang->live['last30minutes']; ?>:</span> </td>
         <td><?php echo $this->visitsLast30Minutes; ?></td>
       </tr>
       <tr>
-        <td><?php echo $this->lang->live['last24hours']; ?>: </td>
+        <td><span class="tl_label"><?php echo $this->lang->live['last24hours']; ?>:</span> </td>
         <td><?php echo $this->visitsLast24Hours; ?></td>
       </tr>
+    </tbody>
     </table>
-  </div>
+    </div>
+</div>
 <style>
     .graphes {
-        display: inline-block;
         margin: 2rem 3rem;
     }
 </style>
