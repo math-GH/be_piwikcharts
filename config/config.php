@@ -52,9 +52,7 @@ $GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_che
 
 array_insert($GLOBALS['BE_MOD']['system'], 98, array(
     'be_piwikcharts' => array(
-        'callback' => 'bepiwikcharts',
-        'stylesheet' => 'system/modules/be_piwikcharts/assets/bepiwikcharts.css',
-        'icon' => 'system/modules/be_piwikcharts/assets/matomoicon.png'
+        'callback' => 'bepiwikcharts'
     )
 ));
 
