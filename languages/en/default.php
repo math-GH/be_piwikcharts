@@ -29,7 +29,7 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['zoomIt'] = "More
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['headline'] = "Visitor statistics with Matomo";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['headline'] = "Visitors";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['visitors'] = "visitors";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['last30minutes'] = "last 30 minutes";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['last24hours'] = "last 24 hours";
 
@@ -44,12 +44,14 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['login_title'
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update'] = "Update available";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update_title'] = "New Matomo software update is available";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last30days_headline'] = "period: last %d days";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last24months_headline'] = "last 24 months";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitsPerServerTime_headline'] = "visit time (server time)";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitTimeByDayOfWeek_headline'] = "visit days";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_userBrowser_headline'] = "browser";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_userCountry_headline'] = "visitors from";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['headline'] = "Dashboard";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['alt_text'] = "Chart";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last30days_headline'] = "Period: last %d days";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last24months_headline'] = "Last 24 months";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitsPerServerTime_headline'] = "Visit time (server time)";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitTimeByDayOfWeek_headline'] = "Visit days";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_userBrowser_headline'] = "Browser";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_userCountry_headline'] = "Visitors from";
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_headline'] = "Top keywords, that leads to your website";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['keywords_header_keyword'] = "Keyword";

@@ -54,50 +54,66 @@ else{
             .graphes {
                 margin: 2rem 3rem;
             }
+            .graphes_headline {
+                margin-bottom: 1rem;
+            }
         </style>
+        <h2 class="sub_headline"><?php echo $this->lang->graph['headline']; ?>:</h2>
         <div class="tl_box" style="display: flex; flex-wrap: wrap;">
             <div class="graphes">
-                <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>:<br />
-                <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryDay; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>','url':this.href});return false">
-                    <img src="<?php echo $this->url_chart_evolutionVisitsSummaryDay; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                <div class="graphes_headline">
+                    <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>:
+                </div>
+                <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryDay; ?>" onclick="Backend.openModalIframe({'width':<?php echo $this->chartWidth * 2 + 20; ?>,'height':<?php echo $this->chartHeight * 2 + 55; ?>,'title':'<?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>','url':this.href});return false">
+                    <img src="<?php echo $this->url_chart_evolutionVisitsSummaryDay; ?>" alt="<?php echo $this->lang->graph['alt_text']; ?>: <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
                 </a>
             </div>
 
             <div class="graphes">
-                <?php echo $this->lang->graph['visitors_last24months_headline']; ?>:<br />
+                <div class="graphes_headline">
+                <?php echo $this->lang->graph['visitors_last24months_headline']; ?>:
+                </div>
                 <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryMonth; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_last24months_headline']; ?>','url':this.href});return false">
-                    <img src="<?php echo $this->url_chart_evolutionVisitsSummaryMonth; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                    <img src="<?php echo $this->url_chart_evolutionVisitsSummaryMonth; ?>" alt="<?php echo $this->lang->graph['alt_text']; ?>: <?php echo $this->lang->graph['visitors_last24months_headline']; ?>" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
                 </a>
             </div>
 
 
             <div class="graphes">
-                <?php echo $this->lang->graph['visitors_visitTimeByDayOfWeek_headline']; ?>:<br />
+                <div class="graphes_headline">
+                    <?php echo $this->lang->graph['visitors_visitTimeByDayOfWeek_headline']; ?>:
+                </div>
                 <a href="<?php echo $this->urlx2_chart_verticalBarVisitTimeByDayOfWeek; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_visitTimeByDayOfWeek_headline']; ?>','url':this.href});return false">
-                    <img src="<?php echo $this->url_chart_verticalBarVisitTimeByDayOfWeek; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                    <img src="<?php echo $this->url_chart_verticalBarVisitTimeByDayOfWeek; ?>" alt="<?php echo $this->lang->graph['alt_text']; ?>: <?php echo $this->lang->graph['visitors_visitTimeByDayOfWeek_headline']; ?>" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
                 </a>
             </div>
 
 
             <div class="graphes">
-                <?php echo $this->lang->graph['visitors_visitsPerServerTime_headline']; ?>:<br />
+                <div class="graphes_headline">
+                    <?php echo $this->lang->graph['visitors_visitsPerServerTime_headline']; ?>:
+                </div>
                 <a href="<?php echo $this->urlx2_chart_verticalBarVisitsPerServerTime; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_visitsPerServerTime_headline']; ?>','url':this.href});return false">
-                    <img src="<?php echo $this->url_chart_verticalBarVisitsPerServerTime; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                    <img src="<?php echo $this->url_chart_verticalBarVisitsPerServerTime; ?>" alt="<?php echo $this->lang->graph['alt_text']; ?>: <?php echo $this->lang->graph['visitors_visitsPerServerTime_headline']; ?>" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
                 </a>
             </div>
 
 
             <div class="graphes">
-                <?php echo $this->lang->graph['visitors_userBrowser_headline']; ?>:<br />
+                <div class="graphes_headline">
+                    <?php echo $this->lang->graph['visitors_userBrowser_headline']; ?>:
+                </div>
                 <a href="<?php echo $this->urlx2_chart_horizontalBarUserBrowser; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_userBrowser_headline']; ?>','url':this.href});return false">
-                    <img src="<?php echo $this->url_chart_horizontalBarUserBrowser; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                    <img src="<?php echo $this->url_chart_horizontalBarUserBrowser; ?>" alt="<?php echo $this->lang->graph['alt_text']; ?>: <?php echo $this->lang->graph['visitors_userBrowser_headline']; ?>" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
                 </a>
             </div>
 
             <div class="graphes">
-                <?php echo $this->lang->graph['visitors_userCountry_headline']; ?>:<br />
+                <div class="graphes_headline">
+                    <?php echo $this->lang->graph['visitors_userCountry_headline']; ?>:
+                </div>
                 <a href="<?php echo $this->urlx2_chart_horizontalBarUserCountry; ?>" onclick="Backend.openModalIframe({'width':'<?php echo $this->chartWidth * 2 + 20; ?>','height':'<?php echo $this->chartHeight * 2 + 55; ?>','title':'<?php echo $this->lang->graph['visitors_userCountry_headline']; ?>','url':this.href});return false">
-                    <img src="<?php echo $this->url_chart_horizontalBarUserCountry; ?>" alt="" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                    <img src="<?php echo $this->url_chart_horizontalBarUserCountry; ?>" alt="<?php echo $this->lang->graph['alt_text']; ?>: <?php echo $this->lang->graph['visitors_userCountry_headline']; ?>" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
                 </a>
             </div>
         </div>
