@@ -1,0 +1,216 @@
+<?xml version="1.0" ?><xliff version="1.1">
+    <file datatype="php" original="languages/de/default.xlf" source-language="de" target-language="en">
+        <body>
+            <trans-unit id="errormsg.connectionfailed">
+                <source>be_piwikcharts: Fehler#1: Verbindung zum Matomo-Server konnte nicht hergestellt werden. Bitte Verbindungseinstellungen prüfen.</source>
+                <target>be_piwikcharts: Error#1: Connection to Matomo-Server failed. Please check your connection settings.</target>
+                
+            </trans-unit>
+            <trans-unit id="dashboard.headline">
+                <source>Besucherstatistiken</source>
+                <target>Visitor statistics</target>
+                
+            </trans-unit>
+            <trans-unit id="dashboard.live.headline">
+                <source>Anzahl Besucher</source>
+                <target>Visitors</target>
+                
+            </trans-unit>
+            <trans-unit id="dashboard.live.last30minutes">
+                <source>letzte 30 Minuten</source>
+                <target>last 30 minutes</target>
+                
+            </trans-unit>
+            <trans-unit id="dashboard.live.last24hours">
+                <source>letzte 24 Stunden</source>
+                <target>last 24 hours</target>
+                
+            </trans-unit>
+            <trans-unit id="dashboard.live.optOut">
+                <source>Optout: Eigene Besuche auf der Webseite nicht mehr erfassen</source>
+                <target>Optout: Do not track own visits on website.</target>
+                
+            </trans-unit>
+            <trans-unit id="dashboard.live.newVersionHint">
+                <source>Ein neues Update der Matomo-Software ist verfügbar</source>
+                <target>New Matomo update is available</target>
+                
+            </trans-unit>
+            <trans-unit id="dashboard.live.zoomIt">
+                <source>Mehr Statistiken...</source>
+                <target>More Stats...</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.headline">
+                <source>Statistiken Besucher mit Matomo</source>
+                <target>Visitor statistics with Matomo</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.live.visitors">
+                <source>Besucher</source>
+                <target>Visitors</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.live.last30minutes">
+                <source>letzte 30 Minuten</source>
+                <target>Last 30 minutes</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.live.last24hours">
+                <source>letzte 24 Stunden</source>
+                <target>Last 24 hours</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.menu.settings">
+                <source>Einstellungen</source>
+                <target>Settings</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.menu.settings_title">
+                <source>Zu den Einstellungen</source>
+                <target>Settings</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.menu.optout">
+                <source>OptOut</source>
+                <target>OptOut</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.menu.optout_title">
+                <source>Einstellungen: Eigene Besuche nicht mehr erfassen</source>
+                <target>Settings: Do not track own visits on website.</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.menu.login">
+                <source>Login Matomo</source>
+                <target>Login Matomo</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.menu.login_title">
+                <source>Login Matomo-Server</source>
+                <target>Login Matomo-Server</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.menu.update">
+                <source>Update verfügbar</source>
+                <target>Update available</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.menu.update_title">
+                <source>Ein neues Update der Matomo-Software ist verfügbar</source>
+                <target>New Matomo software update is available</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.graph.headline">
+                <source>Dasboard</source>
+                <target>Dashboard</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.graph.alt_text">
+                <source>Diagramm</source>
+                <target>Chart</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.graph.visitors_last30days_headline">
+                <source>Zeitraum: letzte %d Tage</source>
+                <target>Period: last %d days</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.graph.visitors_last24months_headline">
+                <source>letzte 24 Monate</source>
+                <target>Last 24 months</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.graph.visitors_visitsPerServerTime_headline">
+                <source>Besuchszeiten (Serverzeit)</source>
+                <target>Visit time (server time)</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.graph.visitors_visitTimeByDayOfWeek_headline">
+                <source>Besuchertage</source>
+                <target>Visit days</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.graph.visitors_userBrowser_headline">
+                <source>Browser</source>
+                <target>Browser</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.graph.visitors_userCountry_headline">
+                <source>Besucher aus</source>
+                <target>Visitors from</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.keywords_headline">
+                <source>Top-Suchwörter, die auf die Webseite geführten hatten</source>
+                <target>Top keywords, that leads to your website</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.keywords_header_keyword">
+                <source>Suchwort</source>
+                <target>Keyword</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.keywords_header_count">
+                <source>Aufrufe</source>
+                <target>Visits</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.fromWebsite_headline">
+                <source>Von diesen Webseiten kamen Ihre Besucher auf Ihre Webseite</source>
+                <target>From this websites your visitors came from</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.fromWebsite_header_website">
+                <source>Von Webseite</source>
+                <target>From website</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.fromWebsite_header_count">
+                <source>Aufrufe</source>
+                <target>Visits</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.visitedPages_headline">
+                <source>Die am häufigsten besuchten Seiten</source>
+                <target>Most visited pages</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.visitedPages_header_page">
+                <source>Seite</source>
+                <target>Page</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.visitedPages_header_count">
+                <source>Aufrufe</source>
+                <target>Visits</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.downloads_headline">
+                <source>Die häufigsten Downloads</source>
+                <target>Most downloaded content</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.downloads_header_domain">
+                <source>Domain</source>
+                <target>Domain</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.downloads_header_file">
+                <source>Datei</source>
+                <target>File</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.downloads_header_count">
+                <source>Downloads</source>
+                <target>Downloads</target>
+                
+            </trans-unit>
+            <trans-unit id="sheet.table.piwikinfo">
+                <source><![CDATA[<p>Matomo ist eine Open-Source (GPL lizenzierte) Webanalyse-Software, die heruntergeladen werden kann. Matomo bietet Ihnen detaillierte Echtzeit-Berichte über die Besucher Ihrer Homepage, die genutzten Suchmaschinen und Suchbegriffe, die Sprache, Ihre beliebten Seiten… und vieles mehr.</p><p>Das Ziel von Matomo ist es, eine Open-Source Alternative zu Google Analytics zu bieten.</p><p>Weitere Informationen auf <a href='https://matomo.org' onclick='window.open(this.href); return false;'>https://matomo.org</a></p>]]></source>
+                <target>&lt;p&gt;Matomo is a free and open source web analytics application.&lt;/p&gt;&lt;p&gt;Matomo displays reports regarding the geographic location of visits, the source of visits (i.e. whether they came from a website, directly, or something else), the technical capabilities of visitors (browser, screen size, operating system, etc.), what the visitors did (pages they viewed, actions they took, how they left), the time of visits and more.&lt;/p&gt;&lt;p&gt;More informationen see &lt;a href='https://matomo.org/' onclick='window.open(this.href); return false;'&gt;https://matomo.org/&lt;/a&gt;&lt;/p&gt;</target>
+                
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
