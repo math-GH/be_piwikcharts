@@ -33,7 +33,7 @@ Folgende Statistiken werden im Standard-Template angezeigt:
 
 Weiterhin kann über den Link "OptOut" ein Cookie gesetzt werden um eigene Besuche nicht in die Statistik  aufzunehmen.
 
-Die angezeigten Statistiken können ausgedruckt werden.
+![grafik](https://user-images.githubusercontent.com/1645099/104857040-15832180-5916-11eb-8f15-8984678b16dd.png)
 
  
 
