@@ -1,0 +1,16 @@
+<?xml version="1.0" ?><xliff version="1.1">
+    <file datatype="php" original="languages/de/modules.php" source-language="de" target-language="en">
+        <body>
+            <trans-unit id="MOD.be_piwikcharts.0">
+                <source>Besucher-Statistiken</source>
+                <target>Stats Visitors</target>
+                
+            </trans-unit>
+            <trans-unit id="MOD.be_piwikcharts.1">
+                <source>Besucher-Statistiken anzeigen</source>
+                <target>Shows visitor stats from Matomo Server</target>
+                
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
