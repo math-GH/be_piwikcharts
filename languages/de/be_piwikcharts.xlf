@@ -1,0 +1,10 @@
+<?xml version="1.0" ?><xliff version="1.1">
+    <file datatype="php" original="languages/de/be_piwikcharts.php" source-language="de" target-language="de">
+        <body>
+            <trans-unit id="be_piwikcharts.connectionfailed">
+                <source>be_piwikcharts: Fehler#1: Verbindung zum Matomo-Server konnte nicht hergestellt werden. Bitte Verbindungseinstellungen prüfen.</source>
+                <target>be_piwikcharts: Fehler#1: Verbindung zum Matomo-Server konnte nicht hergestellt werden. Bitte Verbindungseinstellungen prüfen.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
