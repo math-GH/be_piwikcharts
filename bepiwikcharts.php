@@ -27,9 +27,9 @@ class bepiwikcharts extends BackendModule {
     private $chartHeight = 200;
     private $chartWidth = 400;
     private $tableMaxRows = 10;
-    const DEMO = 0;
-    const CONNECTED = 1;
-    private $modus = DEMO;      // 0 = Demo, 1 = normal
+    public const DEMO = 0;
+    public const CONNECTED = 1;
+    private $modus = self::DEMO;      // 0 = Demo, 1 = normal
     private $username = "";
     private $password = "";
     private $error = FALSE;
