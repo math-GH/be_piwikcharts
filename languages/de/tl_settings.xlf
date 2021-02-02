@@ -1,103 +1,107 @@
 <?xml version="1.0" ?><xliff version="1.1">
-    <file datatype="php" original="languages/de/tl_settings.php" source-language="de" target-language="de">
+    <file datatype="php" original="languages/de/tl_settings.be_piwikcharts.php" source-language="de" target-language="de">
         <body>
-            <trans-unit id="tl_settings.URL.0">
+            <trans-unit id="tl_settings.piwikcharts_legend">
+                <source>Matomo: Statistiken Besucher (be_piwikcharts)</source>
+                <target>Matomo: Statistiken Besucher (be_piwikcharts)</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.be_piwikcharts.URL.0">
                 <source>URL</source>
                 <target>URL</target>
             </trans-unit>
-            <trans-unit id="tl_settings.URL.1">
+            <trans-unit id="tl_settings.be_piwikcharts.URL.1">
                 <source>URL zu der Matomo-Installation: (http(s)://sub.domain.tld/subfolder/)</source>
                 <target>URL zu der Matomo-Installation: (http(s)://sub.domain.tld/subfolder/)</target>
             </trans-unit>
-            <trans-unit id="tl_settings.URL.rgxp_URL">
+            <trans-unit id="tl_settings.be_piwikcharts.URL.rgxp_URL">
                 <source>Bitte geben Sie ein gültiges URL-Format ein und kodieren Sie Sonderzeichen! (http(s)://sub.domain.tld/subfolder/)</source>
                 <target>Bitte geben Sie ein gültiges URL-Format ein und kodieren Sie Sonderzeichen! (http(s)://sub.domain.tld/subfolder/)</target>
             </trans-unit>
-            <trans-unit id="tl_settings.URL.rgxp_httpCode">
+            <trans-unit id="tl_settings.be_piwikcharts.URL.rgxp_httpCode">
                 <source>Matomo-Installation konnte nicht gefunden werden. Server meldet HTTP-Code </source>
                 <target>Matomo-Installation konnte nicht gefunden werden. Server meldet HTTP-Code </target>
             </trans-unit>
-            <trans-unit id="tl_settings.siteID.0">
+            <trans-unit id="tl_settings.be_piwikcharts.siteID.0">
                 <source>SiteID</source>
                 <target>SiteID</target>
             </trans-unit>
-            <trans-unit id="tl_settings.siteID.1">
+            <trans-unit id="tl_settings.be_piwikcharts.siteID.1">
                 <source>Webseiten-ID: idSite-Variable aus der Matomo-Installation. Bei Matomo-Installationen, die nur eine Webseite erfassen ist 1 der Standard. Den Wert der idSite-Variabe findet man in der URL, wenn man sich das Dashboards auf dem Matomo-Server anschaut.</source>
                 <target>Webseiten-ID: idSite-Variable aus der Matomo-Installation. Bei Matomo-Installationen, die nur eine Webseite erfassen ist 1 der Standard. Den Wert der idSite-Variabe findet man in der URL, wenn man sich das Dashboards auf dem Matomo-Server anschaut.</target>
             </trans-unit>
-            <trans-unit id="tl_settings.authCode.0">
+            <trans-unit id="tl_settings.be_piwikcharts.authCode.0">
                 <source>AuthCode</source>
                 <target>AuthCode</target>
             </trans-unit>
-            <trans-unit id="tl_settings.authCode.1">
-                <source>AuthCode für die Verbindung mit Matomo um die Statistiken im Backendmodul anzeigen zu können.</source>
-                <target>AuthCode für die Verbindung mit Matomo um die Statistiken im Backendmodul anzeigen zu können.</target>
+            <trans-unit id="tl_settings.be_piwikcharts.authCode.1">
+                <source>AuthCode für die Verbindung mit Matomo, um die Statistiken im Backend-Modul anzeigen zu können.</source>
+                <target>AuthCode für die Verbindung mit Matomo, um die Statistiken im Backend-Modul anzeigen zu können.</target>
             </trans-unit>
-            <trans-unit id="tl_settings.authCode.rgxp">
+            <trans-unit id="tl_settings.be_piwikcharts.authCode.rgxp">
                 <source>Mit diesem AuthCode ist keine Verbindung mit der Matomo-Installation möglich.</source>
                 <target>Mit diesem AuthCode ist keine Verbindung mit der Matomo-Installation möglich.</target>
             </trans-unit>
-            <trans-unit id="tl_settings.period.0">
+            <trans-unit id="tl_settings.be_piwikcharts.period.0">
                 <source>Zeitraum</source>
                 <target>Zeitraum</target>
             </trans-unit>
-            <trans-unit id="tl_settings.period.1">
+            <trans-unit id="tl_settings.be_piwikcharts.period.1">
                 <source>Zeitaum in Tagen, der statistisch ausgewertet werden soll. (optional, default: 30 Tage)</source>
                 <target>Zeitaum in Tagen, der statistisch ausgewertet werden soll. (optional, default: 30 Tage)</target>
             </trans-unit>
-            <trans-unit id="tl_settings.username.0">
+            <trans-unit id="tl_settings.be_piwikcharts.username.0">
                 <source>Benutzername</source>
                 <target>Benutzername</target>
             </trans-unit>
-            <trans-unit id="tl_settings.username.1">
+            <trans-unit id="tl_settings.be_piwikcharts.username.1">
                 <source>Benutzername für den Auto-Login in Matomo (optional)</source>
                 <target>Benutzername für den Auto-Login in Matomo (optional)</target>
             </trans-unit>
-            <trans-unit id="tl_settings.password.0">
+            <trans-unit id="tl_settings.be_piwikcharts.password.0">
                 <source>Passwort</source>
                 <target>Passwort</target>
             </trans-unit>
-            <trans-unit id="tl_settings.password.1">
+            <trans-unit id="tl_settings.be_piwikcharts.password.1">
                 <source>Passwort für den Auto-Login mit Matomo (optional)</source>
                 <target>Passwort für den Auto-Login mit Matomo (optional)</target>
             </trans-unit>
-            <trans-unit id="tl_settings.welcomePageAdmin.0">
+            <trans-unit id="tl_settings.be_piwikcharts.welcomePageAdmin.0">
                 <source>BE-Startseite: Statistiken anzeigen (nur für Admins)</source>
                 <target>BE-Startseite: Statistiken anzeigen (nur für Admins)</target>
             </trans-unit>
-            <trans-unit id="tl_settings.welcomePageAdmin.1">
+            <trans-unit id="tl_settings.be_piwikcharts.welcomePageAdmin.1">
                 <source>Nur für Admin-User: Zeigt eine Auswahl von Statistiken auf der ersten Seite nach dem Login an. Zusätzlich wird geprüft ob ein Update von Matomo bereit steht.</source>
                 <target>Nur für Admin-User: Zeigt eine Auswahl von Statistiken auf der ersten Seite nach dem Login an. Zusätzlich wird geprüft ob ein Update von Matomo bereit steht.</target>
             </trans-unit>
-            <trans-unit id="tl_settings.welcomePage.0">
+            <trans-unit id="tl_settings.be_piwikcharts.welcomePage.0">
                 <source>BE-Startseite: Statistiken im Backend anzeigen (für alle User)</source>
                 <target>BE-Startseite: Statistiken im Backend anzeigen (für alle User)</target>
             </trans-unit>
-            <trans-unit id="tl_settings.welcomePage.1">
+            <trans-unit id="tl_settings.be_piwikcharts.welcomePage.1">
                 <source>Für alle User (inkl. Admins): Zeigt eine Auswahl von Statistiken auf der ersten Seite nach dem Login an.</source>
                 <target>Für alle User (inkl. Admins): Zeigt eine Auswahl von Statistiken auf der ersten Seite nach dem Login an.</target>
             </trans-unit>
-            <trans-unit id="tl_settings.welcomePageUpdate.0">
+            <trans-unit id="tl_settings.be_piwikcharts.welcomePageUpdate.0">
                 <source>BE-Startseite: Über Matomo-Update informieren (für Nicht-Admins)</source>
                 <target>BE-Startseite: Über Matomo-Update informieren (für Nicht-Admins)</target>
             </trans-unit>
-            <trans-unit id="tl_settings.welcomePageUpdate.1">
+            <trans-unit id="tl_settings.be_piwikcharts.welcomePageUpdate.1">
                 <source>Zeigt für Nicht-Admins eine Information an, wenn ein Update von Matomo bereit steht. Admins werden immer informiert.</source>
                 <target>Zeigt für Nicht-Admins eine Information an, wenn ein Update von Matomo bereit steht. Admins werden immer informiert.</target>
             </trans-unit>
-            <trans-unit id="tl_settings.welcomePageOptout.0">
+            <trans-unit id="tl_settings.be_piwikcharts.welcomePageOptout.0">
                 <source>Optout-Link (für Nicht-Admins)</source>
                 <target>Optout-Link (für Nicht-Admins)</target>
             </trans-unit>
-            <trans-unit id="tl_settings.welcomePageOptout.1">
+            <trans-unit id="tl_settings.be_piwikcharts.welcomePageOptout.1">
                 <source>Zeigt für Nicht-Admins neben der Überschrift ein Icon an, über dessen Link die Erfassung von Matomo deaktiviert werden kann.</source>
                 <target>Zeigt für Nicht-Admins neben der Überschrift ein Icon an, über dessen Link die Erfassung von Matomo deaktiviert werden kann.</target>
             </trans-unit>
-            <trans-unit id="tl_settings.redirect.0">
+            <trans-unit id="tl_settings.be_piwikcharts.redirect.0">
                 <source>Redirects auf der Matomo-Domain</source>
                 <target>Redirects auf der Matomo-Domain</target>
             </trans-unit>
-            <trans-unit id="tl_settings.redirect.1">
+            <trans-unit id="tl_settings.be_piwikcharts.redirect.1">
                 <source>wenn man z.B. von nicht-www auf www umschreibt etc.. Aktivierung kann zur PHP-Warnung führen: CURLOPT_FOLLOWLOCATION cannot be activated</source>
                 <target>wenn man z.B. von nicht-www auf www umschreibt etc.. Aktivierung kann zur PHP-Warnung führen: CURLOPT_FOLLOWLOCATION cannot be activated</target>
             </trans-unit>
