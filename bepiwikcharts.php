@@ -30,8 +30,6 @@ class bepiwikcharts extends BackendModule {
     const DEMO = 0;
     const CONNECTED = 1;
     private $modus = self::DEMO;      // 0 = Demo, 1 = normal
-    private $username = "";
-    private $password = "";
     private $error = FALSE;
     private $errorCode = 0;
     private $version_installed = "";
@@ -58,8 +56,6 @@ class bepiwikcharts extends BackendModule {
                 $this->piwik_period = intval($GLOBALS["TL_CONFIG"]['piwikchartsPeriod']);
             }
             
-            $this->username = $GLOBALS["TL_CONFIG"]['piwikchartsUsername'];
-            $this->password = $GLOBALS["TL_CONFIG"]['piwikchartsPassword'];
             $this->modus = bepiwikcharts::CONNECTED;
         }
     }
@@ -372,11 +368,6 @@ class bepiwikcharts extends BackendModule {
         
         // Steuerelemente
         $objTemplate->link_settings = $this->Environment->path . "/contao/main.php?do=settings#pal_piwikcharts_legend";
-        
-        if (!empty($this->username) && !empty($this->password)) {
-            $hashed = hash('md5', @Encryption::decrypt($this->password));
-            $objTemplate->link_server_login = $this->url . 'index.php?module=Login&action=logme&login=' . $this->username . '&password=' . $hashed;
-        }
         
         $objTemplate->link_server = $this->url;
         

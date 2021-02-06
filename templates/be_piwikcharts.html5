@@ -15,7 +15,7 @@ else{
             <a class="header_theme_import optOut" href="<?php echo $this->link_optOut ?>" onclick="window.open(this.href); return false;" title="<?php echo $this->lang->menu['optout_title']; ?>">
                 <?php echo $this->lang->menu['optout']; ?>
             </a>
-            <a class="header_store extern" onclick="window.open(this.href); return false;" href="<?php echo (isset($this->link_server_login) ? ($this->link_server_login) : ($this->link_server)) ?>" title="<?php echo $this->lang->menu['login_title']; ?>">
+            <a class="header_store extern" onclick="window.open(this.href); return false;" href="<?php echo $this->link_server ?>index.php" title="<?php echo $this->lang->menu['login_title']; ?>">
                 <?php echo $this->lang->menu['login']; ?>
             </a>
             <?php if($this->update && $this->showUpdate): ?>
