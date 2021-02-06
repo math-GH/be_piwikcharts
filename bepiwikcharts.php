@@ -344,95 +344,6 @@ class bepiwikcharts extends BackendModule {
      ***************************************** */
     
     /**
-     * dashboardWelcomePage - Statistiken auf der Welcomepage nach dem Login anzeigen
-     */
-    function dashboardWelcomePage() {
-        
-        // wenn nicht Backend, dann abbrechen
-        if (TL_MODE != 'BE') {
-            return "";
-        }  
-        
-        if ( !( $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePage'] || ($this->User->isAdmin && $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageAdmin'] ) ) ) {
-            // Statistiken nicht anzeigen, weil die Einstellungen so sind.
-            return "";
-        }
-        
-        //$strBuffer = '<div id="welcomepagePiwikcharts" style="margin:18px;">';
-        $strBuffer = '<div id="welcomepagePiwikcharts">';
-        
-        $objTemplate_head = new BackendTemplate('ce_headline');
-        $objTemplate_head->hl = 'h2';
-        $objTemplate_head->class = 'ce_headline';
-        //$objTemplate_head->style = 'background:none repeat scroll 0 0 #F6F6F6;border: solid #E9E9E9; border-width: 1px 0px 1px 0px; margin:18px 0px 6px; padding: 2px 6px 3px;';
-        $objTemplate_head->headline = $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['headline'];
-        
-        $strBuffer .= $objTemplate_head->parse();
-        
-        $objTemplate_text = new BackendTemplate('ce_text');
-        $objTemplate_text->class = 'ce_text';
-        $objTemplate_text->style = 'position:relative;';
-        
-        
-        $objTemplate_content = new BackendTemplate('be_piwikcharts_welcome');
-        $objTemplate_content->update = $this->checkUpdate();
-        if ($this->error) {
-            $objTemplate_content->errorMessage = $GLOBALS['TL_LANG']['be_piwikcharts']['errormsg'][1];
-            $objTemplate_text->text = $objTemplate_content->parse();
-            $strBuffer .= $objTemplate_text->parse();
-            
-            $strBuffer .= '</div>';
-            
-            return $strBuffer;
-        }
-        
-        // Text-Labels im Template bequem zur Verfügung stellen
-        $objTemplate_content->lang = (object) $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard'];
-        
-        // Diagramme
-        //$objTemplate_content->chart_evolutionVisitsSummaryDay .= $this->printChart("evolution", "VisitsSummary", "day", "previous".$this->piwik_period, 400, 180, 100, "get", "", "");
-        //$objTemplate_content->chart_evolutionVisitsSummaryMonth .= $this->printChart("evolution", "VisitsSummary", "month", "previous24", 400, 100, 100, "get", "&colors=,,ff0000", "");
-        
-        //im Demo-Modus (0) ist die Anzeige letzte 30Min/24h deaktivert
-        switch ($this->modus) {
-            case bepiwikcharts::CONNECTED:
-                $temp30m = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=30"), array("visitors"));
-                $objTemplate_content->visitsLast30Minutes = $temp30m[0];
-                $temp24h = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=".(60*24)), array("visitors"));
-                $objTemplate_content->visitsLast24Hours = $temp24h[0];
-                break;
-            case bepiwikcharts::DEMO:
-            default:
-                $objTemplate_content->visitsLast30Minutes = "(DEMO mode)";
-                $objTemplate_content->visitsLast24Hours = "(DEMO mode)";
-        }
-        
-        $objTemplate_content->link_optOut = $this->url . "index.php?module=CoreAdminHome&action=optOut";
-        $objTemplate_content->showOptOut = $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageOptout'] || $this->User->isAdmin;
-        $objTemplate_content->optOutIcon = "system/modules/be_piwikcharts/assets/optout.png";
-        
-        
-        $objTemplate_content->showUpdate = $this->User->isAdmin || $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageUpdate'];
-        $objTemplate_content->updateIcon = "system/modules/be_piwikcharts/assets/update.png";
-        $objTemplate_content->link_server = $this->url;
-        
-        $this->import('BackendUser', 'User');
-        if ($this->User->hasAccess('be_piwikcharts', 'modules')) {
-            $objTemplate_content->moreLinkAccess = true;
-            $objTemplate_content->zoomIcon = "system/modules/be_piwikcharts/assets/zoom.png";
-            } else {
-            $objTemplate_content->moreLinkAccess = false;
-        }
-        
-        $objTemplate_text->text = $objTemplate_content->parse();
-        $strBuffer .= $objTemplate_text->parse();
-        
-        $strBuffer .= '</div>';
-        
-        return $strBuffer;
-    }
-    
-    /**
      * generate() - wird von Contao automatisch geladen
      *
      * Templatevariablen belegen
@@ -475,7 +386,7 @@ class bepiwikcharts extends BackendModule {
         $objTemplate->piwik_IDsite = $this->piwik_IDsite;
         $objTemplate->link_optOut = $this->url . "index.php?module=CoreAdminHome&action=optOut";
         
-        $objTemplate->showUpdate = $this->User->isAdmin || $GLOBALS["TL_CONFIG"]['piwikchartsWelcomePageUpdate'];
+        $objTemplate->showUpdate = $this->User->isAdmin;
         
         $objTemplate->chartHeight = $this->chartHeight;
         $objTemplate->chartWidth = $this->chartWidth;

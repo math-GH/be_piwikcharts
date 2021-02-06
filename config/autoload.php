@@ -25,6 +25,5 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'be_piwikcharts'         => 'system/modules/be_piwikcharts/templates',
-	'be_piwikcharts_welcome' => 'system/modules/be_piwikcharts/templates',
+	'be_piwikcharts'         => 'system/modules/be_piwikcharts/templates'
 ));

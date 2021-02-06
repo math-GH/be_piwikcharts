@@ -1,77 +1,95 @@
 <?xml version="1.0" ?><xliff version="1.1">
-    <file datatype="php" original="languages/de/tl_settings.be_piwikcharts.php" source-language="de" target-language="de">
+    <file datatype="php" original="languages/de/tl_settings.be_piwikcharts.php" source-language="de" target-language="en">
         <body>
             <trans-unit id="tl_settings.piwikcharts_legend">
                 <source>Matomo: Statistiken Besucher (be_piwikcharts)</source>
-                <target>Matomo: Statistiken Besucher (be_piwikcharts)</target>
+                <target>Matomo: Visitor stats (be_piwikcharts)</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.URL.0">
                 <source>URL</source>
                 <target>URL</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.URL.1">
                 <source>URL zu der Matomo-Installation: (http(s)://sub.domain.tld/subfolder/)</source>
-                <target>URL zu der Matomo-Installation: (http(s)://sub.domain.tld/subfolder/)</target>
+                <target>URL to Matomo installation: (http(s)://sub.domain.tld/subfolder/)</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.URL.rgxp_URL">
                 <source>Bitte geben Sie ein gültiges URL-Format ein und kodieren Sie Sonderzeichen! (http(s)://sub.domain.tld/subfolder/)</source>
-                <target>Bitte geben Sie ein gültiges URL-Format ein und kodieren Sie Sonderzeichen! (http(s)://sub.domain.tld/subfolder/)</target>
+                <target>Valid URL-format required. Please decode special characters. (http(s)://sub.domain.tld/subfolder/)</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.URL.rgxp_httpCode">
                 <source>Matomo-Installation konnte nicht gefunden werden. Server meldet HTTP-Code </source>
-                <target>Matomo-Installation konnte nicht gefunden werden. Server meldet HTTP-Code </target>
+                <target>Matomo-installation not found. Server sends HTTP-Code </target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.siteID.0">
                 <source>SiteID</source>
-                <target>SiteID</target>
+                <target>SideID</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.siteID.1">
                 <source>Webseiten-ID: idSite-Variable aus der Matomo-Installation. Bei Matomo-Installationen, die nur eine Webseite erfassen ist 1 der Standard. Den Wert der idSite-Variabe findet man in der URL, wenn man sich das Dashboards auf dem Matomo-Server anschaut.</source>
-                <target>Webseiten-ID: idSite-Variable aus der Matomo-Installation. Bei Matomo-Installationen, die nur eine Webseite erfassen ist 1 der Standard. Den Wert der idSite-Variabe findet man in der URL, wenn man sich das Dashboards auf dem Matomo-Server anschaut.</target>
+                <target>Website-ID: idSite-variable from Matomo installation. Matomo installationen, that only track one website siteID is usualy 1. idSite value can found in URL of Matomo dashboard.</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.authCode.0">
                 <source>AuthCode</source>
                 <target>AuthCode</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.authCode.1">
                 <source>AuthCode für die Verbindung mit Matomo, um die Statistiken im Backend-Modul anzeigen zu können.</source>
-                <target>AuthCode für die Verbindung mit Matomo, um die Statistiken im Backend-Modul anzeigen zu können.</target>
+                <target>AuthCode for authenticated connection to Matomo to show stats at the Contao backend.</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.authCode.rgxp">
                 <source>Mit diesem AuthCode ist keine Verbindung mit der Matomo-Installation möglich.</source>
-                <target>Mit diesem AuthCode ist keine Verbindung mit der Matomo-Installation möglich.</target>
+                <target>No Connection to Matomo installation possible with this AuthCode.</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.period.0">
                 <source>Zeitraum</source>
-                <target>Zeitraum</target>
+                <target>Period</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.period.1">
                 <source>Zeitaum in Tagen, der statistisch ausgewertet werden soll. (optional, default: 30 Tage)</source>
-                <target>Zeitaum in Tagen, der statistisch ausgewertet werden soll. (optional, default: 30 Tage)</target>
+                <target>Period in days, that the stats are shown. (optional, default: 30 days)</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.username.0">
                 <source>Benutzername</source>
-                <target>Benutzername</target>
+                <target>Username</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.username.1">
                 <source>Benutzername für den Auto-Login in Matomo (optional)</source>
-                <target>Benutzername für den Auto-Login in Matomo (optional)</target>
+                <target>Username for Auto-Login to Matomo (optional)</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.password.0">
                 <source>Passwort</source>
-                <target>Passwort</target>
+                <target>Password</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.password.1">
                 <source>Passwort für den Auto-Login mit Matomo (optional)</source>
-                <target>Passwort für den Auto-Login mit Matomo (optional)</target>
+                <target>Password for Auto-Login to Matomo (optional)</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.redirect.0">
                 <source>Redirects auf der Matomo-Domain</source>
-                <target>Redirects auf der Matomo-Domain</target>
+                <target>Redirects of Matomo-domain</target>
+                
             </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.redirect.1">
                 <source>wenn man z.B. von nicht-www auf www umschreibt etc.. Aktivierung kann zur PHP-Warnung führen: CURLOPT_FOLLOWLOCATION cannot be activated</source>
-                <target>wenn man z.B. von nicht-www auf www umschreibt etc.. Aktivierung kann zur PHP-Warnung führen: CURLOPT_FOLLOWLOCATION cannot be activated</target>
+                <target>helps by redirected domains f.e. redirection from non-www to www. Enabling could produce PHP-warning: CURLOPT_FOLLOWLOCATION cannot be activated</target>
+                
             </trans-unit>
         </body>
     </file>

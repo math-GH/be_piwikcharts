@@ -36,14 +36,10 @@
  * 
  * Use function array_insert() to modify an existing modules array.
  */
-$GLOBALS['TL_CONFIG']['dashboardMode'] = 'automatic';
-$GLOBALS['TL_CONFIG']['dashboardAccess'] = 'public';
-$GLOBALS['TL_CONFIG']['dashboardLimit'] = '0';
 
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['getSystemMessages'][] = array('bepiwikcharts', 'dashboardWelcomePage');
 $GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_checkMatomoUrl');
 $GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('bepiwikcharts', 'myRegexp_checkAuthCode');
 
@@ -55,6 +51,3 @@ array_insert($GLOBALS['BE_MOD']['system'], 98, array(
         'callback' => 'bepiwikcharts'
     )
 ));
-
- 
-?>
