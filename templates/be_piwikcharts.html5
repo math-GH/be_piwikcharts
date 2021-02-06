@@ -65,22 +65,21 @@ else{
         <div class="tl_box" style="display: flex; flex-wrap: wrap;">
             <div class="graphes">
                 <div class="graphes_headline">
-                    <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>:
-                </div>
-                <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryDay; ?>" onclick="Backend.openModalIframe({'width':<?php echo $this->chartWidth * 2 + 20; ?>,'height':<?php echo $this->chartHeight * 2 + 55; ?>,'title':'<?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>','url':this.href});return false">
-                    <img src="<?php echo $this->url_chart_evolutionVisitsSummaryDay; ?>" alt="<?php echo $this->lang->graph['alt_text']; ?>: <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
-                </a>
-            </div>
-
-            <div class="graphes">
-                <div class="graphes_headline">
                 <?php echo $this->lang->graph['visitors_last24months_headline']; ?>:
                 </div>
                 <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryMonth; ?>" onclick="Backend.openModalIframe({'width':<?php echo $this->chartWidth * 2 + 20; ?>,'height':<?php echo $this->chartHeight * 2 + 55; ?>,'title':'<?php echo $this->lang->graph['visitors_last24months_headline']; ?>','url':this.href});return false">
                     <img src="<?php echo $this->url_chart_evolutionVisitsSummaryMonth; ?>" alt="<?php echo $this->lang->graph['alt_text']; ?>: <?php echo $this->lang->graph['visitors_last24months_headline']; ?>" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
                 </a>
             </div>
-
+            
+            <div class="graphes">
+                <div class="graphes_headline">
+                    <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>:
+                </div>
+                <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryDay; ?>" onclick="Backend.openModalIframe({'width':<?php echo $this->chartWidth * 2 + 20; ?>,'height':<?php echo $this->chartHeight * 2 + 55; ?>,'title':'<?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>','url':this.href});return false">
+                    <img src="<?php echo $this->url_chart_evolutionVisitsSummaryDay; ?>" alt="<?php echo $this->lang->graph['alt_text']; ?>: <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
+                </a>
+            </div>
 
             <div class="graphes">
                 <div class="graphes_headline">
