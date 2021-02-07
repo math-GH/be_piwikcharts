@@ -39,12 +39,16 @@ else{
                             </tr>
                         <?php endif; ?>
                         <tr>
+                            <td><span class="tl_label"><?php echo $this->lang->period; ?>:</span> </td>
+                            <td><?php echo sprintf($this->lang->period_lastXdays, $this->piwik_period); ?></td>
+                        </tr>
+                        <tr>
                             <td><span class="tl_label"><?php echo $this->lang->live['last30minutes']; ?>:</span> </td>
-                            <td><?php echo $this->visitsLast30Minutes; ?></td>
+                            <td><?php echo $this->visitsLast30Minutes; ?> <?php echo $this->lang->live['visits']; ?></td>
                         </tr>
                         <tr>
                             <td><span class="tl_label"><?php echo $this->lang->live['last24hours']; ?>:</span> </td>
-                            <td><?php echo $this->visitsLast24Hours; ?></td>
+                            <td><?php echo $this->visitsLast24Hours; ?> <?php echo $this->lang->live['visits']; ?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -74,7 +78,7 @@ else{
             
             <div class="graphes">
                 <div class="graphes_headline">
-                    <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>:
+                    <?php echo $this->lang->graph['visitors_last30days_headline']; ?>:
                 </div>
                 <a href="<?php echo $this->urlx2_chart_evolutionVisitsSummaryDay; ?>" onclick="Backend.openModalIframe({'width':<?php echo $this->chartWidth * 2 + 20; ?>,'height':<?php echo $this->chartHeight * 2 + 55; ?>,'title':'<?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>','url':this.href});return false">
                     <img src="<?php echo $this->url_chart_evolutionVisitsSummaryDay; ?>" alt="<?php echo $this->lang->graph['alt_text']; ?>: <?php echo sprintf($this->lang->graph['visitors_last30days_headline'], $this->piwik_period); ?>" width="<?php echo $this->chartWidth; ?>" height="<?php echo $this->chartHeight; ?>" />
@@ -148,6 +152,13 @@ else{
             <h2 class="sub_headline"><?php echo $this->lang->table['downloads_headline']; ?>:</h2>
             <div class="tl_listing_container list_view">
                 <?php echo $this->table_downloads; ?>
+            </div>
+        </div>
+        
+        <div class="tl_box">
+            <h2 class="sub_headline">Auflösung:</h2>
+            <div class="tl_listing_container list_view">
+                <?php echo $this->table_resolution; ?>
             </div>
         </div>
 

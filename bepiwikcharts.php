@@ -186,10 +186,11 @@ class bepiwikcharts extends BackendModule {
     
     /**
      * JSONload - Liest das JSON ein und erstellt ein neues Array mit den Werten aus $parameter
-     * 
+     * @param $url Webadresse, die aufgerufen wird
+     * @param $parameter Elemente, die ausgelesen werden sollen
      **/
     function JSONload($url, $parameter) {
-        $unserializedArray = json_decode($this->readfile($url));
+        $unserializedArray = json_decode($this->readfile($url."&format=json"));
         $foundContent = [];
         
         for ($i = 0; $i < count($unserializedArray); $i++) {
@@ -236,11 +237,45 @@ class bepiwikcharts extends BackendModule {
         
         return $tabelle;
     }
+    // https://psvcottbus-schwimmen.de/mato/index.php?module=API&method=Resolution.getResolution&idSite=1&&period=range&date=previous30&format=tsv&token_auth=8b7d02f9fc1712cf9513b207bff288b4&showColumns=label,nb_visits&filter_sort_column=label&filter_sort_order=desc
+    
+    
+    function summarizeResolution ($inhalte) {
+        $aufloesungRanges = "0;";
+        // default: 320;480;768;1024;1200
+        $aufloesungRanges .= "360;550;950;1200";
+        $aufloesungRanges .= ";99999";
+        $aufloseungMax = explode(";", $aufloesungRanges);
+        $a = 1;
+        $zusammenfassung = [];
+        $zusammenfassung[$a*2-2] = intval($aufloseungMax[$a-1])+1 . ' - ' .$aufloseungMax[$a];
+        $zusammenfassung[$a*2+1-2] = 0;
+        
+        for ($i = 0; $i < count($inhalte); $i = $i+2) {
+            if (strpos($inhalte[$i], "x") > 0) {
+                $label = explode("x",$inhalte[$i]);
+                // $label[0] enthält die Breite
+                if (intval($label[0]) <= intval($aufloseungMax[$a])) {
+                    $zusammenfassung[$a*2+1-2] = intval($zusammenfassung[$a*2+1-2]) + intval($inhalte[$i+1]);
+                } 
+                else {
+                    $a++;
+                    $zusammenfassung[$a*2-2] = intval($aufloseungMax[$a-1])+1 . ' - ' .$aufloseungMax[$a];
+                    $zusammenfassung[$a*2+1-2] = intval($inhalte[$i+1]);
+                }
+
+            }
+        }
+        
+        // $zusammengefasst[0] = "test"; 
+        // $zusammengefasst[1] = "5"; 
+        return $zusammenfassung;
+    }
     
     /**
      * printTable() - gibt eine HTML-Tabelle aus
      *
-     * @param  $inhalte  Array
+     * @param  $inhalte  Array (1-Dimensional)
      * @param  $spalten  Array Tabellenkopfbezeichnungen
      * @param  $cssklasse  (optional) CSS-Klasse für die Tabelle
      **/
@@ -305,7 +340,7 @@ class bepiwikcharts extends BackendModule {
      * @param $date        untersuchtes Datum/Zeitintervall ('today', 'yesterday','previous30','YYYY-MM-DD%2CYYYY-MM-DD')
      * @param $additional  (optionaler Parameter) für weitere API-Parameter. Muss mit & beginnen. Schema: '&parameter=wert'
      **/
-    function buildURL($method, $period, $date, $additional) {
+    function buildURL($method, $period, $date, $filterlimit = 100,$additional = "") {
         $url = $this->url;
         $url.= 'index.php?module=API';
         $url.= '&method=' . $method;
@@ -313,6 +348,7 @@ class bepiwikcharts extends BackendModule {
         $url.= '&token_auth=' . $this->piwik_TOKENauth;
         $url.= '&period=' . $period;
         $url.= '&date=' . $date;
+        $url.= '&filter_limit=' . $filterlimit;
         $url.= $additional;
         
         return $url;
@@ -418,7 +454,7 @@ class bepiwikcharts extends BackendModule {
         $objTemplate->table_keywords = $this->printTable(
             $this->JSONload(
                 $this->buildURL(
-                    "Referrers.getKeywords", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20"
+                    "Referrers.getKeywords", "range", "previous".$this->piwik_period, 20
                 ), 
                 array("label", "nb_visits")
             ), 
@@ -432,7 +468,7 @@ class bepiwikcharts extends BackendModule {
         $objTemplate->table_fromWebsite = $this->printTable(
             $this->JSONload(
                 $this->buildURL(
-                    "Referrers.getWebsites", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20"
+                    "Referrers.getWebsites", "range", "previous".$this->piwik_period, 20
                 ), 
                 array("label", "nb_visits")
             ), 
@@ -442,11 +478,26 @@ class bepiwikcharts extends BackendModule {
             ), "tl_listing data"
         );
         
+         $objTemplate->table_resolution = $this->printTable(
+            $this->summarizeResolution(
+                $this->JSONload(
+                    $this->buildURL(
+                        "Resolution.getResolution", "range", "previous".$this->piwik_period, 100, "&showColumns=label,nb_visits&filter_sort_column=label&filter_sort_order=asc"
+                    ),
+                    array("label", "nb_visits")
+                )
+            ), 
+            array(
+                "Auflösung",
+                $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_count']
+            ), "tl_listing data"
+        );
+        
         // Tabelle: angeschaute Seiten
         $objTemplate->table_visitedPages = $this->printTable(
             $this->JSONload(
                 $this->buildURL(
-                    "Actions.getPageUrls", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20"
+                    "Actions.getPageUrls", "range", "previous".$this->piwik_period, 20
                 ), 
                 array("label", "nb_visits")
             ), 
@@ -460,7 +511,7 @@ class bepiwikcharts extends BackendModule {
         $objTemplate->table_downloads = $this->printTable_downloads(
             $this->JSONload(
                 $this->buildURL(
-                    "Actions.getDownloads", "range", "previous".$this->piwik_period, "&format=json&filter_limit=20&expanded=1&filter_limit=10"
+                    "Actions.getDownloads", "range", "previous".$this->piwik_period, 20, "&expanded=1"
                 ), 
                 array("label", "subtable")
             ), "tl_listing downloads"
@@ -470,9 +521,9 @@ class bepiwikcharts extends BackendModule {
         //im Demo-Modus ist die Anzeige letzte 30Min/24h deaktivert
         switch ($this->modus) {
             case bepiwikcharts::CONNECTED:
-                $temp30m = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=30"), array("visitors"));
+                $temp30m = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&lastMinutes=30"), array("visitors"));
                 $objTemplate->visitsLast30Minutes = $temp30m[0];
-                $temp24h = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&format=json&lastMinutes=" . (60 * 24)), array("visitors"));
+                $temp24h = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&lastMinutes=" . (60 * 24)), array("visitors"));
                 $objTemplate->visitsLast24Hours = $temp24h[0];
                 break;
             case bepiwikcharts::DEMO:

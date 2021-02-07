@@ -25,9 +25,11 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['zoomIt'] = "Mehr
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['headline'] = "Statistiken Besucher mit Matomo";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['visitors'] = "Besucher";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['visits'] = "Besuche";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['last30minutes'] = "letzte 30 Minuten";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['last24hours'] = "letzte 24 Stunden";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['period'] = "Zeitraum";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['period_lastXdays'] = "letzte %d Tage";
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['settings'] = "Einstellungen";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['settings_title'] = "Zu den Einstellungen";
@@ -42,7 +44,7 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update_title
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['headline'] = "Dasboard";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['alt_text'] = "Diagramm";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last30days_headline'] = "Zeitraum: letzte %d Tage";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last30days_headline'] = "Tägliche Besuche";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last24months_headline'] = "letzte 24 Monate";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitsPerServerTime_headline'] = "Besuchszeiten (Serverzeit)";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitTimeByDayOfWeek_headline'] = "Besuchertage";
