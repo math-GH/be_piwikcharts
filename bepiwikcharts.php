@@ -166,23 +166,6 @@ class bepiwikcharts extends BackendModule {
         return $ausgabe;
     }
     
-    /**
-     * PHPload - Liest das unserialisierte PHP-Array ein und erstellt ein neues Array mit den Werten aus $parameter
-     * DEPRECATED - wird ersetzt durch JSONload
-     **/
-    function PHPload($url, $parameter) {
-        $unserializedArray = unserialize($this->readfile($url));
-        
-        for ($i = 0; $i < count($unserializedArray); $i++) {
-            foreach ($unserializedArray[$i] as $item => $titel) {
-                if (in_array($item, $parameter, true)) {
-                    $foundContent[] = $titel;
-                }
-            }
-        }
-        
-        return $foundContent;
-    }
     
     /**
      * JSONload - Liest das JSON ein und erstellt ein neues Array mit den Werten aus $parameter
