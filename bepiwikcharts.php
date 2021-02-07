@@ -56,7 +56,7 @@ class bepiwikcharts extends BackendModule {
                 $this->piwik_period = intval($GLOBALS["TL_CONFIG"]['piwikchartsPeriod']);
             }
             
-            $this->modus = bepiwikcharts::CONNECTED;
+            $this->modus = self::CONNECTED;
         }
     }
     
@@ -70,7 +70,7 @@ class bepiwikcharts extends BackendModule {
         try {
             $this->version_installed = $this->getVersionInstalled();
 
-            if ($this->modus != bepiwikcharts::CONNECTED) {
+            if ($this->modus != self::CONNECTED) {
                 // nur im Produktivmodus nutzen. nicht im Demo-Modus
                 return "";
             }
@@ -503,13 +503,13 @@ class bepiwikcharts extends BackendModule {
         // Zusammenfassung (letzte 30 Minuten/letzte 24 Stunden)
         //im Demo-Modus ist die Anzeige letzte 30Min/24h deaktivert
         switch ($this->modus) {
-            case bepiwikcharts::CONNECTED:
+            case self::CONNECTED:
                 $temp30m = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&lastMinutes=30"), array("visitors"));
                 $objTemplate->visitsLast30Minutes = $temp30m[0];
                 $temp24h = $this->JSONload($this->buildURL("Live.getCounters", "", "", "&lastMinutes=" . (60 * 24)), array("visitors"));
                 $objTemplate->visitsLast24Hours = $temp24h[0];
                 break;
-            case bepiwikcharts::DEMO:
+            case self::DEMO:
             default:
                 $objTemplate->visitsLast30Minutes = "(DEMO)";
                 $objTemplate->visitsLast24Hours = "(DEMO)";
