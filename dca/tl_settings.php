@@ -13,7 +13,7 @@ if (!defined('TL_ROOT'))
 /**
  * Add to palette
  */
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{piwikcharts_legend:hide},piwikchartsURL,piwikchartsSiteID,piwikchartsAuthCode,piwikchartsPeriod,piwikchartsRedirect;';
+$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{piwikcharts_legend:hide},piwikchartsURL,piwikchartsSiteID,piwikchartsAuthCode,piwikchartsPeriod,piwikchartsResolutionWidth,piwikchartsRedirect;';
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsURL'] = array
     (
@@ -45,6 +45,14 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsPeriod'] = array
     'inputType' => 'text',
     'exclude' => true,
     'eval' => array('mandatory' => false, 'rgxp' => 'natural', 'tl_class' => 'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['piwikchartsResolutionWidth'] = array
+    (
+    'label' => &$GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['resolutionWidthArray'],
+    'inputType' => 'text',
+    'exclude' => true,
+    'eval' => array('mandatory' => false, 'tl_class' => 'w50')
 );
 
 

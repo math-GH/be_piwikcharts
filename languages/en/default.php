@@ -19,19 +19,14 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['errormsg'][1] = "be_piwikcharts: Error#1:
 /*
  * Template text labels
  */
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['headline'] = "Visitor statistics";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['live']['headline'] = "Visitors";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['live']['last30minutes'] = "last 30 minutes";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['live']['last24hours'] = "last 24 hours";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['optOut'] = "Optout: Do not track own visits on website.";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['newVersionHint'] = "New Matomo update is available";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['dashboard']['zoomIt'] = "More Stats...";
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['headline'] = "Visitor statistics with Matomo";
 
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['visitors'] = "visitors";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['last30minutes'] = "last 30 minutes";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['last24hours'] = "last 24 hours";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['visits'] = "visits";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['last30minutes'] = "Previous 30 minutes";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['live']['last24hours'] = "Previous 24 hours";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['period'] = "Period";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['period_lastXdays'] = "previous %d days";
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['settings'] = "Settings";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['settings_title'] = "Settings";
@@ -46,7 +41,7 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['menu']['update_title
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['headline'] = "Dashboard";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['alt_text'] = "Chart";
-$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last30days_headline'] = "Period: last %d days";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last30days_headline'] = "Daily visits";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_last24months_headline'] = "Last 24 months";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitsPerServerTime_headline'] = "Visit time (server time)";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['graph']['visitors_visitTimeByDayOfWeek_headline'] = "Visit days";
@@ -69,6 +64,11 @@ $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_h
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_domain'] = "Domain";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_file'] = "File";
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['downloads_header_count'] = "Downloads";
+
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['resolution_headline'] = "Resolution";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['resolution_header_width'] = "Width";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['resolution_header_count'] = "Visits";
+$GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['resolution_pixel'] = "Pixels";
 
 $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['piwikinfo'] = "<p>Matomo is a free and open source web analytics application.</p><p>Matomo displays reports regarding the geographic location of visits, the source of visits (i.e. whether they came from a website, directly, or something else), the technical capabilities of visitors (browser, screen size, operating system, etc.), what the visitors did (pages they viewed, actions they took, how they left), the time of visits and more.</p><p>More informationen see <a href='https://matomo.org/' onclick='window.open(this.href); return false;'>https://matomo.org/</a></p>";
 

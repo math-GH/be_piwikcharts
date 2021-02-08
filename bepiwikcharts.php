@@ -24,6 +24,7 @@ class bepiwikcharts extends BackendModule {
     public $piwik_IDsite = 3;
     public $piwik_TOKENauth = "anonymous";
     public $piwik_period = 30;
+    public $resolutionWidthList = "320;480;768;1024;1200";
     private $chartHeight = 200;
     private $chartWidth = 400;
     private $tableMaxRows = 10;
@@ -51,6 +52,9 @@ class bepiwikcharts extends BackendModule {
             $this->url = $GLOBALS["TL_CONFIG"]['piwikchartsURL'];
             $this->piwik_IDsite = $GLOBALS["TL_CONFIG"]['piwikchartsSiteID'];
             $this->piwik_TOKENauth = $GLOBALS["TL_CONFIG"]['piwikchartsAuthCode'];
+            if (strlen($GLOBALS["TL_CONFIG"]['piwikchartsResolutionWidth']) > 0) {
+                $this->resolutionWidthList = $GLOBALS["TL_CONFIG"]['piwikchartsResolutionWidth'];
+            }
             
             if ($GLOBALS["TL_CONFIG"]['piwikchartsPeriod'] != "") {
                 $this->piwik_period = intval($GLOBALS["TL_CONFIG"]['piwikchartsPeriod']);
@@ -222,37 +226,48 @@ class bepiwikcharts extends BackendModule {
     
     /**
      * summarizeResolution() - Clustert die Browser-Auflösungen nach Breite
-     * @param array $inhalte eindimensionales Array. Enthält $i: Auflösung (z.B. 1280x800), $i+1: Anzahl Besuche
-     * @return array
+     *
+     * @param array $inhalte eindimensionales Array. Die Auflösung muss Aufteigend sein. Enthält $i: Auflösung (z.B. 1280x800), $i+1: Anzahl Besuche (&showColumns=label,nb_visits&filter_sort_column=label&filter_sort_order=desc)
+     *
+     * @return array 1 dimensionales Array für die Ausgabe als Tabelle ($i: Bandbreite der Auflösung; $i+1: Anzahl der Besuche zusammengefasst)
      */
     function summarizeResolution ($inhalte) {
         // Liste mit Clustergrenzen
         $aufloesungRanges = "0;";
-        // default: 320;480;768;1024;1200
-        $aufloesungRanges .= "360;550;950;1200";
+        $aufloesungRanges .= $this->resolutionWidthList;
         $aufloesungRanges .= ";99999";
         $breiteMax = explode(";", $aufloesungRanges);
+        // a: ausflösung maximal index. Index für $tabelle[]
         $a = 0;
-        $zusammenfassung = [];
-        $zusammenfassung[$a*2]    = (intval($breiteMax[$a])+1). ' - ' .$breiteMax[$a+1];
-        $zusammenfassung[$a*2+1]  = 0;
+        $tabelle = [];
+        // 1 Pixel bis 1. Grenzwert
+        $tabelle[$a*2]    = (intval($breiteMax[$a])+1) . ' - ' . $breiteMax[$a+1] . ' ' . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['resolution_pixel'];
+        // noch 0 Besuche
+        $tabelle[$a*2+1]  = 0;
         
+        // Ergebnisse durcharbeiten. In jedem zweiten Element steht "BreitexHöhe"
         for ($i = 0; $i < count($inhalte); $i = $i+2) {
+            // wenn x enthalten ist, dann nehme die Besucher
             if (strpos($inhalte[$i], "x") > 0) {
+                // BreitexHöhe. Ermittle die Breite.
                 $label = explode("x",$inhalte[$i]);
-                // $label[0] enthält die Breite
-                if (intval($label[0]) <= intval($breiteMax[$a+1])) {
-                    $zusammenfassung[$a*2+1]  = intval($zusammenfassung[$a*2+1]) + intval($inhalte[$i+1]);
-                } 
-                else {
-                    $a++;
-                    $zusammenfassung[$a*2]    = intval($breiteMax[$a])+1 . ' - ' .$breiteMax[$a+1];
-                    $zusammenfassung[$a*2+1]  = intval($inhalte[$i+1]);
-                }
+                $breite = intval($label[0]);
+                $eingetragen = false;
+                do {
+                    if ($breite <= intval($breiteMax[$a+1])) {
+                        $tabelle[$a*2+1]  = intval($tabelle[$a*2+1]) + intval($inhalte[$i+1]);
+                        $eingetragen      = true;
+                    } 
+                    else {
+                        $a++;
+                        $tabelle[$a*2]    = intval($breiteMax[$a])+1 . ' - ' .$breiteMax[$a+1] . ' ' . $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['resolution_pixel'];
+                        $tabelle[$a*2+1]  = 0;
+                    }
+                } while ($eingetragen == false);
             }
         }
         
-        return $zusammenfassung;
+        return $tabelle;
     }
     
     /**
@@ -461,7 +476,8 @@ class bepiwikcharts extends BackendModule {
             ), "tl_listing data"
         );
         
-         $objTemplate->table_resolution = $this->printTable(
+        // Tabelle Auflösung / Browser-Breite
+        $objTemplate->table_resolution = $this->printTable(
             $this->summarizeResolution(
                 $this->JSONload(
                     $this->buildURL(
@@ -471,8 +487,8 @@ class bepiwikcharts extends BackendModule {
                 )
             ), 
             array(
-                "Auflösung",
-                $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['fromWebsite_header_count']
+                $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['resolution_header_width'],
+                $GLOBALS['TL_LANG']['be_piwikcharts']['template']['sheet']['table']['resolution_header_count']
             ), "tl_listing data"
         );
         
