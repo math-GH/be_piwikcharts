@@ -81,6 +81,14 @@
                 <target>Password for Auto-Login to Matomo (optional)</target>
                 
             </trans-unit>
+            <trans-unit id="tl_settings.be_piwikcharts.resolutionWidthArray.0">
+                <source>Auflösung: Breiten</source>
+                <target>Resolution: Width</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.be_piwikcharts.resolutionWidthArray.1">
+                <source>Semikolon-separierte Liste mit Pixel-Breiten (optional, default: 320;480;768;1024;1200). Tipp: nutze es, um die Media-Query Breakpoints zu tracken</source>
+                <target>Semikolon separated list with pixel width (optional, default: 320;480;768;1024;1200). Hint: use it to track your media-query break points</target>
+            </trans-unit>
             <trans-unit id="tl_settings.be_piwikcharts.redirect.0">
                 <source>Redirects auf der Matomo-Domain</source>
                 <target>Redirects of Matomo-domain</target>
