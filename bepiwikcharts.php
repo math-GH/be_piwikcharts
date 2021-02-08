@@ -65,8 +65,6 @@ class bepiwikcharts extends BackendModule {
      * @return String - wenn neue Version vorliegt: neue Versionsnummer. Wenn keine neue Version vorliegt: Leerstring
      **/
     function checkUpdate() {
-        
-        
         try {
             $this->version_installed = $this->getVersionInstalled();
 
@@ -222,36 +220,38 @@ class bepiwikcharts extends BackendModule {
     }
     // https://psvcottbus-schwimmen.de/mato/index.php?module=API&method=Resolution.getResolution&idSite=1&&period=range&date=previous30&format=tsv&token_auth=8b7d02f9fc1712cf9513b207bff288b4&showColumns=label,nb_visits&filter_sort_column=label&filter_sort_order=desc
     
-    
+    /**
+     * summarizeResolution() - Clustert die Browser-Auflösungen nach Breite
+     * @param array $inhalte eindimensionales Array. Enthält $i: Auflösung (z.B. 1280x800), $i+1: Anzahl Besuche
+     * @return array
+     */
     function summarizeResolution ($inhalte) {
+        // Liste mit Clustergrenzen
         $aufloesungRanges = "0;";
         // default: 320;480;768;1024;1200
         $aufloesungRanges .= "360;550;950;1200";
         $aufloesungRanges .= ";99999";
-        $aufloseungMax = explode(";", $aufloesungRanges);
-        $a = 1;
+        $breiteMax = explode(";", $aufloesungRanges);
+        $a = 0;
         $zusammenfassung = [];
-        $zusammenfassung[$a*2-2] = intval($aufloseungMax[$a-1])+1 . ' - ' .$aufloseungMax[$a];
-        $zusammenfassung[$a*2+1-2] = 0;
+        $zusammenfassung[$a*2]    = (intval($breiteMax[$a])+1). ' - ' .$breiteMax[$a+1];
+        $zusammenfassung[$a*2+1]  = 0;
         
         for ($i = 0; $i < count($inhalte); $i = $i+2) {
             if (strpos($inhalte[$i], "x") > 0) {
                 $label = explode("x",$inhalte[$i]);
                 // $label[0] enthält die Breite
-                if (intval($label[0]) <= intval($aufloseungMax[$a])) {
-                    $zusammenfassung[$a*2+1-2] = intval($zusammenfassung[$a*2+1-2]) + intval($inhalte[$i+1]);
+                if (intval($label[0]) <= intval($breiteMax[$a+1])) {
+                    $zusammenfassung[$a*2+1]  = intval($zusammenfassung[$a*2+1]) + intval($inhalte[$i+1]);
                 } 
                 else {
                     $a++;
-                    $zusammenfassung[$a*2-2] = intval($aufloseungMax[$a-1])+1 . ' - ' .$aufloseungMax[$a];
-                    $zusammenfassung[$a*2+1-2] = intval($inhalte[$i+1]);
+                    $zusammenfassung[$a*2]    = intval($breiteMax[$a])+1 . ' - ' .$breiteMax[$a+1];
+                    $zusammenfassung[$a*2+1]  = intval($inhalte[$i+1]);
                 }
-
             }
         }
         
-        // $zusammengefasst[0] = "test"; 
-        // $zusammengefasst[1] = "5"; 
         return $zusammenfassung;
     }
     
