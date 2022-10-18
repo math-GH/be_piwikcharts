@@ -496,7 +496,7 @@ class bepiwikcharts extends BackendModule {
         $objTemplate->table_visitedPages = $this->printTable(
             $this->JSONload(
                 $this->buildURL(
-                    "Actions.getPageUrls", "range", "previous".$this->piwik_period, 20
+                    "Actions.getPageUrls", "range", "previous".$this->piwik_period, 20, "&flat=1"
                 ), 
                 array("label", "nb_visits")
             ), 
