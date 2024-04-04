@@ -116,7 +116,7 @@ class bepiwikcharts extends BackendModule {
      */
     function getVersionAvailable() {
         try {
-            return trim($this->readfile($this->apiLatestVersionURL));
+            return trim($this->readfile($this->apiLatestVersionURL,0));
         }
         catch (Exception $e) {
             $this->error = true;
@@ -128,10 +128,14 @@ class bepiwikcharts extends BackendModule {
     /**
      * Abfrage des Matomo-Servers
      * @param $url string  Url- Fragment mit Abfrage zum Matomo-Server
+	 * @param $noPOST int  Kein POST verwenden, kein Token erforderlich
      * @return Array mit den abgefragten Werten
      **/
-    function readfile($url) {
+    function readfile($url,$noPOST = 0) {
         $ch = curl_init();
+		if ($noPost == 0) {
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "token_auth=". $this->piwik_TOKENauth);  
+		}
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout = 5);
@@ -343,7 +347,6 @@ class bepiwikcharts extends BackendModule {
         $url.= 'index.php?module=API';
         $url.= '&method=' . $method;
         $url.= '&idSite=' . $this->piwik_IDsite;
-        $url.= '&token_auth=' . $this->piwik_TOKENauth;
         $url.= '&period=' . $period;
         $url.= '&date=' . $date;
         $url.= '&filter_limit=' . $filterlimit;
@@ -365,7 +368,7 @@ class bepiwikcharts extends BackendModule {
      * @param $additional  (optionaler Parameter) für weitere API-Parameter. Muss mit & beginnen. Schema: '&parameter=wert'
      **/
     function urlChart($graphType, $apiModule, $period, $date, $width, $height, $apiAction, $multiplier = 1, $additional = "") {
-        return $this->buildURL("ImageGraph.get", $period, $date, '&apiModule=' . $apiModule . '&apiAction=' . $apiAction . '&graphType=' . $graphType . '&width=' . $width*$multiplier . '&height=' . $height*$multiplier . $additional);
+        return $this->buildURL("ImageGraph.get", $period, $date, '&apiModule=' . $apiModule . '&apiAction=' . $apiAction . '&graphType=' . $graphType . '&width=' . $width*$multiplier . '&height=' . $height*$multiplier . $additional . '&token_auth=' . $this->piwik_TOKENauth);
     }
     
     
@@ -597,14 +600,13 @@ class bepiwikcharts extends BackendModule {
      * checkAuthCode - prüft, ob mit dem AuthCode auf die Matomo-Installation zugegriffen werden kann.
      * 
      * @param type $strRegexp
-     * @param type $varValue
      * @param Widget $objWidget
      * @return boolean
      **/
-    public function myRegexp_checkAuthCode($strRegexp, $varValue, Widget $objWidget) {
+    public function myRegexp_checkAuthCode($strRegexp, Widget $objWidget) {
         if ($strRegexp == 'checkAuthCode') {
             try {
-                $xml = new SimpleXMLElement($this->readfile($GLOBALS["TL_CONFIG"]['piwikchartsURL'] . "index.php?module=API&method=API.getMatomoVersion&format=xml&token_auth=" . $varValue));
+                $xml = new SimpleXMLElement($this->readfile($GLOBALS["TL_CONFIG"]['piwikchartsURL'] . "index.php?module=API&method=API.getMatomoVersion&format=xml"));
                 $version_installed = trim($xml[0]);
                 if (strlen($version_installed) < 1) {
                     $objWidget->addError($GLOBALS['TL_LANG']['tl_settings']['be_piwikcharts']['authCode']['rgxp']);
