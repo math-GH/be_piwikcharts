@@ -136,7 +136,7 @@ class bepiwikcharts extends BackendModule {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout = 5);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        if ($GLOBALS["TL_CONFIG"]['piwikchartsRedirect'] == true) {
+        if (($GLOBALS['TL_CONFIG']['piwikchartsRedirect'] ?? false) === true) {
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         }
         $file = curl_exec($ch);
