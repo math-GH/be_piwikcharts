@@ -52,11 +52,11 @@ class bepiwikcharts extends BackendModule {
             $this->url = $GLOBALS["TL_CONFIG"]['piwikchartsURL'];
             $this->piwik_IDsite = $GLOBALS["TL_CONFIG"]['piwikchartsSiteID'];
             $this->piwik_TOKENauth = $GLOBALS["TL_CONFIG"]['piwikchartsAuthCode'];
-            if (strlen($GLOBALS["TL_CONFIG"]['piwikchartsResolutionWidth']) > 0) {
+            if ($GLOBALS['TL_CONFIG']['piwikchartsResolutionWidth'] ?? null) {
                 $this->resolutionWidthList = $GLOBALS["TL_CONFIG"]['piwikchartsResolutionWidth'];
             }
             
-            if ($GLOBALS["TL_CONFIG"]['piwikchartsPeriod'] != "") {
+            if ($GLOBALS['TL_CONFIG']['piwikchartsPeriod'] ?? null) {
                 $this->piwik_period = intval($GLOBALS["TL_CONFIG"]['piwikchartsPeriod']);
             }
             
