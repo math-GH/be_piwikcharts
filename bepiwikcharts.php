@@ -52,11 +52,11 @@ class bepiwikcharts extends BackendModule {
             $this->url = $GLOBALS["TL_CONFIG"]['piwikchartsURL'];
             $this->piwik_IDsite = $GLOBALS["TL_CONFIG"]['piwikchartsSiteID'];
             $this->piwik_TOKENauth = $GLOBALS["TL_CONFIG"]['piwikchartsAuthCode'];
-            if (strlen($GLOBALS["TL_CONFIG"]['piwikchartsResolutionWidth']) > 0) {
+            if ($GLOBALS['TL_CONFIG']['piwikchartsResolutionWidth'] ?? null) {
                 $this->resolutionWidthList = $GLOBALS["TL_CONFIG"]['piwikchartsResolutionWidth'];
             }
             
-            if ($GLOBALS["TL_CONFIG"]['piwikchartsPeriod'] != "") {
+            if ($GLOBALS['TL_CONFIG']['piwikchartsPeriod'] ?? null) {
                 $this->piwik_period = intval($GLOBALS["TL_CONFIG"]['piwikchartsPeriod']);
             }
             
@@ -136,7 +136,7 @@ class bepiwikcharts extends BackendModule {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout = 5);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        if ($GLOBALS["TL_CONFIG"]['piwikchartsRedirect'] == true) {
+        if (($GLOBALS['TL_CONFIG']['piwikchartsRedirect'] ?? false) === true) {
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         }
         $file = curl_exec($ch);
